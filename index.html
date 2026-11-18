@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mechanics of Materials Atlas</title>
+<meta name="description" content="Condensed study guide: section titles, key concepts and key equations for a 14-chapter Mechanics of Materials course (Hibbeler, 9th ed. structure).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+:root{
+  --bg:#f4f6fb; --bg2:#eaeef7; --card:#ffffff; --ink:#0f172a; --ink2:#475569; --ink3:#94a3b8;
+  --line:#dde3ee; --eq:#f7f9fd; --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px -12px rgba(15,23,42,.12);
+  --c-fund:#2563eb; --c-load:#0d9488; --c-bend:#7c3aed; --c-trans:#db2777; --c-design:#ea580c;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1020; --bg2:#111831; --card:#141c33; --ink:#e6ebf5; --ink2:#a3afc6; --ink3:#5f6b85;
+  --line:#243052; --eq:#0f1730; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+  --c-fund:#60a5fa; --c-load:#2dd4bf; --c-bend:#a78bfa; --c-trans:#f472b6; --c-design:#fb923c;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1020; --bg2:#111831; --card:#141c33; --ink:#e6ebf5; --ink2:#a3afc6; --ink3:#5f6b85;
+  --line:#243052; --eq:#0f1730; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+  --c-fund:#60a5fa; --c-load:#2dd4bf; --c-bend:#a78bfa; --c-trans:#f472b6; --c-design:#fb923c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 24px;
+  background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font:700 17px 'Space Grotesk',sans-serif;letter-spacing:-.01em;white-space:nowrap}
+.brand svg{flex:none}
+.search{flex:1;max-width:420px;margin-left:auto;position:relative}
+.search input{width:100%;padding:9px 12px 9px 36px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;outline:none}
+.search input:focus{border-color:var(--c-fund);box-shadow:0 0 0 3px color-mix(in srgb,var(--c-fund) 20%,transparent)}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink3)}
+.iconbtn{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:10px;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn:hover{color:var(--ink)}
+/* layout */
+.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);gap:32px;max-width:1280px;margin:0 auto;padding:24px}
+nav.side{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;padding-right:6px}
+nav.side h4{font:600 11px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:18px 0 6px}
+nav.side a{display:flex;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;text-decoration:none;color:var(--ink2);font-size:14px}
+nav.side a:hover,nav.side a.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+nav.side a b{font:600 12px 'JetBrains Mono',monospace;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:#fff;background:var(--acc);flex:none}
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:20px;padding:36px 36px 30px;background:linear-gradient(135deg,#1e3a8a,#5b21b6 55%,#be185d);color:#fff;box-shadow:var(--shadow)}
+.hero h1{font:700 clamp(28px,4vw,42px)/1.1 'Space Grotesk',sans-serif;margin:0 0 10px;letter-spacing:-.02em;max-width:640px}
+.hero p{margin:0;max-width:560px;color:rgba(255,255,255,.82)}
+.hero .art{position:absolute;right:-10px;top:0;height:100%;opacity:.9;pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 2px 0;color:var(--ink2);font-size:13px}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;background:var(--acc)}
+/* chapter */
+.chapter{margin-top:40px}
+.chead{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.chead::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--acc)}
+.cnum{font:700 40px/1 'Space Grotesk',sans-serif;color:var(--acc);min-width:56px;text-align:center}
+.chead h2{margin:0;font:700 22px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.01em}
+.chead p{margin:4px 0 0;color:var(--ink2);font-size:14px}
+.cart{width:170px;height:92px;color:var(--acc);flex:none}
+.cart svg{width:100%;height:100%;display:block}
+.grid{columns:2 340px;column-gap:14px;margin-top:14px}
+.sec{break-inside:avoid;margin-bottom:14px;display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);min-width:0}
+.sec h3{margin:0 0 10px;font:600 15.5px/1.3 'Space Grotesk',sans-serif;display:flex;gap:10px;align-items:baseline}
+.sec h3 .no{font:500 12px 'JetBrains Mono',monospace;color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent);padding:2px 7px;border-radius:6px;flex:none}
+.star{font:600 10px Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);border:1px solid var(--line);border-radius:5px;padding:1px 5px;margin-left:auto;flex:none}
+.lbl{display:flex;align-items:center;gap:6px;font:600 10.5px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px}
+.lbl:first-of-type{margin-top:0}
+ul.c{margin:0;padding:0;list-style:none}
+ul.c li{position:relative;padding-left:16px;margin:4px 0;color:var(--ink2);font-size:14px}
+ul.c li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--acc);opacity:.75}
+ul.e{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.e li{background:var(--eq);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:8px;padding:8px 12px;overflow-x:auto;overflow-y:hidden}
+ul.e li small{display:block;font-size:11.5px;color:var(--ink3);margin-top:2px}
+ul.e .katex-display{margin:2px 0}
+ul.e .katex{font-size:1.06em}
+/* figure links */
+a.fig{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;text-decoration:none;font:600 11.5px/1 Inter,sans-serif;
+  color:var(--acc);background:color-mix(in srgb,var(--acc) 11%,transparent);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);
+  padding:3px 7px 3px 6px;border-radius:999px;margin:0 1px;vertical-align:1px;transition:background .15s,transform .15s}
+a.fig:hover{background:color-mix(in srgb,var(--acc) 22%,transparent);transform:translateY(-1px)}
+a.fig:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+/* lightbox */
+dialog#lb{border:0;padding:0;background:transparent;max-width:min(1100px,94vw);width:100%;max-height:94vh;color:var(--ink)}
+dialog#lb::backdrop{background:rgba(8,12,24,.72);backdrop-filter:blur(4px)}
+dialog#lb[open]{animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.lbwrap{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);border-top:4px solid var(--acc)}
+.lbbar{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 18px;border-bottom:1px solid var(--line)}
+.lbcap{flex:1;min-width:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.lbcap b{font:700 16px 'Space Grotesk',sans-serif;color:var(--acc)}
+.lbcap span{color:var(--ink2);font-size:13.5px}
+.lbcount{font:500 12px 'JetBrains Mono',monospace;color:var(--ink3)}
+.lbstage{position:relative;display:flex;align-items:center;justify-content:center;background:#fff;padding:18px 60px;min-height:240px}
+.lbstage figure{margin:0;display:flex;justify-content:center}
+.lbstage img{max-width:100%;max-height:72vh;object-fit:contain;display:block;transition:opacity .15s}
+#lb.loading img{opacity:.25}
+.lbstage .nav{position:absolute;top:50%;transform:translateY(-50%);background:var(--card)}
+.lbstage .prev{left:12px}.lbstage .next{right:12px}
+.lbhint{padding:8px 18px;font-size:12px;color:var(--ink3);text-align:center}
+@media (max-width:900px){.lbstage{padding:12px 44px}.lbstage .prev{left:4px}.lbstage .next{right:4px}.lbhint{display:none}}
+.hide{display:none!important}
+mark{background:color-mix(in srgb,#facc15 45%,transparent);color:inherit;border-radius:3px}
+footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
+.empty{display:none;text-align:center;padding:60px 0;color:var(--ink3)}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;padding:16px}
+  nav.side{display:none}
+  .top{padding:10px 16px}
+  .brand span{display:none}
+  .hero{padding:26px 20px}
+  .hero .art{opacity:.25}
+  .grid{columns:1}
+  .chead{grid-template-columns:auto 1fr;padding:14px 16px}
+  .cart{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#db2777"/></linearGradient></defs><path d="M6 21c5-9 15-9 20 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11h20" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".6"/></svg>
+    <span>Mechanics of Materials Atlas</span>
+  </div>
+  <label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Filter topics — e.g. Mohr, torsion, buckling" autocomplete="off"></label>
+  <button class="iconbtn" id="theme" title="Toggle theme" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</header>
+
+<div class="wrap">
+  <nav class="side" id="nav"></nav>
+  <main>
+    <section class="hero">
+      <svg class="art" viewBox="0 0 360 240" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2">
+          <circle cx="250" cy="120" r="78"/>
+          <path d="M150 120h200M250 30v180" stroke-dasharray="4 6" opacity=".6"/>
+          <path d="M195 64 305 176" stroke="#fde68a" stroke-width="2.5"/>
+        </g>
+        <circle cx="172" cy="120" r="5" fill="#fff"/><circle cx="328" cy="120" r="5" fill="#fff"/>
+        <circle cx="195" cy="64" r="5" fill="#fde68a"/><circle cx="305" cy="176" r="5" fill="#fde68a"/>
+        <text x="160" y="140" fill="rgba(255,255,255,.8)" font-family="JetBrains Mono" font-size="12">σ₂</text>
+        <text x="318" y="140" fill="rgba(255,255,255,.8)" font-family="JetBrains Mono" font-size="12">σ₁</text>
+        <text x="244" y="26" fill="rgba(255,255,255,.8)" font-family="JetBrains Mono" font-size="12">τ</text>
+      </svg>
+      <h1>Mechanics of Materials, condensed</h1>
+      <p>Every section title, with its key concepts and governing equations. Follows the 14-chapter structure of Hibbeler's 9th edition.</p>
+      <div class="chips"><span class="chip">14 chapters</span><span class="chip" id="secCount">— sections</span><span class="chip" id="eqCount">— equations</span><span class="chip" id="figCount">— figures</span><span class="chip">★ = advanced / optional</span></div>
+    </section>
+    <div class="legend">
+      <span style="--acc:var(--c-fund)"><i></i>Fundamentals</span>
+      <span style="--acc:var(--c-load)"><i></i>Axial &amp; torsion</span>
+      <span style="--acc:var(--c-bend)"><i></i>Bending &amp; shear</span>
+      <span style="--acc:var(--c-trans)"><i></i>Transformations</span>
+      <span style="--acc:var(--c-design)"><i></i>Design, deflection &amp; energy</span>
+    </div>
+    <div id="book"></div>
+    <div class="empty" id="empty">No sections match that filter.</div>
+    <footer>Personal study notes. Summaries and equations written independently; section structure and linked figures are from R.C. Hibbeler, <i>Mechanics of Materials</i>, 9th ed. (Pearson), for private study.</footer>
+  </main>
+</div>
+
+<dialog id="lb" aria-label="Figure viewer">
+  <div class="lbwrap">
+    <div class="lbbar"><div class="lbcap"></div><span class="lbcount"></span>
+      <button class="iconbtn close" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="lbstage">
+      <button class="iconbtn nav prev" aria-label="Previous figure"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 6-6 6 6 6"/></svg></button>
+      <figure><img alt=""></figure>
+      <button class="iconbtn nav next" aria-label="Next figure"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+    <div class="lbhint">← → to step through figures · Esc to close</div>
+  </div>
+</dialog>
+
+<!-- ============ CHAPTER ART (inline SVG, uses currentColor = chapter accent) ============ -->
+<template id="art-1"><svg viewBox="0 0 150 84"><rect x="20" y="30" width="110" height="24" rx="3" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><path d="M75 30v24" stroke="currentColor" stroke-dasharray="3 3"/><path d="M4 42h14m-6-5 6 5-6 5M146 42h-14m6-5-6 5 6 5" stroke="currentColor" stroke-width="2" fill="none"/><g stroke="currentColor" stroke-width="1.4"><path d="M78 34h12M78 42h12M78 50h12"/><path d="M86 31l4 3-4 3M86 39l4 3-4 3M86 47l4 3-4 3" fill="none"/></g><text x="96" y="22" font-size="12" fill="currentColor" font-family="JetBrains Mono">σ=P/A</text></svg></template>
+<template id="art-2"><svg viewBox="0 0 150 84"><rect x="30" y="18" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" opacity=".6"/><path d="M80 18h44l-12 44H68z" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><path d="M68 62a10 10 0 0 1 3-11" fill="none" stroke="currentColor"/><text x="52" y="78" font-size="11" fill="currentColor" font-family="JetBrains Mono">γ = π/2 − θ′</text></svg></template>
+<template id="art-3"><svg viewBox="0 0 150 84"><path d="M14 74h128M14 74V8" stroke="currentColor" opacity=".5"/><path d="M14 74 40 22c8-4 12 2 18 0 18-6 40-14 58-10 10 3 14 14 18 24" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="40" cy="22" r="3" fill="currentColor"/><circle cx="134" cy="36" r="3" fill="currentColor"/><text x="20" y="18" font-size="9" fill="currentColor" font-family="JetBrains Mono">σY</text><text x="120" y="12" font-size="9" fill="currentColor" font-family="JetBrains Mono">σu</text><text x="20" y="54" font-size="9" fill="currentColor" font-family="JetBrains Mono">E</text></svg></template>
+<template id="art-4"><svg viewBox="0 0 150 84"><path d="M10 10v64" stroke="currentColor" stroke-width="3"/><g stroke="currentColor" opacity=".5"><path d="M4 16l6-6M4 28l6-6M4 40l6-6M4 52l6-6M4 64l6-6"/></g><rect x="10" y="32" width="96" height="20" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><rect x="106" y="32" width="12" height="20" fill="none" stroke="currentColor" stroke-dasharray="3 2"/><path d="M122 42h22m-6-5 6 5-6 5" stroke="currentColor" stroke-width="2" fill="none"/><text x="106" y="72" font-size="11" fill="currentColor" font-family="JetBrains Mono">δ=PL/AE</text></svg></template>
+<template id="art-5"><svg viewBox="0 0 150 84"><ellipse cx="28" cy="42" rx="8" ry="20" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><path d="M28 22h90M28 62h90" stroke="currentColor" stroke-width="2"/><ellipse cx="118" cy="42" rx="8" ry="20" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width="2"/><path d="M28 30 118 50" stroke="currentColor" stroke-dasharray="3 3"/><path d="M134 26a18 18 0 0 1 0 32" fill="none" stroke="currentColor" stroke-width="2"/><path d="M130 58l4 0 0-4" stroke="currentColor" stroke-width="2" fill="none"/><text x="58" y="16" font-size="11" fill="currentColor" font-family="JetBrains Mono">τ = Tρ/J</text></svg></template>
+<template id="art-6"><svg viewBox="0 0 150 84"><path d="M12 30q63 22 126 0v20q-63 22-126 0z" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><path d="M12 40q63 22 126 0" stroke="currentColor" stroke-dasharray="4 3"/><path d="M12 62l-4 8h8zM138 62l-4 8h8z" fill="currentColor"/><path d="M75 4v18m-5-6 5 6 5-6" stroke="currentColor" stroke-width="2" fill="none"/><text x="86" y="16" font-size="11" fill="currentColor" font-family="JetBrains Mono">σ=−My/I</text></svg></template>
+<template id="art-7"><svg viewBox="0 0 150 84"><path d="M20 10h50M20 74h50M45 10v64" stroke="currentColor" stroke-width="3"/><path d="M90 10q34 32 0 64" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><path d="M90 10v64" stroke="currentColor"/><path d="M90 42h17" stroke="currentColor" stroke-width="2"/><text x="112" y="46" font-size="11" fill="currentColor" font-family="JetBrains Mono">τmax</text><text x="78" y="82" font-size="9" fill="currentColor" font-family="JetBrains Mono">τ=VQ/It</text></svg></template>
+<template id="art-8"><svg viewBox="0 0 150 84"><rect x="20" y="16" width="110" height="52" rx="26" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2" fill="none"><path d="M60 42h30m-5-4 5 4-5 4M60 42h-0"/><path d="M75 30v24m-4-5 4 5 4-5"/></g><text x="94" y="38" font-size="10" fill="currentColor" font-family="JetBrains Mono">σ₁=pr/t</text><text x="20" y="80" font-size="10" fill="currentColor" font-family="JetBrains Mono">σ₂=pr/2t</text></svg></template>
+<template id="art-9"><svg viewBox="0 0 150 84"><path d="M10 42h130M75 4v76" stroke="currentColor" opacity=".35"/><circle cx="82" cy="42" r="32" fill="currentColor" opacity=".12" stroke="currentColor" stroke-width="2"/><path d="M60 18 104 66" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="18" r="3" fill="currentColor"/><circle cx="104" cy="66" r="3" fill="currentColor"/><circle cx="114" cy="42" r="3" fill="currentColor"/><circle cx="50" cy="42" r="3" fill="currentColor"/><text x="118" y="36" font-size="10" fill="currentColor" font-family="JetBrains Mono">σ₁</text></svg></template>
+<template id="art-10"><svg viewBox="0 0 150 84"><circle cx="75" cy="44" r="6" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M75 44H135"/><path d="M75 44 117 2"/><path d="M75 44V4" opacity=".0"/><path d="M75 44 33 2"/></g><g fill="currentColor" font-size="10" font-family="JetBrains Mono"><text x="124" y="58">a</text><text x="120" y="14">b</text><text x="24" y="14">c</text></g><path d="M100 44a25 25 0 0 0-7-18" fill="none" stroke="currentColor"/><text x="20" y="74" font-size="10" fill="currentColor" font-family="JetBrains Mono">45° rosette</text></svg></template>
+<template id="art-11"><svg viewBox="0 0 150 84"><path d="M30 14h90M30 70h90M75 14v56" stroke="currentColor" stroke-width="5"/><path d="M30 14h90M30 70h90" stroke="currentColor" stroke-width="9" opacity=".18"/><text x="84" y="46" font-size="10" fill="currentColor" font-family="JetBrains Mono">S=M/σ</text></svg></template>
+<template id="art-12"><svg viewBox="0 0 150 84"><path d="M12 24h126" stroke="currentColor" stroke-dasharray="4 3" opacity=".5"/><path d="M12 24q63 50 126 0" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 24l-5 9h10zM138 24l-5 9h10z" fill="currentColor"/><path d="M75 30v18" stroke="currentColor"/><path d="M71 44l4 5 4-5" fill="none" stroke="currentColor"/><text x="82" y="44" font-size="10" fill="currentColor" font-family="JetBrains Mono">v_max</text><text x="30" y="78" font-size="10" fill="currentColor" font-family="JetBrains Mono">EI v'' = M(x)</text></svg></template>
+<template id="art-13"><svg viewBox="0 0 150 84"><path d="M58 14v60" stroke="currentColor" stroke-dasharray="3 3" opacity=".5"/><path d="M58 14q22 30 0 60" fill="none" stroke="currentColor" stroke-width="3"/><path d="M50 74h16M50 14h16" stroke="currentColor" stroke-width="2"/><path d="M58 0v10m-4-4 4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/><text x="82" y="40" font-size="10" fill="currentColor" font-family="JetBrains Mono">Pcr =</text><text x="82" y="54" font-size="10" fill="currentColor" font-family="JetBrains Mono">π²EI/L²</text></svg></template>
+<template id="art-14"><svg viewBox="0 0 150 84"><path d="M14 70h122M14 70V8" stroke="currentColor" opacity=".5"/><path d="M14 70 110 14v56z" fill="currentColor" opacity=".18"/><path d="M14 70 110 14" stroke="currentColor" stroke-width="2.5"/><text x="56" y="62" font-size="11" fill="currentColor" font-family="JetBrains Mono">U=½PΔ</text><text x="114" y="12" font-size="9" fill="currentColor" font-family="JetBrains Mono">P</text><text x="106" y="80" font-size="9" fill="currentColor" font-family="JetBrains Mono">Δ</text></svg></template>
+
+<!--
+  CONTENT FORMAT (parsed below; no escaping needed)
+  # n | Chapter title | accent group | one-line chapter summary
+  ## n.m | Section title | *   (trailing * = advanced section)
+  - concept bullet (inline math in $...$)
+  = LaTeX display equation || optional caption
+-->
+<script type="text/plain" id="data">
+# 1 | Stress | fund | Internal loadings, normal and shear stress, allowable-stress and LRFD design.
+## 1.1 | Introduction
+- Mechanics of materials studies the internal effects (stress, strain) of external loads on deformable bodies, plus stability (buckling).
+- Stress governs strength; strain governs deformation; most design-code formulas trace back to this subject.
+## 1.2 | Equilibrium of a Deformable Body
+- External loads: surface forces (concentrated or distributed $w(s)$), body forces (weight), and support reactions {fig 1-1}.
+- Method of sections: cut the body, draw a FBD of one segment, solve for internal resultants at the cut {fig 1-2}.
+- Four internal resultants: normal force $N$, shear force $V$, torsional moment $T$, bending moment $M$.
+- Coplanar loading reduces the internal resultants to $N$, $V$, $M$ {fig 1-3}.
+= \sum \mathbf{F}=0,\qquad \sum \mathbf{M}_O=0 || Equilibrium of any segment
+= \sum F_x=0,\;\; \sum F_y=0,\;\; \sum M_O=0 || Coplanar case
+= F_R=\int_L w(s)\,ds || Resultant of a distributed load (acts through its centroid)
+## 1.3 | Stress
+- Stress is the intensity of internal force on a plane through a point; it depends on the plane's orientation {fig 1-9}.
+- Normal stress $\sigma$ acts perpendicular to the area; shear stress $\tau$ acts tangent to it.
+- General state of stress at a point: 6 independent components ($\sigma_x,\sigma_y,\sigma_z,\tau_{xy},\tau_{yz},\tau_{xz}$) on a cubic element {fig 1-11}.
+- Assumes a continuous, cohesive material; units Pa (N/m²) or psi.
+= \sigma_z=\lim_{\Delta A\to 0}\frac{\Delta F_z}{\Delta A},\qquad \tau_{zx}=\lim_{\Delta A\to 0}\frac{\Delta F_x}{\Delta A}
+## 1.4 | Average Normal Stress in an Axially Loaded Bar
+- Assumes a prismatic, homogeneous, isotropic bar with $P$ applied through the centroid, giving uniform deformation {fig 1-13}.
+- Stress is uniform over the cross section away from load points; element is in uniaxial stress {fig 1-14}.
+- Positive $\sigma$ = tension, negative = compression; find the max by checking where $N/A$ peaks (use an axial-force diagram).
+= \sigma_{avg}=\frac{N}{A}
+## 1.5 | Average Shear Stress
+- Direct (simple) shear arises in bolts, pins, glued joints, and other connections {fig 1-19}.
+- Single shear: one shear plane; double shear: two planes, each carrying $V=P/2$.
+- Shear stresses on perpendicular faces are equal in magnitude and directed toward or away from the shared edge (pure shear) {fig 1-20}.
+= \tau_{avg}=\frac{V}{A}
+= \tau_{xy}=\tau_{yx} || Complementary property of shear
+## 1.6 | Allowable Stress Design
+- Keep working stress well below failure stress to cover load/material uncertainty, wear, and corrosion.
+- Factor of safety F.S. > 1; required area follows directly from the allowable stress {fig 1-24}.
+= \text{F.S.}=\frac{F_{fail}}{F_{allow}}=\frac{\sigma_{fail}}{\sigma_{allow}}=\frac{\tau_{fail}}{\tau_{allow}}
+= A=\frac{N}{\sigma_{allow}},\qquad A=\frac{V}{\tau_{allow}}
+## 1.7 | Limit State Design
+- LRFD: amplify loads with load factors $\gamma_i$, reduce member strength with a resistance factor $\phi\le 1$.
+- Accounts separately for uncertainty in loads (dead vs. live) and in material strength.
+= \phi P_n \ge \sum \gamma_i R_i
+= R = 1.2D + 1.6L || Typical factored-load combination (dead + live)
+
+# 2 | Strain | fund | Normal and shear strain as measures of deformation.
+## 2.1 | Deformation
+- Applied loads change a body's shape and size; deformation is generally non-uniform from point to point.
+- Measured through changes in length of line segments and changes in angle between them {fig 2-1}.
+## 2.2 | Strain
+- Normal strain $\epsilon$: elongation or contraction per unit length (dimensionless, often μ or %).
+- Shear strain $\gamma$: change in angle between two originally perpendicular segments (radians) {fig 2-2}.
+- Positive $\gamma$ when the right angle decreases.
+- Small-strain analysis ($\epsilon\ll 1$) lets us linearize geometry: $\sin\theta\approx\tan\theta\approx\theta$.
+- State of strain at a point: 3 normal + 3 shear strains {fig 2-3}.
+= \epsilon_{avg}=\frac{\Delta s'-\Delta s}{\Delta s},\qquad \Delta s'\approx(1+\epsilon)\Delta s
+= \gamma_{nt}=\frac{\pi}{2}-\lim\theta'
+= \epsilon=\frac{\delta}{L} || Uniform bar
+
+# 3 | Mechanical Properties of Materials | fund | Stress–strain behavior, Hooke's law, Poisson's ratio, creep and fatigue.
+## 3.1 | The Tension and Compression Test
+- Standard specimen loaded in a testing machine {fig 3-2}; record load $P$ and elongation $\delta$ over a gauge length $L_0$ {fig 3-3}.
+- Converted to engineering stress and strain using original area $A_0$ and length $L_0$.
+= \sigma=\frac{P}{A_0},\qquad \epsilon=\frac{\delta}{L_0}
+## 3.2 | The Stress–Strain Diagram
+- Regions: elastic (linear to proportional limit $\sigma_{pl}$, then elastic limit), yielding ($\sigma_Y$), strain hardening (up to ultimate $\sigma_u$), necking (to fracture $\sigma_f$) {fig 3-4}.
+- Engineering diagram uses original dimensions; true diagram uses instantaneous area and length {fig 3-5}.
+- Elastic region is reversible; beyond yield, permanent (plastic) deformation remains.
+## 3.3 | Stress–Strain Behavior of Ductile and Brittle Materials
+- Ductile materials (steel, aluminum) show large strain before fracture; measured by percent elongation and percent reduction of area.
+- Offset method (0.2% strain) defines yield strength when no clear yield point exists {fig 3-7}.
+- Brittle materials (cast iron, concrete, glass) fail with little yielding; usually much stronger in compression than tension {fig 3-10}.
+= \%\,\text{elong.}=\frac{L_f-L_0}{L_0}(100\%),\qquad \%\,\text{red. area}=\frac{A_0-A_f}{A_0}(100\%)
+## 3.4 | Hooke's Law
+- Linear relation between stress and strain in the elastic region; slope is the modulus of elasticity $E$ (stiffness).
+- $E$ is nearly the same for all steels (~200 GPa); heat treatment changes strength, not stiffness.
+- Strain hardening: unloading follows a line parallel to the elastic slope, raising the effective yield point on reload {fig 3-14}.
+= \sigma=E\epsilon
+## 3.5 | Strain Energy
+- Energy stored in the material by deformation, per unit volume = area under the stress–strain curve {fig 3-15}.
+- Modulus of resilience $u_r$: energy density up to the proportional limit {fig 3-16}. Modulus of toughness $u_t$: entire area to fracture {fig 3-17}.
+= u=\frac{\Delta U}{\Delta V}=\tfrac12\sigma\epsilon
+= u_r=\tfrac12\sigma_{pl}\epsilon_{pl}=\frac{\sigma_{pl}^2}{2E}
+## 3.6 | Poisson's Ratio
+- A bar stretched axially contracts laterally; the ratio of lateral to longitudinal strain is constant in the elastic range {fig 3-21}.
+- Dimensionless, $0\le\nu\le 0.5$; typically 1/4 – 1/3 for metals.
+= \nu=-\frac{\epsilon_{lat}}{\epsilon_{long}}
+## 3.7 | The Shear Stress–Strain Diagram
+- Pure-shear (torsion) tests give a $\tau$–$\gamma$ diagram with analogous proportional limit, yield, ultimate {fig 3-23} {fig 3-24}.
+- Shear modulus $G$ is related to $E$ and $\nu$ — only two of the three are independent.
+= \tau=G\gamma
+= G=\frac{E}{2(1+\nu)}
+## 3.8 | Failure of Materials Due to Creep and Fatigue | *
+- Creep: time-dependent permanent deformation under sustained load, worse at high temperature; design uses creep strength for a given life {fig 3-27}.
+- Fatigue: fracture under repeated (cyclic) stress below static strength, starting at microcracks and stress raisers.
+- $S$–$N$ diagram: stress amplitude vs. cycles to failure; endurance (fatigue) limit $S_{el}$ is the stress below which failure does not occur (steel) {fig 3-28}.
+
+# 4 | Axial Load | load | Elastic deformation, superposition, indeterminate members, thermal and residual stress.
+## 4.1 | Saint-Venant's Principle
+- Localized stress/strain near load points or supports smooths out to a uniform distribution a short distance away (about the largest cross-section dimension) {fig 4-1}.
+- Allows using $\sigma=P/A$ away from load application points {fig 4-2}.
+## 4.2 | Elastic Deformation of an Axially Loaded Member
+- Integrate strain along the length; for piecewise-constant $N$, $A$, $E$ sum segment contributions {fig 4-3}.
+- Sign convention: tension and elongation positive {fig 4-5}.
+- Relative displacement between two points of the member.
+= \delta=\int_0^L\frac{N(x)\,dx}{A(x)\,E}
+= \delta=\frac{NL}{AE},\qquad \delta=\sum\frac{NL}{AE}
+## 4.3 | Principle of Superposition
+- Total stress or displacement equals the sum of effects from each load applied separately.
+- Valid only if response is linear in load (linear-elastic material) and geometry change is small {fig 4-9}.
+## 4.4 | Statically Indeterminate Axially Loaded Member
+- More unknown reactions than equilibrium equations; add compatibility (kinematic) conditions {fig 4-10}.
+- Write compatibility in terms of displacements, then substitute load–displacement relations.
+= \delta_{A/B}=0 || e.g. bar fixed at both ends
+## 4.5 | The Force Method of Analysis for Axially Loaded Members
+- Remove a redundant support, compute displacement of the released structure, then require the redundant to restore compatibility {fig 4-15}.
+= 0=\delta_P-\delta_B || Released-structure deflection cancelled by redundant
+## 4.6 | Thermal Stress
+- Temperature change causes free expansion; if constrained, it produces thermal stress.
+- In indeterminate members, combine thermal and load-induced displacements in compatibility.
+= \delta_T=\alpha\,\Delta T\,L
+= \sigma=E\alpha\,\Delta T || Fully restrained bar
+## 4.7 | Stress Concentrations
+- Abrupt changes in cross section (holes, fillets, notches) raise local stress above the average {fig 4-20} {fig 4-21}.
+- Stress-concentration factor $K$ from charts depends on geometry only {fig 4-24}; most important for brittle materials and fatigue.
+= K=\frac{\sigma_{max}}{\sigma_{avg}}
+## 4.8 | Inelastic Axial Deformation | *
+- Elastic–perfectly plastic model: stress stays at $\sigma_Y$ once yielding occurs.
+- Plastic load: entire cross section at yield; in indeterminate structures, load redistributes to members still elastic {fig 4-26}.
+= P_p=\sigma_Y A
+## 4.9 | Residual Stress | *
+- After loading into the plastic range and unloading elastically, locked-in residual stresses remain {fig 4-27}.
+- Residual = (stress at max load) − (elastic stress for the reverse load), via superposition.
+
+# 5 | Torsion | load | Circular shafts, power transmission, angle of twist, thin-walled tubes.
+## 5.1 | Torsional Deformation of a Circular Shaft
+- Cross sections remain plane and circular; radial lines stay straight and rotate {fig 5-1} {fig 5-2}.
+- Shear strain varies linearly with radial distance $\rho$, max at outer surface {fig 5-4}.
+= \gamma=\frac{\rho}{c}\gamma_{max}
+## 5.2 | The Torsion Formula
+- For linear-elastic material, shear stress also varies linearly from zero at the center {fig 5-5}.
+- Polar moment of inertia $J$ for solid and hollow (tube) circular sections {fig 5-9}.
+- Shear acts on both transverse and longitudinal planes — wood shafts may split axially.
+= \tau_{max}=\frac{Tc}{J},\qquad \tau=\frac{T\rho}{J}
+= J=\frac{\pi}{2}c^4,\qquad J=\frac{\pi}{2}\left(c_o^4-c_i^4\right)
+## 5.3 | Power Transmission
+- Shaft power equals torque times angular velocity; select shaft size from power and speed.
+= P=T\omega=2\pi f T
+= \frac{J}{c}=\frac{T}{\tau_{allow}}
+## 5.4 | Angle of Twist
+- Integrate twist along the shaft; sum segments for piecewise-constant $T$, $J$, $G$ {fig 5-14}.
+- Right-hand rule sign convention for both torque and angle {fig 5-17}.
+= \phi=\int_0^L\frac{T(x)\,dx}{J(x)\,G}
+= \phi=\frac{TL}{JG},\qquad \phi=\sum\frac{TL}{JG}
+## 5.5 | Statically Indeterminate Torque-Loaded Members
+- Equilibrium plus compatibility of twist (e.g., total angle zero for a shaft fixed at both ends) {fig 5-22}.
+= T-T_A-T_B=0,\qquad \phi_{A/B}=0
+## 5.6 | Solid Noncircular Shafts | *
+- Cross sections warp {fig 5-25}; max shear stress occurs at the boundary point nearest the centroid {fig 5-26}.
+- Circular sections are the most efficient in torsion; results come from elasticity tables (square, triangle, ellipse).
+= \tau_{max}=\frac{4.81\,T}{a^3},\quad \phi=\frac{7.10\,TL}{a^4G} || Square section, side a
+## 5.7 | Thin-Walled Tubes Having Closed Cross Sections | *
+- Shear flow $q=\tau t$ is constant around the tube; max stress where wall is thinnest {fig 5-28}.
+- $A_m$ = area enclosed by the wall's centerline.
+= q=\tau_{avg}t=\frac{T}{2A_m},\qquad \tau_{avg}=\frac{T}{2tA_m}
+= \phi=\frac{TL}{4A_m^2G}\oint\frac{ds}{t}
+## 5.8 | Stress Concentration
+- Shoulder fillets, keyways and couplings raise shear stress {fig 5-31}; factor $K$ from charts {fig 5-32}.
+= \tau_{max}=K\frac{Tc}{J}
+## 5.9 | Inelastic Torsion | *
+- Elastic–plastic shaft: elastic core inside radius $\rho_Y$, yielded annulus outside {fig 5-34}.
+- Plastic torque when fully yielded is 4/3 of the max elastic torque {fig 5-35} (solid shaft).
+= T=2\pi\int_0^c\tau\rho^2\,d\rho
+= T_Y=\frac{\pi}{2}\tau_Y c^3,\qquad T_p=\frac{2\pi}{3}\tau_Y c^3=\tfrac43T_Y
+## 5.10 | Residual Stress | *
+- Unload a plastically twisted shaft elastically (by superposing the reverse torque); remaining stress is residual {fig 5-36}.
+- Elastic recovery in twist equals $T_pL/JG$.
+
+# 6 | Bending | bend | Shear/moment diagrams, flexure formula, unsymmetric, composite and curved beams.
+## 6.1 | Shear and Moment Diagrams
+- Determine $V(x)$ and $M(x)$ with the method of sections; new function wherever loading changes {fig 6-1}.
+- Sign convention: positive $w$ upward, positive $V$ rotates segment clockwise, positive $M$ causes concave-up (sagging) {fig 6-3}.
+## 6.2 | Graphical Method for Constructing Shear and Moment Diagrams
+- Slope of shear diagram = distributed load; slope of moment diagram = shear {fig 6-8}.
+- Change in shear = area under load; change in moment = area under shear {fig 6-9}.
+- Concentrated forces jump $V$; concentrated couple moments jump $M$ {fig 6-10} (clockwise couple → positive jump).
+- Maximum moment occurs where $V=0$ (or at a jump/point load).
+= \frac{dV}{dx}=w(x),\qquad \frac{dM}{dx}=V
+= \Delta V=\int w\,dx,\qquad \Delta M=\int V\,dx
+## 6.3 | Bending Deformation of a Straight Member
+- Plane sections remain plane and perpendicular to the longitudinal axis {fig 6-19}.
+- Longitudinal strain varies linearly through the depth, zero at the neutral axis {fig 6-22}.
+= \epsilon=-\frac{y}{c}\epsilon_{max}
+## 6.4 | The Flexure Formula
+- Neutral axis passes through the centroid of the cross section (from $\int\sigma\,dA=0$) {fig 6-23}.
+- Normal stress varies linearly with distance $y$ from the neutral axis; max at the extreme fiber {fig 6-24}.
+- Section modulus $S=I/c$ measures bending efficiency.
+= \sigma_{max}=\frac{Mc}{I},\qquad \sigma=-\frac{My}{I}
+= I=\tfrac{1}{12}bh^3\;\;\text{(rectangle)},\qquad I=I_{\bar x}+Ad^2
+## 6.5 | Unsymmetric Bending
+- For moments about principal axes, superpose bending about $y$ and $z$ {fig 6-29} {fig 6-31}.
+- Neutral axis is generally not aligned with the moment axis unless $I_y=I_z$ {fig 6-30}.
+= \sigma=-\frac{M_zy}{I_z}+\frac{M_yz}{I_y}
+= \tan\alpha=\frac{I_z}{I_y}\tan\theta || Orientation of neutral axis
+## 6.6 | Composite Beams | *
+- Transformed-section method: convert to one material using $n=E_1/E_2$, scaling the width (not height) {fig 6-35}.
+- Compute stress on the transformed section, then multiply by $n$ in the transformed material {fig 6-36}.
+= n=\frac{E_1}{E_2},\qquad \sigma=n\sigma'
+## 6.7 | Reinforced Concrete Beams | *
+- Concrete is assumed cracked (no tension); steel rebar carries tension {fig 6-37}.
+- Locate the neutral axis by equating first moments of the transformed compression zone and steel.
+= \tfrac12 b h'^2 - nA_{st}(d-h')=0
+## 6.8 | Curved Beams | *
+- Strain is linear but stress is hyperbolic; neutral axis shifts toward the center of curvature {fig 6-40}.
+- Required when curvature radius is small relative to depth ($r/h\lesssim 5$).
+= R=\frac{A}{\int_A dA/r}
+= \sigma=\frac{M(R-r)}{Ar(\bar r-R)}
+## 6.9 | Stress Concentrations
+- Notches, fillets, and holes in beams amplify bending stress by $K$ from charts {fig 6-43}.
+= \sigma_{max}=K\frac{Mc}{I}
+## 6.10 | Inelastic Bending | *
+- Elastic–plastic beam: linear stress near neutral axis, $\sigma_Y$ outward; plastic moment when fully yielded {fig 6-47} {fig 6-48}.
+- Shape factor $k=M_p/M_Y$ (1.5 for a rectangle; ~1.1–1.2 for wide-flange {fig 6-50}).
+= M_Y=\tfrac16\sigma_Y bh^2,\qquad M_p=\tfrac14\sigma_Y bh^2 || Rectangular section
+= k=\frac{M_p}{M_Y}
+
+# 7 | Transverse Shear | bend | Shear formula, shear flow in built-up and thin-walled members, shear center.
+## 7.1 | Shear in Straight Members
+- Transverse shear $V$ is accompanied by longitudinal shear (complementary property) — boards slip if not connected {fig 7-1} {fig 7-2}.
+- Shear strain distorts cross sections (warping), but this is neglected in the flexure formula.
+## 7.2 | The Shear Formula
+- $Q=\bar y'A'$ is the first moment of the area above (or below) the point about the neutral axis {fig 7-4} {fig 7-5}.
+- $t$ is the width of the section at the point; stress is parabolic in a rectangle, max at neutral axis {fig 7-6}.
+- Not accurate at short wide sections or at abrupt width changes.
+= \tau=\frac{VQ}{It}
+= \tau_{max}=1.5\frac{V}{A} || Rectangular section
+## 7.3 | Shear Flow in Built-Up Members
+- Shear flow $q$ = longitudinal force per unit length transferred between joined segments {fig 7-12}.
+- Fastener spacing $s$ from fastener capacity $F$ {fig 7-14}.
+= q=\frac{VQ}{I},\qquad F=qs
+## 7.4 | Shear Flow in Thin-Walled Members
+- Shear flow varies linearly in flanges and parabolically in webs {fig 7-18}; its direction "flows" like a fluid through the section {fig 7-20}.
+- Flange shear is small vertically but its resultant contributes to torque on the section.
+= q=\frac{VQ}{I}
+## 7.5 | Shear Center for Open Thin-Walled Members | *
+- Point through which $V$ must act to avoid twisting the member {fig 7-23}; lies on any axis of symmetry.
+- For a channel it lies outside the web, found by balancing moments of flange and web shear resultants.
+= e=\frac{b^2h^2t_f}{4I} || Channel (thin-wall approximation)
+
+# 8 | Combined Loadings | bend | Thin-walled pressure vessels and superposition of combined loads.
+## 8.1 | Thin-Walled Pressure Vessels
+- Thin wall when $r/t\ge 10$; stress assumed uniform through thickness {fig 8-1}.
+- Cylinder: hoop stress is twice the longitudinal stress. Sphere: equal in all directions {fig 8-2}.
+= \sigma_1=\frac{pr}{t}\;(\text{hoop}),\qquad \sigma_2=\frac{pr}{2t}\;(\text{long.})
+= \sigma=\frac{pr}{2t} || Sphere
+## 8.2 | State of Stress Caused by Combined Loadings
+- Find internal $N$, $V$, $T$, $M$ at the section, compute each stress separately, then superpose at the point.
+- Valid for linear-elastic small-deformation behavior; reduce to a stress element for transformation.
+= \sigma=\frac{N}{A}\pm\frac{My}{I},\qquad \tau=\frac{VQ}{It}+\frac{T\rho}{J}
+
+# 9 | Stress Transformation | trans | Plane-stress transformation, principal stresses, Mohr's circle.
+## 9.1 | Plane-Stress Transformation
+- Plane stress: $\sigma_z=\tau_{xz}=\tau_{yz}=0$; state described by $\sigma_x,\sigma_y,\tau_{xy}$ {fig 9-1}.
+- The same state can be represented on an element rotated by any angle $\theta$; transform force, not stress {fig 9-2}.
+## 9.2 | General Equations of Plane-Stress Transformation
+- Positive $\theta$ counterclockwise from $x$ to $x'$; stresses follow standard sign convention {fig 9-5}.
+- The sum of normal stresses is invariant.
+= \sigma_{x'}=\frac{\sigma_x+\sigma_y}{2}+\frac{\sigma_x-\sigma_y}{2}\cos2\theta+\tau_{xy}\sin2\theta
+= \tau_{x'y'}=-\frac{\sigma_x-\sigma_y}{2}\sin2\theta+\tau_{xy}\cos2\theta
+= \sigma_{x'}+\sigma_{y'}=\sigma_x+\sigma_y
+## 9.3 | Principal Stresses and Maximum In-Plane Shear Stress
+- Principal planes: max/min normal stress, zero shear; they are 90° apart {fig 9-8} {fig 9-9}.
+- Max in-plane shear planes are 45° from principal planes and carry average normal stress {fig 9-10}.
+= \sigma_{1,2}=\frac{\sigma_x+\sigma_y}{2}\pm\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
+= \tan2\theta_p=\frac{\tau_{xy}}{(\sigma_x-\sigma_y)/2}
+= \tau_{max}^{in\text{-}plane}=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2},\qquad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2}
+## 9.4 | Mohr's Circle — Plane Stress
+- Graphical form of transformation equations; $\sigma$ horizontal, $\tau$ positive downward.
+- Center $C=(\sigma_{avg},0)$, radius $R$; reference point $A(\sigma_x,\tau_{xy})$ {fig 9-16}.
+- Rotating $\theta$ on the element = rotating $2\theta$ on the circle, same direction.
+= (\sigma-\sigma_{avg})^2+\tau^2=R^2,\qquad R=\sqrt{\left(\tfrac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
+## 9.5 | Absolute Maximum Shear Stress
+- Consider all three principal stresses (including $\sigma_3=0$ in plane stress) with three Mohr's circles {fig 9-21} {fig 9-22}.
+- If in-plane principals have the same sign, absolute max shear is out of plane {fig 9-23}.
+= \tau_{abs\,max}=\frac{\sigma_{max}-\sigma_{min}}{2}
+= \tau_{abs\,max}=\frac{\sigma_{max}}{2}\;\;(\sigma_1,\sigma_2\text{ same sign})
+
+# 10 | Strain Transformation | trans | Plane strain, Mohr's circle for strain, rosettes, generalized Hooke's law, failure theories.
+## 10.1 | Plane Strain
+- Strains $\epsilon_x,\epsilon_y,\gamma_{xy}$ in a plane; note plane stress generally does NOT give plane strain (Poisson effect) {fig 10-1}.
+## 10.2 | General Equations of Plane-Strain Transformation
+- Same form as stress transformation with $\sigma\to\epsilon$ and $\tau\to\gamma/2$ {fig 10-2} {fig 10-3}.
+= \epsilon_{x'}=\frac{\epsilon_x+\epsilon_y}{2}+\frac{\epsilon_x-\epsilon_y}{2}\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta
+= \frac{\gamma_{x'y'}}{2}=-\frac{\epsilon_x-\epsilon_y}{2}\sin2\theta+\frac{\gamma_{xy}}{2}\cos2\theta
+= \epsilon_{1,2}=\frac{\epsilon_x+\epsilon_y}{2}\pm\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2+\left(\frac{\gamma_{xy}}{2}\right)^2}
+## 10.3 | Mohr's Circle — Plane Strain | *
+- Axes $\epsilon$ (horizontal) and $\gamma/2$ (positive downward); center $\epsilon_{avg}$, radius $R$.
+= R=\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2+\left(\frac{\gamma_{xy}}{2}\right)^2}
+## 10.4 | Absolute Maximum Shear Strain | *
+- Use the three principal strains; out-of-plane strain matters when in-plane principals share sign {fig 10-13} {fig 10-14}.
+= \gamma_{abs\,max}=\epsilon_{max}-\epsilon_{min}
+## 10.5 | Strain Rosettes
+- Electrical-resistance gauges measure normal strain only; three gauges at known angles give $\epsilon_x,\epsilon_y,\gamma_{xy}$.
+- Common: 45° (rectangular) and 60° (delta) rosettes {fig 10-16}.
+= \epsilon_a=\epsilon_x\cos^2\theta_a+\epsilon_y\sin^2\theta_a+\gamma_{xy}\sin\theta_a\cos\theta_a
+= 45^\circ:\;\epsilon_x=\epsilon_a,\;\epsilon_y=\epsilon_c,\;\gamma_{xy}=2\epsilon_b-(\epsilon_a+\epsilon_c)
+## 10.6 | Material-Property Relationships
+- Generalized Hooke's law for isotropic linear-elastic material (superpose Poisson effects) {fig 10-18} {fig 10-19}.
+- Bulk modulus links dilatation to mean pressure {fig 10-21}; $\nu\le 0.5$ follows from $k>0$.
+= \epsilon_x=\frac{1}{E}\left[\sigma_x-\nu(\sigma_y+\sigma_z)\right],\qquad \gamma_{xy}=\frac{\tau_{xy}}{G}
+= e=\frac{\Delta V}{V}=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z)
+= k=\frac{E}{3(1-2\nu)}
+## 10.7 | Theories of Failure | *
+- Ductile materials: Maximum-shear-stress (Tresca) and maximum-distortion-energy (von Mises) theories {fig 10-27} {fig 10-30}.
+- Brittle materials: Maximum-normal-stress (Rankine) and Mohr's failure criterion {fig 10-35} {fig 10-36}.
+- Von Mises is slightly less conservative than Tresca and matches test data well {fig 10-31}.
+= \text{Tresca: }|\sigma_1-\sigma_2|=\sigma_Y\;\;(\text{opposite signs}),\quad |\sigma_{1}|=\sigma_Y\;\;(\text{same sign})
+= \text{von Mises: }\sigma_1^2-\sigma_1\sigma_2+\sigma_2^2=\sigma_Y^2
+= \text{Rankine: }|\sigma_1|=\sigma_{ult},\;\;|\sigma_2|=\sigma_{ult}
+
+# 11 | Design of Beams and Shafts | design | Sizing beams by moment and shear, fully stressed beams, shaft design.
+## 11.1 | Basis for Beam Design
+- Design for bending first (normal stress), then check shear; in-between points may need combined-stress checks {fig 11-2}.
+- Principal-stress trajectories show directions of max stress through a beam {fig 11-3}.
+## 11.2 | Prismatic Beam Design
+- Required section modulus from max moment; choose the lightest standard shape with $S\ge S_{req}$ {fig 11-4}.
+- Check shear in the web (steel W-shapes) and include beam self-weight {fig 11-5}.
+= S_{req}=\frac{M_{max}}{\sigma_{allow}}
+= \tau_{avg}=\frac{V_{max}}{A_{web}}\le\tau_{allow}
+## 11.3 | Fully Stressed Beams | *
+- Vary section along the length so $\sigma=\sigma_{allow}$ everywhere (e.g., tapered beams, leaf springs) {fig 11-10}.
+= S(x)=\frac{M(x)}{\sigma_{allow}}
+## 11.4 | Shaft Design | *
+- Combine bending (from pulleys/gears) and torsion; resolve moments in two planes and take resultant $M$ {fig 11-13}.
+- Size by max shear stress (or another failure theory).
+= c=\left(\frac{2}{\pi\tau_{allow}}\sqrt{M^2+T^2}\right)^{1/3}
+
+# 12 | Deflection of Beams and Shafts | design | Elastic curve, integration, discontinuity functions, moment-area, superposition, indeterminate beams.
+## 12.1 | The Elastic Curve
+- Deflection curve of the neutral axis; sketch it from the moment diagram (concave up where $M>0$) {fig 12-1}.
+- Inflection point where $M=0$ {fig 12-3}.
+= \frac{1}{\rho}=\frac{M}{EI}
+## 12.2 | Slope and Displacement by Integration
+- Integrate the moment equation twice; constants from boundary and continuity conditions {fig 12-8}.
+- Pin/roller: $v=0$; fixed: $v=0$, $\theta=0$; continuity of $v,\theta$ between segments {fig 12-9}.
+= EI\frac{d^4v}{dx^4}=w,\quad EI\frac{d^3v}{dx^3}=V,\quad EI\frac{d^2v}{dx^2}=M(x)
+## 12.3 | Discontinuity Functions | *
+- Macaulay brackets $\langle x-a\rangle^n$ represent loads with one expression valid over the whole beam {fig 12-14}.
+- Value is zero for $x<a$; integrate like ordinary powers (for $n\ge0$).
+= \langle x-a\rangle^n=\begin{cases}0 & x<a\\ (x-a)^n & x\ge a\end{cases}
+= \int\langle x-a\rangle^n dx=\frac{\langle x-a\rangle^{n+1}}{n+1}
+## 12.4 | Slope and Displacement by the Moment-Area Method | *
+- Theorem 1: change in slope between two points = area under the $M/EI$ diagram {fig 12-20}.
+- Theorem 2: tangential deviation of B from tangent at A = moment of $M/EI$ area about B {fig 12-21}.
+= \theta_{B/A}=\int_A^B\frac{M}{EI}dx,\qquad t_{B/A}=\int_A^B \bar x\frac{M}{EI}dx
+## 12.5 | Method of Superposition
+- Combine tabulated slopes and deflections (Appendix C) for each load case.
+= v_{max}=-\frac{5wL^4}{384EI}\;\;(\text{simply supported, UDL}),\qquad v_{max}=-\frac{PL^3}{3EI}\;\;(\text{cantilever, end load})
+## 12.6 | Statically Indeterminate Beams and Shafts
+- Degree of indeterminacy = unknown reactions − equilibrium equations; choose redundants {fig 12-32}.
+- Use compatibility at supports to solve for redundants {fig 12-33}.
+## 12.7 | Statically Indeterminate Beams and Shafts — Method of Integration | *
+- Express $M(x)$ in terms of the redundant(s); extra boundary conditions give the additional equations.
+## 12.8 | Statically Indeterminate Beams and Shafts — Moment-Area Method | *
+- Draw $M/EI$ by parts (each load and redundant separately) {fig 12-36} {fig 12-37}; impose zero tangential deviation or slope at supports.
+## 12.9 | Statically Indeterminate Beams and Shafts — Method of Superposition
+- Remove redundant, compute deflection of primary structure, superpose redundant's deflection to satisfy support condition {fig 12-42}.
+= v_B=v_B'+v_B''=0
+
+# 13 | Buckling of Columns | design | Critical load, effective length, secant formula, inelastic buckling and column design.
+## 13.1 | Critical Load
+- Buckling is a stability failure: at $P_{cr}$ the column is in neutral equilibrium {fig 13-2} {fig 13-3} and any disturbance grows.
+- Can occur at stresses well below yield.
+## 13.2 | Ideal Column with Pin Supports
+- Perfectly straight, centrally loaded, linear-elastic, pin-ended; solution of $EIv''+Pv=0$ {fig 13-4} {fig 13-5}.
+- Buckles about the axis with smallest $I$ (least radius of gyration $r=\sqrt{I/A}$).
+= P_{cr}=\frac{\pi^2EI}{L^2},\qquad \sigma_{cr}=\frac{\pi^2E}{(L/r)^2}
+## 13.3 | Columns Having Various Types of Supports
+- Effective length $L_e=KL$ — distance between inflection points of the buckled shape {fig 13-9}.
+- K = 1 (pin–pin), 2 (fixed–free), 0.5 (fixed–fixed), 0.7 (fixed–pin) {fig 13-10}.
+= P_{cr}=\frac{\pi^2EI}{(KL)^2},\qquad \sigma_{cr}=\frac{\pi^2E}{(KL/r)^2}
+## 13.4 | The Secant Formula | *
+- Eccentric load $e$ gives bending from the start; max stress combines axial and amplified bending {fig 13-13} {fig 13-14}.
+- $ec/r^2$ is the eccentricity ratio {fig 13-16}.
+= \sigma_{max}=\frac{P}{A}\left[1+\frac{ec}{r^2}\sec\!\left(\frac{L}{2r}\sqrt{\frac{P}{EA}}\right)\right]
+= v_{max}=e\left[\sec\!\left(\sqrt{\frac{P}{EI}}\frac{L}{2}\right)-1\right]
+## 13.5 | Inelastic Buckling | *
+- For intermediate columns $\sigma_{cr}>\sigma_{pl}$; Euler overpredicts {fig 13-20}.
+- Tangent-modulus (Engesser) theory replaces $E$ with $E_t=d\sigma/d\epsilon$ {fig 13-18}.
+= \sigma_{cr}=\frac{\pi^2E_t}{(KL/r)^2}
+## 13.6 | Design of Columns for Concentric Loading | *
+- Empirical code formulas for steel (AISC), aluminum, and timber split into short, intermediate, and long ranges {fig 13-21}.
+- Long steel columns use Euler with a factor of safety (23/12).
+= \left(\frac{KL}{r}\right)_c=\sqrt{\frac{2\pi^2E}{\sigma_Y}}
+= \sigma_{allow}=\frac{12\pi^2E}{23(KL/r)^2}\;\;(KL/r\ge (KL/r)_c)
+## 13.7 | Design of Columns for Eccentric Loading | *
+- Allowable-stress method uses combined axial + bending stress ≤ column allowable {fig 13-28}.
+- Interaction formula balances axial and bending fractions of their respective allowables.
+= \frac{P/A}{(\sigma_a)_{allow}}+\frac{Mc/Ar^2}{(\sigma_b)_{allow}}\le1
+
+# 14 | Energy Methods | design | Strain energy, impact, virtual work and Castigliano's theorem.
+## 14.1 | External Work and Strain Energy
+- Work of a gradually applied force on a linear system is half force × displacement {fig 14-1}.
+- Conservation: external work is stored as internal strain energy {fig 14-3} {fig 14-4} (elastic, no losses).
+= U_e=\tfrac12P\Delta,\qquad U_e=\tfrac12M'\theta
+= U_i=\int_V\frac{\sigma^2}{2E}dV+\int_V\frac{\tau^2}{2G}dV
+## 14.2 | Elastic Strain Energy for Various Types of Loading
+- Integrate energy density using the stress formula for each load type {fig 14-6} {fig 14-9}.
+- Transverse-shear energy is usually negligible for slender beams; form factor $f_s$ {fig 14-12} accounts for shape.
+= U_i=\int\frac{N^2}{2AE}dx,\qquad U_i=\int\frac{M^2}{2EI}dx
+= U_i=\int\frac{f_sV^2}{2GA}dx,\qquad U_i=\int\frac{T^2}{2GJ}dx
+## 14.3 | Conservation of Energy
+- Equate external work to internal strain energy to find displacement under a single load {fig 14-18}.
+= U_e=U_i
+## 14.4 | Impact Loading
+- Falling or moving mass delivers kinetic + potential energy that the member absorbs; dynamic loads exceed static {fig 14-23}.
+- Impact factor amplifies static displacement/stress {fig 14-25}.
+= \Delta_{max}=\Delta_{st}\left[1+\sqrt{1+2\frac{h}{\Delta_{st}}}\right]
+= n=\frac{\Delta_{max}}{\Delta_{st}}=1+\sqrt{1+2\frac{h}{\Delta_{st}}}
+## 14.5 | Principle of Virtual Work | *
+- Apply a virtual unit load at the point and in the direction of the desired displacement; equate virtual work {fig 14-29}.
+= 1\cdot\Delta=\sum u\,dL
+## 14.6 | Method of Virtual Forces Applied to Trusses | *
+- $n$ = member force due to virtual unit load, $N$ = real member force {fig 14-31}; temperature and fabrication errors add terms.
+= 1\cdot\Delta=\sum\frac{nNL}{AE},\qquad 1\cdot\Delta=\sum n\,\alpha\,\Delta T\,L
+## 14.7 | Method of Virtual Forces Applied to Beams | *
+- $m$ = internal moment from unit force (or $m_\theta$ from unit couple {fig 14-34}) for displacement (or slope).
+= 1\cdot\Delta=\int_0^L\frac{mM}{EI}dx,\qquad 1\cdot\theta=\int_0^L\frac{m_\theta M}{EI}dx
+## 14.8 | Castigliano's Theorem | *
+- Displacement at a point equals the partial derivative of strain energy with respect to the force there (linear-elastic) {fig 14-38}.
+= \Delta_i=\frac{\partial U_i}{\partial P_i}
+## 14.9 | Castigliano's Theorem Applied to Trusses | *
+- Add a fictitious force $P$ if none acts at the point; set $P$ to its real value after differentiating.
+= \Delta=\sum N\left(\frac{\partial N}{\partial P}\right)\frac{L}{AE}
+## 14.10 | Castigliano's Theorem Applied to Beams | *
+- Differentiate the moment function with respect to a (possibly fictitious) force or couple moment.
+= \Delta=\int_0^L M\left(\frac{\partial M}{\partial P}\right)\frac{dx}{EI},\qquad \theta=\int_0^L M\left(\frac{\partial M}{\partial M'}\right)\frac{dx}{EI}
+</script>
+
+<script>
+(function(){
+  const GROUP={fund:'--c-fund',load:'--c-load',bend:'--c-bend',trans:'--c-trans',design:'--c-design'};
+  const GROUP_NAME={fund:'Fundamentals',load:'Axial & torsion',bend:'Bending & shear',trans:'Transformations',design:'Design, deflection & energy'};
+  // ---- parse ----
+  const chapters=[]; let ch=null, sec=null;
+  document.getElementById('data').textContent.split(/\r?\n/).forEach(raw=>{
+    const l=raw.trim(); if(!l) return;
+    if(l.startsWith('## ')){const p=l.slice(3).split('|').map(s=>s.trim());sec={no:p[0],title:p[1],star:p[2]==='*',c:[],e:[]};ch.sections.push(sec);}
+    else if(l.startsWith('# ')){const p=l.slice(2).split('|').map(s=>s.trim());ch={n:p[0],title:p[1],g:p[2],sum:p[3],sections:[]};chapters.push(ch);}
+    else if(l.startsWith('- ')) sec.c.push(l.slice(2));
+    else if(l.startsWith('= ')){const [tex,cap]=l.slice(2).split('||');sec.e.push({tex:tex.trim(),cap:(cap||'').trim()});}
+  });
+  // ---- render ----
+  const esc=s=>s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  const FIG_ICON='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/></svg>';
+  const inline=s=>esc(s)
+    .replace(/\$([^$]+)\$/g,'<span class="m" data-tex="$1"></span>')
+    .replace(/\s*\{fig (\d+)-(\d+)\}/g,(m,a,b)=>` <a class="fig" href="figures/fig${a}-${b}.webp" data-fig="${a}-${b}">${FIG_ICON}Fig. ${a}–${b}</a>`);
+  const book=document.getElementById('book'), nav=document.getElementById('nav');
+  let lastG=null, nSec=0, nEq=0;
+  chapters.forEach(c=>{
+    const acc=`var(${GROUP[c.g]})`;
+    if(c.g!==lastG){nav.insertAdjacentHTML('beforeend',`<h4>${GROUP_NAME[c.g]}</h4>`);lastG=c.g;}
+    nav.insertAdjacentHTML('beforeend',`<a href="#ch${c.n}" data-ch="${c.n}" style="--acc:${acc}"><b>${c.n}</b>${esc(c.title)}</a>`);
+    const art=document.getElementById('art-'+c.n);
+    let h=`<section class="chapter" id="ch${c.n}" style="--acc:${acc}">
+      <div class="chead"><div class="cnum">${c.n.padStart(2,'0')}</div><div><h2>${esc(c.title)}</h2><p>${esc(c.sum)}</p></div>
+      <div class="cart">${art?art.innerHTML:''}</div></div><div class="grid">`;
+    c.sections.forEach(s=>{
+      nSec++; nEq+=s.e.length;
+      h+=`<article class="sec" id="s${s.no}"><h3><span class="no">${s.no}</span><span>${inline(s.title)}</span>${s.star?'<span class="star">★ adv</span>':''}</h3>`;
+      if(s.c.length) h+=`<div class="lbl"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.5"/></svg>Key concepts</div><ul class="c">${s.c.map(x=>`<li>${inline(x)}</li>`).join('')}</ul>`;
+      if(s.e.length) h+=`<div class="lbl"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 9h14M5 15h14"/></svg>Key equations</div><ul class="e">${s.e.map(x=>`<li><span class="d" data-tex="${esc(x.tex).replace(/"/g,'&quot;')}"></span>${x.cap?`<small>${esc(x.cap)}</small>`:''}</li>`).join('')}</ul>`;
+      h+=`</article>`;
+    });
+    book.insertAdjacentHTML('beforeend',h+`</div></section>`);
+  });
+  document.getElementById('secCount').textContent=nSec+' sections';
+  document.getElementById('eqCount').textContent=nEq+' equations';
+  // ---- math ----
+  function renderMath(){
+    if(!window.katex) return setTimeout(renderMath,60);
+    document.querySelectorAll('[data-tex]').forEach(el=>{
+      const tex=el.getAttribute('data-tex').replace(/&amp;/g,'&');
+      try{katex.render(tex,el,{displayMode:el.classList.contains('d'),throwOnError:false});}catch(e){el.textContent=tex;}
+    });
+  }
+  renderMath();
+  // ---- search filter ----
+  const q=document.getElementById('q'), empty=document.getElementById('empty');
+  q.addEventListener('input',()=>{
+    const t=q.value.trim().toLowerCase(); let any=false;
+    document.querySelectorAll('.chapter').forEach(chEl=>{
+      let vis=0;
+      chEl.querySelectorAll('.sec').forEach(s=>{
+        const txt=(s.textContent+' '+[...s.querySelectorAll('[data-tex]')].map(e=>e.getAttribute('data-tex')).join(' ')+' '+chEl.querySelector('h2').textContent).toLowerCase();
+        const ok=!t||txt.includes(t); s.classList.toggle('hide',!ok); if(ok) vis++;
+      });
+      chEl.classList.toggle('hide',vis===0); if(vis) any=true;
+    });
+    empty.style.display=any?'none':'block';
+  });
+  // ---- active nav ----
+  const links=[...nav.querySelectorAll('a')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.dataset.ch===e.target.id.slice(2)));}}),{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('.chapter').forEach(c=>io.observe(c));
+  // ---- figure lightbox ----
+  const lb=document.getElementById('lb'), lbImg=lb.querySelector('img'), lbCap=lb.querySelector('.lbcap'), lbCount=lb.querySelector('.lbcount');
+  let figLinks=[], cur=-1;
+  function openFig(i){
+    figLinks=[...document.querySelectorAll('a.fig')].filter(a=>!a.closest('.hide'));
+    if(i<0||i>=figLinks.length) return;
+    cur=i; const a=figLinks[i], sec=a.closest('.sec'), chEl=a.closest('.chapter');
+    lb.style.setProperty('--acc',getComputedStyle(chEl).getPropertyValue('--acc'));
+    lb.classList.add('loading'); lbImg.src=a.getAttribute('href'); lbImg.alt=a.textContent;
+    lbCap.innerHTML=`<b>${a.textContent}</b><span>§${sec.querySelector('.no').textContent} · ${sec.querySelector('h3 span:nth-child(2)').innerHTML}</span>`;
+    lbCount.textContent=`${i+1} / ${figLinks.length}`;
+    if(!lb.open) lb.showModal();
+  }
+  lbImg.onload=()=>lb.classList.remove('loading');
+  book.addEventListener('click',e=>{
+    const a=e.target.closest('a.fig'); if(!a) return; e.preventDefault();
+    const list=[...document.querySelectorAll('a.fig')].filter(x=>!x.closest('.hide'));
+    openFig(list.indexOf(a));
+  });
+  lb.querySelector('.prev').onclick=()=>openFig(cur-1);
+  lb.querySelector('.next').onclick=()=>openFig(cur+1);
+  lb.querySelector('.close').onclick=()=>lb.close();
+  lb.addEventListener('click',e=>{if(e.target===lb) lb.close();});
+  lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft') openFig(cur-1); if(e.key==='ArrowRight') openFig(cur+1);});
+  function fromHash(){const m=location.hash.match(/^#fig-(\d+-\d+)$/); if(!m) return;
+    const a=document.querySelector(`a.fig[data-fig="${m[1]}"]`); if(a) openFig([...document.querySelectorAll('a.fig')].indexOf(a));}
+  window.addEventListener('hashchange',fromHash); fromHash();
+  document.getElementById('figCount').textContent=document.querySelectorAll('a.fig').length+' figures';
+  // ---- theme ----
+  const root=document.documentElement;
+  try{const t=localStorage.getItem('mom-theme'); if(t) root.dataset.theme=t;}catch(e){}
+  document.getElementById('theme').onclick=()=>{
+    const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('mom-theme',root.dataset.theme);}catch(e){}
+  };
+})();
+</script>
+</body>
+</html>
