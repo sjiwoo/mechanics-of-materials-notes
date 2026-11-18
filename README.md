@@ -40,3 +40,15 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
 ! fig 6-24 || caption      key figure (textbook; add `crop` to use figures/card/)
 ! svg 6-1 || caption       key figure (custom SVG template sf-6-1)
 ```
+
+## Chapter quizzes and study tutor (Gemini)
+- Each chapter ends with a **Chapter quiz** button (`#quiz6`, `#g-quiz9`): 8 short questions on the basics, including quick calculations.
+  Type an answer and Gemini grades it against the reference answer (correct / partly / not quite, with feedback).
+  "Show answer" works without a key; "✦ 5 more questions" asks Gemini to write new ones from the chapter notes.
+- **Ask tutor** (bottom-right) opens a chat that is given the notes of the chapter you have open.
+- Both use your own Gemini API key, entered in the tutor's key settings. It is stored only in your browser's localStorage
+  and sent directly to `generativelanguage.googleapis.com`; it is never committed or sent anywhere else. The model list
+  comes from your key (newest Flash model selected by default, changeable in settings). Quiz progress is also kept in localStorage.
+- Quiz data lives in `<script type="text/plain" id="quiz">` (and `id="quiz-gdt"`): `@ 6` starts chapter 6, then
+  `? question || reference answer` per line.
+

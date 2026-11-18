@@ -177,6 +177,102 @@ nav.side .subnav a.on,nav.side .subnav a:hover{color:var(--ink);background:trans
   .symrow{grid-template-columns:minmax(0,1fr)}
 }
 .kt{font-weight:650;color:var(--ink)}
+/* ===== chapter quiz ===== */
+:root{--ok:#16a34a;--part:#d97706;--bad:#dc2626}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--ok:#4ade80;--part:#fbbf24;--bad:#f87171}}
+:root[data-theme="dark"]{--ok:#4ade80;--part:#fbbf24;--bad:#f87171}
+.qcta{display:flex;align-items:center;gap:14px;margin-top:14px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid color-mix(in srgb,var(--acc) 40%,var(--line));border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.qcta:hover{transform:translateY(-2px);border-color:var(--acc)}
+.qcta .qico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;background:var(--acc);flex:none}
+.qcta .qtx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.qcta .qtx b{font:600 15.5px 'Space Grotesk',sans-serif}
+.qcta .qtx small{color:var(--ink2);font-size:12.5px}
+.qcta .qgo{font:600 13px Inter;color:var(--acc);white-space:nowrap}
+.qhead .cnum{font-size:40px}
+.qscore{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.qscore b{font:600 26px 'Space Grotesk',sans-serif;color:var(--acc);line-height:1.1}
+.qscore small{font:600 10.5px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.qnokey{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 14px;border-radius:12px;border:1px dashed color-mix(in srgb,var(--acc) 50%,var(--line));background:color-mix(in srgb,var(--acc) 6%,var(--card));color:var(--ink2);font-size:13.5px}
+.qnokey span{flex:1}.qnokey.off{display:none}
+.qlist{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.qi{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+.qi.v-correct{border-left-color:var(--ok)}.qi.v-partial{border-left-color:var(--part)}.qi.v-incorrect{border-left-color:var(--bad)}.qi.v-revealed{border-left-color:var(--ink3)}
+.qi.busy{opacity:.75}
+.qq{display:flex;gap:10px;align-items:flex-start}
+.qq p{margin:0;flex:1;font-size:15px;color:var(--ink);font-weight:500}
+.qn{font:600 12px 'JetBrains Mono',monospace;min-width:24px;height:24px;border-radius:7px;display:grid;place-items:center;color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--card));flex:none;margin-top:1px}
+.qgen{font:700 9.5px Inter;letter-spacing:.08em;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line));border-radius:5px;padding:2px 5px;flex:none;margin-top:3px}
+.qa{margin:10px 0 0 34px}
+.qa textarea{width:100%;box-sizing:border-box;resize:vertical;min-height:44px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:14px/1.5 Inter,sans-serif;outline:none}
+.qa textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
+.qbar{display:flex;align-items:center;gap:14px;margin-top:8px}
+.qbtn{border:0;border-radius:9px;padding:8px 14px;background:var(--acc,var(--ink));color:#fff;font:600 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.qbtn:hover{filter:brightness(1.08)}.qbtn:disabled{opacity:.6;cursor:progress}
+.qlink{border:0;background:none;padding:0;color:var(--ink2);font:600 13px Inter,sans-serif;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.qlink:hover{color:var(--ink)}
+.qfb{margin-left:34px}
+.qfb:not(:empty){margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.qv{display:inline-flex;align-items:center;gap:6px;font:700 12px Inter;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.qv.v-correct{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+.qv.v-partial{color:var(--part);background:color-mix(in srgb,var(--part) 14%,transparent)}
+.qv.v-incorrect{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.qfbt{margin-top:6px;font-size:14px;color:var(--ink)}
+.qref{margin:8px 0;padding:8px 12px;border-radius:10px;background:var(--bg)}
+.qref small{font:600 10.5px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.qref p{margin:2px 0 0;font-size:14px;color:var(--ink2)}
+.qerr{font-size:13.5px;color:var(--bad)}
+.qactions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:16px}
+.qmsg{font-size:13px;color:var(--ink2)}
+.md p{margin:0 0 6px}.md p:last-child{margin-bottom:0}
+.md ul,.md ol{margin:4px 0 6px;padding-left:20px}.md li{margin:2px 0}
+.md h5{margin:8px 0 4px;font:600 14px 'Space Grotesk',sans-serif}
+.md code{font:12.5px 'JetBrains Mono',monospace;background:var(--bg);padding:1px 4px;border-radius:4px}
+.md pre{background:var(--bg);padding:8px 10px;border-radius:8px;overflow:auto}.md pre code{background:none;padding:0}
+.md .katex-display{margin:6px 0;overflow-x:auto;overflow-y:hidden}
+/* ===== tutor ===== */
+.tfab{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 18px 11px 15px;background:var(--ink);color:var(--bg);font:600 14px Inter,sans-serif;cursor:pointer;box-shadow:0 10px 30px -8px rgba(15,23,42,.45);transition:transform .15s}
+.tfab:hover{transform:translateY(-2px)}.tfab.off{display:none}
+.tutor{position:fixed;right:20px;bottom:20px;z-index:61;width:400px;height:min(620px,calc(100vh - 110px));display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(0,0,0,.45);overflow:hidden}
+.tutor[hidden],.tutor [hidden]{display:none!important}
+.tutor header{display:flex;align-items:center;gap:8px;padding:12px 12px 12px 14px;border-bottom:1px solid var(--line)}
+.tlogo{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#2563eb,#db2777);flex:none}
+:root[data-book="gdt"] .tlogo{background:linear-gradient(135deg,#0891b2,#b45309)}
+.tt{flex:1;min-width:0;display:flex;flex-direction:column}
+.tt b{font:600 14.5px 'Space Grotesk',sans-serif}.tt small{color:var(--ink3);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn.sm{width:32px;height:32px;border-radius:9px}
+.tmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.tm{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.tm.user{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:5px}
+.tm.model{align-self:flex-start;background:var(--bg);color:var(--ink);border-bottom-left-radius:5px}
+.tm.err{align-self:flex-start;background:color-mix(in srgb,var(--bad) 10%,var(--card));color:var(--bad)}
+.twel{color:var(--ink2);font-size:14px}.twel p{margin:0 0 10px}
+.tsugg{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tsugg button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:13px Inter,sans-serif;cursor:pointer;text-align:left}
+.tsugg button:hover{border-color:var(--ink3)}
+.tdots{display:inline-flex;gap:4px;padding:4px 0}.tdots i{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:tdot 1s infinite}
+.tdots i:nth-child(2){animation-delay:.15s}.tdots i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.tin{display:flex;gap:8px;align-items:flex-end;padding:10px;border-top:1px solid var(--line)}
+.tin textarea{flex:1;resize:none;max-height:140px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:14px/1.45 Inter,sans-serif;outline:none}
+.tin textarea:focus{border-color:var(--ink3)}
+.tsend{width:40px;height:40px;border:0;border-radius:12px;background:var(--ink);color:var(--bg);display:grid;place-items:center;cursor:pointer;flex:none}
+.tutor.busy .tsend{opacity:.5;cursor:progress}
+.tset{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--ink2)}
+.tset h5{margin:0;font:600 15px 'Space Grotesk',sans-serif;color:var(--ink)}.tset p{margin:0}
+.tset input,.tset select{width:100%;box-sizing:border-box;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:13.5px Inter,sans-serif}
+.tset label{font:600 10.5px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+.trow{display:flex;align-items:center;gap:14px;margin-top:4px}
+.tset .qbtn{background:var(--ink);color:var(--bg)}
+.tst{min-height:1.2em}.tst.ok{color:var(--ok)}.tst.warn{color:var(--bad)}
+.tfine a{color:var(--ink2)}
+@media (max-width:640px){
+  .tfab{right:14px;bottom:14px;padding:13px}.tfab span{display:none}
+  .tutor{right:0;left:0;bottom:0;width:auto;height:86vh;border-radius:18px 18px 0 0}
+  .qa,.qfb{margin-left:0}
+  .qcta{flex-wrap:wrap}.qcta .qgo{width:100%;text-align:right}
+}
+@media (max-width:900px){.qhead{grid-template-columns:auto 1fr}.qhead .qscore{grid-column:1/-1;flex-direction:row;align-items:baseline;gap:8px;justify-content:flex-start}}
+@media print{.tfab,.tutor,.qcta{display:none!important}}
 /* chapter summary */
 .csum{margin-top:4px;background:color-mix(in srgb,var(--acc) 7%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 30%,var(--line));border-left:5px solid var(--acc);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
 .csum .lbl{color:var(--acc);margin-top:0}
@@ -321,6 +417,24 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   </main>
 </div>
 
+<button id="tutorFab" class="tfab" type="button" aria-label="Ask the study tutor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span>Ask tutor</span></button>
+<aside id="tutor" class="tutor" hidden aria-label="Study tutor">
+  <header><span class="tlogo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/></svg></span><div class="tt"><b>Study tutor</b><small id="tctx">—</small></div>
+    <button class="iconbtn sm" id="tNew" type="button" title="New chat" aria-label="New chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="iconbtn sm" id="tSet" type="button" title="API key &amp; model" aria-label="Settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M15 8l2 2"/></svg></button>
+    <button class="iconbtn sm" id="tClose" type="button" title="Close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="tmsgs" id="tmsgs"></div>
+  <div class="tset" id="tset" hidden>
+    <h5>Gemini API key</h5>
+    <p>Saved only in this browser (localStorage) and sent straight to Google's Gemini API. It is never stored on the site or in the repository.</p>
+    <input type="password" id="tkey" placeholder="Paste your key (AIza…)" autocomplete="off" spellcheck="false">
+    <label for="tmodel">Model</label><select id="tmodel"></select>
+    <div class="trow"><button type="button" class="qbtn" id="tsave">Save key</button><button type="button" class="qlink" id="tforget">Forget key</button></div>
+    <p class="tst" id="tst"></p>
+    <p class="tfine"><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a key in Google AI Studio ↗</a></p>
+  </div>
+  <form class="tin" id="tform"><textarea id="tq" rows="1" placeholder="Ask about this chapter…"></textarea><button type="submit" class="tsend" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+</aside>
 <dialog id="lb" aria-label="Figure viewer">
   <div class="lbwrap">
     <div class="lbbar"><div class="lbcap"></div><span class="lbcount"></span>
@@ -2957,6 +3071,420 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 - Myth: profile of a line is not meant for thin parts such as gaskets. It is rarely needed functionally.
 </script>
 
+<!-- Chapter quizzes: "@ n" starts a chapter, "? question || reference answer" -->
+<script type="text/plain" id="quiz">
+@ 1
+? In 3D, the method of sections reduces the internal loading at a cut to four resultants. Name them and the action each produces. || Normal force N (pushes/pulls along the member axis), shear force V (slides the faces past each other), torque T (twists about the axis normal to the cut), bending moment M (bends about an axis in the plane of the cut).
+? When finding internal resultants, at what point on the cut are they usually placed, and what is a "cross section" for a long slender member? || At the centroid of the sectioned area. The cross section is the cut taken perpendicular to the member's longitudinal axis.
+? In the shear-stress symbol τzx, what do the two subscripts mean? || First subscript (z) gives the orientation of the plane: the direction of its outward normal. Second subscript (x) gives the axis along which the shear stress acts.
+? What conditions must hold for the average normal stress σ = P/A to be uniform over a bar's cross section? || Prismatic (constant cross-section) bar, homogeneous and isotropic material, axial load P applied through the centroid of the section, and the section taken away from load points/supports. Works for tension or compression.
+? How does load and resistance factor design (LRFD) differ from allowable stress design (ASD)? || ASD lumps all uncertainty into one factor of safety (σallow = σfail / F.S.). LRFD treats them separately: loads are multiplied by load factors γ (larger for more variable loads) and nominal strength by a resistance factor φ < 1, requiring φPn ≥ Σ γi Ri.
+? A 25 mm diameter steel rod carries an axial tensile force of 50 kN. What is the average normal stress? || 101.9 MPa tension (σ = P/A = 50 000 N / (π·12.5²) mm² = 50 000 / 490.9).
+? A 10 mm diameter pin passes through a clevis (double shear) and transmits a 12 kN load. What is the average shear stress in the pin? || 76.4 MPa (double shear, so V = P/2 = 6 kN on each plane; τ = 6000 N / (π·5²) mm² = 6000 / 78.54).
+? A material fails at 400 MPa in tension. Using a factor of safety of 2.5, what cross-sectional area is required for a 50 kN axial tensile load? || 312.5 mm² (σallow = 400 / 2.5 = 160 MPa; A = P/σallow = 50 000 N / 160 MPa).
+
+@ 2
+? Define normal strain and state its sign convention and units. || Change in length per unit length, ε = (Δs′ − Δs)/Δs (for a uniform bar ε = δ/L). Positive = elongation, negative = contraction. Dimensionless, though often written as mm/mm, μm/m, percent or microstrain (μ).
+? Define shear strain, including its units and when it is positive. || Change in the angle between two line segments that were originally perpendicular, γ = π/2 − θ′, measured in radians. Positive when the right angle closes (θ′ < 90°), negative when it opens.
+? Normal strains and shear strains deform a small element in different ways. What does each change? || Normal strains change the element's volume (size/side lengths); shear strains change its shape (the angles between sides). Both generally occur together.
+? How many strain components fully describe the state of strain at a point, and what are they? || Six: three normal strains εx, εy, εz and three shear strains γxy, γyz, γxz.
+? What does small-strain analysis assume, and what approximations does it allow? || Strains are much less than 1 (ε ≪ 1), so geometry can be linearized: sin θ ≈ θ, cos θ ≈ 1, tan θ ≈ θ (θ in radians), and Δs′ ≈ (1 + ε)Δs.
+? A 2 m long bar elongates uniformly by 1.2 mm. What is the average normal strain? || 0.0006 mm/mm, i.e. 600 μ or 0.06% (ε = δ/L = 1.2 mm / 2000 mm).
+? Two edges of an element that were at 90° are at 89.7° after loading. What is the shear strain? || 0.00524 rad, positive since the angle closed (γ = 90° − 89.7° = 0.3° × π/180).
+? A 500 mm long rod undergoes a uniform normal strain of 0.0025. What is its deformed length? || 501.25 mm (δ = εL = 0.0025 × 500 = 1.25 mm; L′ = 500 + 1.25).
+
+@ 3
+? List, in order, the regions of a conventional stress-strain diagram for a ductile steel tension test. || Elastic (linear up to the proportional limit), yielding (plastic deformation at about constant stress), strain hardening (rising to the ultimate stress σu), necking (engineering stress falls until fracture at σf).
+? How is the yield strength found for a material like aluminum that has no distinct yield point? || The 0.2% offset method: draw a line from 0.2% strain (0.002) parallel to the initial linear slope; the stress where it meets the curve is the yield strength.
+? Does a larger modulus of elasticity E mean a stronger material? When is σ = Eε valid? || No. E measures stiffness (slope of the linear-elastic portion), not strength; e.g. nearly all steels share E ≈ 200 GPa despite very different strengths. Hooke's law applies only up to the proportional limit (linear elastic range).
+? Define Poisson's ratio and give its allowable range for an isotropic material. || ν = −εlat / εlong, the ratio of lateral to axial strain under axial load (minus sign makes it positive). Range 0 ≤ ν ≤ 0.5; typically about 1/4 to 1/3 for nonporous solids.
+? What is fatigue, and what is the endurance limit? || Fatigue is fracture caused by repeated stress cycles, at stresses below the yield (static) strength, from growing microcracks. The endurance (fatigue) limit is the stress below which no failure occurs for a specified (effectively infinite) number of cycles, read where the S-N curve levels off.
+? A steel bar (E = 200 GPa, ν = 0.3) carries 150 MPa axial tension within the elastic range. Find the axial and lateral strains. || Axial ε = 0.00075 (150 / 200 000); lateral ε = −0.000225 (−ν × 0.00075), i.e. contraction.
+? A material has E = 200 GPa and ν = 0.25. What is its shear modulus G? || 80 GPa (G = E / [2(1 + ν)] = 200 / 2.5).
+? A steel has proportional limit 250 MPa and E = 200 GPa. What is its modulus of resilience? || 0.156 MJ/m³ = 156 kJ/m³ (ur = σpl² / 2E = 250² / (2 × 200 000) = 0.156 MPa).
+
+@ 4
+? State Saint-Venant's principle and its practical use. || Away from the load or support (roughly a distance equal to the largest cross-section dimension), stress and strain depend only on the statically equivalent resultant, not on how the load is applied, and become uniform. So σ = P/A and δ = NL/AE apply except near loads/supports.
+? What two conditions must hold for the principle of superposition to be valid? || The loading must be linearly related to stress/displacement (linear-elastic material, below the proportional limit), and the loads must not significantly change the member's original geometry (small deformations).
+? What extra condition is needed to solve a statically indeterminate axially loaded member? Give an example. || A compatibility (kinematic) condition on displacements, written with δ = NL/AE, in addition to equilibrium. Example: a bar fixed at both ends has zero end-to-end displacement, δA/B = 0. (Or the force method: remove a redundant and require its deflection to cancel.)
+? A bar fully restrained between rigid supports is heated. Does the thermal stress depend on the bar's length? What if the bar is free to expand? || Restrained: no; σ = EαΔT depends only on E, α and ΔT, not on length or area. Free: it just elongates δT = αΔTL with no stress.
+? What is the stress-concentration factor K and what does it depend on? || K = σmax / σavg at a hole, notch or fillet. It depends only on the geometry (shape ratios), not on the material or absolute size. Most important for brittle materials and fatigue loading.
+? A steel bar 2 m long with A = 500 mm² and E = 200 GPa carries an axial tension of 50 kN. What is its elongation? || 1.0 mm (δ = PL/AE = 50 000 N × 2000 mm / (500 mm² × 200 000 MPa)).
+? A steel bar (E = 200 GPa, α = 12×10⁻⁶ /°C) is fixed between rigid walls and its temperature rises 50 °C. What stress develops? || 120 MPa compression (σ = EαΔT = 200 000 MPa × 12×10⁻⁶ × 50).
+? An elastic-perfectly plastic bar has A = 400 mm² and σY = 250 MPa. What is its plastic load? || 100 kN (Pp = σY·A = 250 MPa × 400 mm²).
+
+@ 5
+? How do shear strain and shear stress vary over the cross section of a twisted linear-elastic circular shaft? || Both vary linearly with radius: zero at the center, maximum at the outer surface (τ = Tρ/J, τmax = Tc/J). Requires homogeneous, linear-elastic material.
+? Why can't the torsion formula τ = Tc/J be used for a square or rectangular shaft? || Noncircular sections are not axisymmetric, so they warp (bulge out of plane) when twisted and the plane-section assumption fails. The stress distribution differs, e.g. zero shear at the corners; elasticity results are used instead.
+? Why is a hollow circular shaft a more efficient torsion member than a solid one of the same weight? || Shear stress is low near the center, so material there carries little torque. A hollow shaft puts material at larger radius, giving larger J (J = π/2 (co⁴ − ci⁴)) and lower stress per unit weight.
+? What sign convention is used for internal torque and angle of twist? || Right-hand rule: positive when the thumb points outward from the sectioned face (away from the shaft) with the fingers curling in the sense of the torque/rotation.
+? In a closed thin-walled tube under torque, how does the shear flow vary, and where is the average shear stress largest? || Shear flow q = τt = T/(2Am) is constant around the tube (Am = area enclosed by the wall's median line). Average shear stress τ = q/t is largest where the wall is thinnest.
+? A solid circular shaft of 40 mm diameter carries a torque of 500 N·m. What is the maximum shear stress? || 39.8 MPa (J = π/2 × 20⁴ = 251 300 mm⁴; τmax = Tc/J = 500 000 N·mm × 20 mm / 251 300 mm⁴).
+? A motor delivers 10 kW through a shaft turning at 25 Hz (1500 rpm). What torque does the shaft carry? || 63.7 N·m (ω = 2πf = 157.1 rad/s; T = P/ω = 10 000 W / 157.1 rad/s).
+? A shaft segment 2 m long with J = 1×10⁶ mm⁴ and G = 80 GPa carries a torque of 1 kN·m. What is its angle of twist? || 0.025 rad ≈ 1.43° (φ = TL/JG = 10⁶ N·mm × 2000 mm / (10⁶ mm⁴ × 80 000 MPa)).
+
+@ 6
+? State the textbook sign convention for distributed load, internal shear and internal moment in beams. || Positive distributed load acts upward; positive shear rotates the beam segment clockwise; positive moment bends the segment concave up (compresses top fibers, "holds water"). Opposite senses are negative.
+? What do the slopes of the shear and moment diagrams equal, and where does the maximum moment occur? || Slope of shear diagram = distributed load w (dV/dx = w); slope of moment diagram = shear V (dM/dx = V). Max/min moment occurs where V = 0 (crosses zero), or at a concentrated force, couple or support where V jumps.
+? In elastic bending of a homogeneous beam, where is the neutral axis and how does normal stress vary over the depth? || The neutral axis passes through the centroid of the cross section (zero resultant force). Strain and stress vary linearly with distance y from it: zero at the neutral axis, maximum at the outermost fiber (σ = −My/I, σmax = Mc/I).
+? How does the transformed-section method handle a composite beam of two materials? || Convert to one material using n = E1/E2: keep the height, multiply the width of material 1 by n. Find the neutral axis and I of the transformed section, apply the flexure formula, then multiply stresses in the transformed material by n (σ = nσ′).
+? In unsymmetric bending, when does the neutral axis not line up with the axis of the applied moment? || When the moment is not about a principal axis and Iy ≠ Iz. Its angle follows tan α = (Iz/Iy) tan θ, so it tilts away from the moment axis, toward the weak (smaller-I) principal axis.
+? A simply supported beam spans 6 m and carries a uniform load of 5 kN/m. What is the maximum bending moment? || 22.5 kN·m at midspan (Mmax = wL²/8 = 5 × 6² / 8).
+? A rectangular beam 100 mm wide and 200 mm deep carries a bending moment of 20 kN·m. What is the maximum bending stress? || 30.0 MPa (S = bh²/6 = 100 × 200² / 6 = 666 667 mm³; σ = M/S = 20×10⁶ N·mm / 666 667 mm³).
+? A rectangular cross section begins to yield at MY = 20 kN·m. What is its plastic moment Mp? || 30 kN·m (Mp = 1.5 MY for a rectangle; shape factor k = (σY bh²/4) / (σY bh²/6) = 1.5).
+
+@ 7
+? Why do loose stacked boards slide over each other when bent, while a glued beam does not? || Transverse shear V is always accompanied by equal longitudinal (complementary) shear stress on horizontal planes. Loose boards cannot resist it, so they slip; glue transmits it, so the beam acts as one unit.
+? In the shear formula τ = VQ/(It), what is Q and how is it computed? || Q is the first moment, about the neutral axis, of the area A′ above (or below) the point where τ is wanted: Q = ȳ′A′, with ȳ′ the distance from the neutral axis to the centroid of A′. Zero at top/bottom, maximum at the neutral axis.
+? In τ = VQ/(It), what do I and t represent? || I is the moment of inertia of the entire cross section about the neutral axis. t is the width (thickness) of the section at the point where τ is computed; τ is the average across that width.
+? Describe the shear-stress distribution over a rectangular beam section. || Parabolic: zero at the top and bottom surfaces, maximum at the neutral axis, τmax = 1.5 V/A (50% above the average V/A). This is why timber beams split horizontally along the neutral axis near supports.
+? What is the shear center of an open thin-walled section, and where does it lie? || The point through which the load must act for the beam to bend without twisting. It depends only on section geometry, always lies on an axis of symmetry (at the centroid if doubly symmetric), and for a channel lies outside the web.
+? A rectangular beam section 50 mm wide and 150 mm deep carries a shear force of 15 kN. What is the maximum shear stress? || 3.0 MPa at the neutral axis (τmax = 1.5V/A = 1.5 × 15 000 N / (50 × 150) mm²).
+? A built-up beam has a shear flow of 30 N/mm at the board junction. Each nail can resist 1.5 kN. What maximum nail spacing is allowed? || 50 mm (F = qs, so s = F/q = 1500 N / 30 N/mm).
+? A rectangular section is 100 mm wide and 200 mm deep. What is Q at the neutral axis? || 5.0×10⁵ mm³ (A′ = 100 × 100 = 10 000 mm² above the neutral axis; ȳ′ = 50 mm; Q = ȳ′A′).
+
+@ 8
+? When may a cylindrical or spherical pressure vessel be analyzed with the thin-wall formulas, and what is assumed about the stress through the wall? || When r/t ≥ 10 (inner radius at least ten times wall thickness). The normal stress is then assumed uniform (constant) through the thickness; error at r/t = 10 is only about 4%.
+? In a thin-walled cylinder under internal pressure, how does hoop stress compare with longitudinal stress, and along which direction does an overpressurized pipe split? || Hoop stress σ1 = pr/t is twice the longitudinal stress σ2 = pr/2t. Because hoop stress is larger, the pipe ruptures by splitting lengthwise (crack along the axis, driven by hoop stress), so longitudinal seams carry twice the stress of circumferential seams.
+? Why is the radial stress in a thin-walled pressure vessel neglected? || It varies only from p at the inner wall to zero outside, so its maximum is p, while σ1 and σ2 are about 10 and 5 times larger (at r/t = 10, more for thinner walls). It is negligible by comparison.
+? What happens differently when a thin-walled vessel is loaded by external pressure instead of internal pressure? || The wall is put in compression and the vessel may fail by buckling (instability/collapse) before the material fractures or yields, so the simple stress formulas alone are not sufficient.
+? What two conditions must hold to find a combined-loading stress state by superposing the stresses from N, V, M and T separately? || Stress must be linearly related to load (linear-elastic, homogeneous material), and the geometry must not change significantly under load. Also the point should be away from load points and discontinuities (Saint-Venant).
+? A thin-walled cylinder has inner radius 500 mm, wall thickness 10 mm and internal gauge pressure 2 MPa. Find the hoop and longitudinal stresses. || Hoop σ1 = 100 MPa, longitudinal σ2 = 50 MPa (σ1 = pr/t = 2·500/10; σ2 = pr/2t).
+? A thin-walled spherical tank has inner radius 1 m, wall thickness 8 mm and internal gauge pressure 1.6 MPa. Normal stress in the wall? || 100 MPa, same in every tangential direction (σ = pr/2t = 1.6·1000/(2·8)).
+? A 40 mm wide × 100 mm deep rectangular bar carries axial tension 40 kN plus a 2 kN·m moment about its strong axis. Maximum and minimum normal stress? || Max 40 MPa tension, min 20 MPa compression (−20 MPa). P/A = 40000/4000 = 10 MPa; Mc/I = 2×10⁶ N·mm / (40·100²/6 = 66 667 mm³) = 30 MPa; 10 ± 30.
+
+@ 9
+? What is plane stress, and which stress components are zero? || A state where stress acts in a single plane: only σx, σy and τxy are nonzero, with σz = τxz = τyz = 0. Typical at a free (unloaded) surface.
+? In the plane-stress transformation equations, how is the angle θ measured and what sign convention is used for stresses? || θ is measured from the +x axis to the +x′ axis, positive counterclockwise. Normal stress is positive in tension (acting in +x′ direction on the face with outward normal x′); shear positive acting in +y′ direction on that face.
+? What is the shear stress on the principal planes, and how are the principal planes oriented relative to the planes of maximum in-plane shear? || Shear stress is zero on principal planes; the two principal planes are 90° apart. The maximum in-plane shear planes are rotated 45° from the principal planes and carry normal stress σavg = (σx + σy)/2.
+? On Mohr's circle for plane stress, where is the center, what is the radius, and how does a rotation θ of the element appear on the circle? || Center at (σavg, 0) with σavg = (σx + σy)/2; radius R = √[((σx − σy)/2)² + τxy²]. An element rotation θ corresponds to 2θ on the circle, in the same direction (with τ plotted positive downward).
+? What quantity stays the same for every orientation θ of a plane-stress element? || The sum of normal stresses on perpendicular faces: σx′ + σy′ = σx + σy (equivalently σavg, the circle center, is invariant). Also acceptable: the radius R, i.e. the max in-plane shear, is invariant.
+? A point has σx = 60 MPa, σy = −20 MPa, τxy = 30 MPa. Find the principal stresses. || σ1 = 70 MPa, σ2 = −30 MPa. σavg = 20 MPa, R = √(40² + 30²) = 50 MPa; σ1,2 = 20 ± 50.
+? A point has σx = 100 MPa, σy = 20 MPa, τxy = −30 MPa. Find the maximum in-plane shear stress and the normal stress on its planes. || τmax in-plane = 50 MPa, with σavg = 60 MPa on those planes. R = √(((100 − 20)/2)² + 30²) = √(1600 + 900) = 50; σavg = (100 + 20)/2.
+? A plane-stress point has principal stresses σ1 = 80 MPa and σ2 = 30 MPa (σ3 = 0). Absolute maximum shear stress? || 40 MPa. Both principal stresses are tensile (same sign), so the largest Mohr's circle runs from 0 to 80: τabs max = σmax/2 = 80/2. (In-plane value would be only 25 MPa.)
+
+@ 10
+? Can plane stress and plane strain exist at the same time in an isotropic material? Explain. || Generally no. Plane stress (σz = 0) still produces an out-of-plane strain εz from the Poisson effect, so strain is not planar; the two coincide only if ν = 0.
+? How are the plane-strain transformation equations obtained from the plane-stress ones? || Replace σ by ε and τ by γ/2 (shear strain halved). All results, including principal strains, max in-plane shear strain and Mohr's circle (axes ε and γ/2), carry over.
+? What is the sign convention for shear strain γxy in strain transformation? || γxy is positive when the interior angle between the +x and +y sides of the element (angle AOB) becomes smaller than 90°. Normal strain is positive for elongation; θ positive counterclockwise.
+? A 45° strain rosette reads εa = 300 με (0°), εb = 200 με (45°), εc = −100 με (90°). Find εx, εy and γxy. || εx = 300 με, εy = −100 με, γxy = 200 με (γxy = 2εb − (εa + εc) = 400 − 200).
+? A material has E = 200 GPa and ν = 0.25. Shear modulus G? || 80 GPa (G = E/[2(1 + ν)] = 200/2.5).
+? A steel element (E = 200 GPa, ν = 0.3) has σx = 100 MPa, σy = 50 MPa, σz = 0. Find the normal strain εx. || εx = 425 × 10⁻⁶ (425 με). εx = [σx − ν(σy + σz)]/E = (100 − 15)/200 000 MPa.
+? Which failure theories are used for ductile materials, and what yield shear stress does each predict in pure shear? || Ductile: Tresca (maximum shear stress) and von Mises (maximum distortion energy). In pure shear Tresca predicts yield at τ = σY/2, von Mises at τ = σY/√3 ≈ 0.577σY (about 15% higher). Brittle materials use Rankine or Mohr instead.
+? Why can Poisson's ratio not exceed 0.5 for an isotropic material? || Dilatation e = (1 − 2ν)(σx + σy + σz)/E and bulk modulus k = E/[3(1 − 2ν)]. At ν = 0.5 there is no volume change (incompressible, k → ∞); ν > 0.5 would make volume increase under hydrostatic pressure, which is impossible.
+
+@ 11
+? In prismatic beam design, which stress is normally designed for first, and when might shear govern instead? || Bending first: size from Sreq = Mmax/σallow, then check shear. Shear can govern for short beams carrying large concentrated loads, especially wood beams, which split along the grain.
+? How do you choose a wide-flange steel section for a beam, and what does the designation W18×46 mean? || Pick the handbook shape with S slightly above Sreq = Mmax/σallow, normally the one with the smallest area (lightest, cheapest), allowing for self-weight. W18×46: wide-flange about 18 in. deep weighing 46 lb/ft.
+? A wood beam is a nominal 2×4. Which dimensions should be used in the stress calculation? || The actual dressed dimensions, about 1.5 in. × 3.5 in., which are smaller than the nominal size. Never use nominal sizes in stress calculations.
+? In an end-loaded rectangular cantilever, how are the principal-stress directions oriented at the top surface, the neutral axis and the bottom surface? || 0° at the top, 45° at the neutral axis, 90° at the bottom (rotating through the depth). Top and bottom carry only bending stress; the neutral axis only shear (pure shear), so its principal planes are at 45°.
+? What is a fully stressed beam, and what caution applies to its analysis? || A nonprismatic beam whose section varies so that S(x) = M(x)/σallow, reaching the allowable bending stress at every section. It is sized from bending only, so shear must still be checked, and the shear formula is unreliable for tapered sections.
+? A beam has maximum moment 60 kN·m and allowable bending stress 150 MPa. Required section modulus? || Sreq = 400 × 10³ mm³ (= 4.0 × 10⁻⁴ m³). Sreq = Mmax/σallow = 60 × 10⁶ N·mm / 150 MPa.
+? A 100 mm wide × 200 mm deep rectangular wood beam carries maximum shear 30 kN. Maximum shear stress? || 2.25 MPa (τmax = 1.5V/A = 1.5·30 000 N / (100·200) mm²).
+? A solid circular shaft carries M = 3 kN·m and T = 4 kN·m at its critical section, τallow = 50 MPa. Required radius by maximum shear stress theory? || c ≈ 39.9 mm (diameter ≈ 80 mm). √(M² + T²) = 5 kN·m; c³ = 2·5×10⁶ N·mm / (π·50 MPa) ≈ 63 660 mm³.
+
+@ 12
+? What is the moment-curvature relation for a beam, and how does the sign of M determine the shape of the elastic curve? || 1/ρ = M/EI (EI always positive). Positive moment bends the beam concave up, negative moment concave down; an inflection point occurs where M = 0.
+? State the boundary conditions at a fixed support, a pin or roller end, and a free end of a beam. || Fixed: v = 0 and slope θ = 0. Pin or roller: v = 0 (and M = 0 at an end). Free end: M = 0 and V = 0 (displacement and slope unknown).
+? A steel beam (E = 200 GPa, I = 100 × 10⁶ mm⁴) carries a moment of 50 kN·m. Radius of curvature of the elastic curve? || ρ = 400 m (ρ = EI/M = 200 000 MPa · 100×10⁶ mm⁴ / 50×10⁶ N·mm = 400 000 mm).
+? Why are discontinuity functions used for beams with several loads, and how does integrating singularity functions differ from integrating Macaulay functions? || One expression covers the whole beam, so constants come only from boundary conditions (continuity is automatic). Macaulay functions (n ≥ 0) integrate like powers, divided by n + 1; singularity functions (n = −1, −2 for forces, couples) give ⟨x − a⟩ⁿ⁺¹ without dividing.
+? State the two moment-area theorems. || 1: The angle between tangents at A and B equals the M/EI diagram area between them. 2: The vertical deviation of one point from the tangent at another equals the moment of that M/EI area about the first point (x̄ · area); t A/B ≠ t B/A.
+? A cantilever of length 2 m and EI = 20 000 kN·m² carries 10 kN at its free end. Free-end deflection? || 1.33 mm downward (v = PL³/3EI = 10·2³ / (3·20 000) = 0.00133 m).
+? A simply supported beam, span 4 m, EI = 8000 kN·m², carries a uniform load of 12 kN/m. Maximum deflection? || 5 mm downward at midspan (v = 5wL⁴/384EI = 5·12·4⁴ / (384·8000) = 0.005 m).
+? A propped cantilever (fixed at A, roller at B) carries a load. Give its degree of indeterminacy, a valid redundant, and the compatibility condition used with superposition. || First degree (4 unknowns, 3 equations). Take By as redundant: primary-beam deflection at B plus deflection caused by By must be zero (vB = vB′ + vB″ = 0). Alternative: MA with slope θA = 0. Ax cannot be a redundant.
+
+@ 13
+? What is the critical load of a column, and which properties does the elastic Euler load depend on? || Pcr is the largest axial load the column can carry while on the verge of buckling (neutral equilibrium). It depends only on E, I and the (effective) length, not on yield or ultimate strength, so higher-strength steel does not raise it.
+? A column has the same supports about both axes. About which axis does it buckle? || About the principal axis with the least moment of inertia (smallest radius of gyration r), i.e. the axis giving the largest slenderness ratio KL/r.
+? Give the effective-length factor K for pinned–pinned, fixed–free, fixed–fixed and fixed–pinned columns. || Pinned–pinned K = 1; fixed–free K = 2; fixed–fixed K = 0.5; fixed–pinned K = 0.7. Effective length Le = KL is the distance between inflection (zero-moment) points.
+? A pin-ended steel column 4 m long has E = 200 GPa and minimum I = 2 × 10⁶ mm⁴. Euler critical load? || ≈ 247 kN (Pcr = π²EI/L² = π²·200 000 MPa·2×10⁶ mm⁴ / (4000 mm)² = 246 740 N).
+? A pin-ended column has Euler load 100 kN. What is the critical load if both ends are instead fixed (same length and section)? || 400 kN. K drops from 1 to 0.5, and Pcr ∝ 1/(KL)², so it increases by 1/0.5² = 4.
+? A steel column (E = 200 GPa) has effective slenderness ratio KL/r = 100. Euler critical stress? || ≈ 197 MPa (σcr = π²E/(KL/r)² = π²·200 000 MPa / 100²). Valid only if below the proportional limit.
+? Why is the secant formula needed, and why must a factor of safety be applied to the load rather than the stress? || Real columns are loaded eccentrically or are crooked, so they bend from the start rather than buckling suddenly; the secant formula gives σmax. Stress is nonlinear in P (M = −P(e + v)), so loads cannot be superposed and the safety factor goes on the load.
+? When is Euler's formula invalid, and how is buckling of intermediate columns handled? || When σcr would exceed the proportional limit (short/intermediate columns, KL/r below the limit, e.g. ≈89 for A-36 steel). Use the tangent-modulus (Engesser) equation σcr = π²Et/(KL/r)² with Et = dσ/dε < E; codes use empirical formulas.
+
+@ 14
+? Why is external work ½PΔ for a gradually applied load, but PΔ′ when a load already in place moves through an added displacement Δ′? || Gradual loading on a linear-elastic body grows the force from 0 to P with Δ, so work is the triangular area (average force times displacement). An existing constant force does full P times the extra displacement (rectangular area), so no ½.
+? Is strain energy ever negative, and which strain-energy term is usually neglected in beams? || Never negative: σ and ε (τ and γ) always share a direction, so energy is positive even in compression. Transverse shear strain energy is usually neglected because bending energy is much larger for long slender beams.
+? A prismatic bar of length 2 m, area 500 mm², E = 200 GPa carries axial force 50 kN. Strain energy stored? || 25 J (U = N²L/2AE = 50 000² · 2000 / (2·500·200 000) = 25 000 N·mm).
+? A weight whose static deflection on a spring would be 2 mm is dropped from 48 mm above it. Impact factor and maximum deflection? || n = 8, Δmax = 16 mm. n = 1 + √(1 + 2h/Δst) = 1 + √(1 + 48) = 8; Δmax = nΔst.
+? A 500 N weight is released from rest just touching a spring of stiffness 50 N/mm (h = 0). Maximum spring deflection? || 20 mm. Δst = W/k = 10 mm, and a suddenly applied load (h = 0) gives Δmax = 2Δst.
+? What is the main limitation of using conservation of energy (Ue = Ui) to find a displacement? || Only one external force or couple may act, and only the displacement (or rotation) at that load in its own direction can be found; more loads add unknowns to the single equation.
+? In the unit-load (virtual work) equation for trusses, 1·Δ = Σ nNL/AE, what are n and N, and what does a negative Δ mean? || n is the member force caused by a virtual unit load applied at the joint along the desired displacement (real loads removed); N is the member force from the real loads (tension positive). Negative Δ means the joint moves opposite to the assumed unit load.
+? How do you use Castigliano's theorem to find deflection at a point where no load acts, and what material condition is required? || Place a fictitious force P at the point in the desired direction, write M (or N) in terms of P and real loads, compute Δ = ∫M(∂M/∂P)dx/EI, then set P = 0. Requires linear-elastic material at constant temperature (conservative system).
+</script>
+<script type="text/plain" id="quiz-gdt">
+@ 1
+? What is an engineering drawing, and what kinds of information does it typically contain? || A document or digital data file that precisely describes a part with pictures, words, numbers and symbols. Contents: geometry (shape, size, form), functional relationships, permitted tolerances, material/heat treat/coatings, and documentation data (part number, revision).
+? Why is an engineering drawing considered a legal document? || Combined with the purchase order it forms the customer–supplier contract, so it is the basis for part acceptance and payment; it can also be used as evidence in litigation.
+? How does product function relate to the tolerances a designer should put on a drawing? || Function decides how much variation each dimension can have; tolerances drive manufacturing and inspection cost, so the drawing should state, clearly and mathematically, the largest tolerances that function allows.
+? Where is the cheapest place to catch a drawing error, and roughly how does the cost change if it reaches the customer? || Cheapest in the design department (about 100–300 USD). Cost rises at each stage: prototyping ~500–2,000, production ~50,000–1,000,000, at the customer ~1M–100M USD (recalls, liability suits).
+? Name the four ways a drawing error costs an organization. || Money, time, material, and customer dissatisfaction (lost goodwill).
+? What are the two major global families of dimensioning and tolerancing standards, and which specific standard does this book follow? || ASME and ISO. The book follows ASME Y14.5-2009 (Dimensioning and Tolerancing). The two families look similar but differ in application and interpretation.
+? How does a dimensioning standard come to apply to a particular drawing, and where do you look to find it? || A standard applies only when the drawing invokes it. Look in the title block or the notes (e.g. "INTERPRET THIS DRAWING IN ACCORDANCE WITH ASME Y14.5-2009"), or in a document referenced on the drawing.
+? A drawing note invokes only the envelope standard ASME Y14.100. Does ASME Y14.5-2009 automatically apply? || No. Y14.100 invokes many standards, but Y14.5-2009 (like Y14.41 and Y14.8) applies only when named by its own identifier on the drawing or in a referenced document.
+
+@ 2
+? State the three purposes of dimensions and tolerances on a drawing. || (1) Communicate/document functional relationships; (2) influence manufacturing choices (machines, tools, fixtures, process sequence); (3) influence inspection choices (tools, setup, acceptance criteria).
+? Using metric conventions, how should you write four-tenths of a millimetre, a whole-number 56 mm dimension, and a nil tolerance? || 0.4 (leading zero before the decimal); 56 (no decimal point or trailing zeros); nil tolerance is a single 0 with no plus or minus sign.
+? Distinguish equal bilateral, unilateral and unequal bilateral tolerances. || Equal bilateral: same variation both directions (12.25 ±0.25). Unilateral: all variation in one direction, zero in the other (12 +0.5/0). Unequal bilateral: variation both directions but different amounts (12.2 +0.3/−0.2).
+? A dimension is 30 ±0.15 mm. What are its limits and its total tolerance? || Limits 30.15 mm and 29.85 mm; total tolerance 0.3 mm (t = upper − lower = 30.15 − 29.85).
+? A dimension reads 12.2 +0.3/−0.2 mm. Give the upper and lower limits and the total tolerance. || Upper 12.5 mm, lower 12.0 mm, tolerance 0.5 mm (12.2 + 0.3 = 12.5; 12.2 − 0.2 = 12.0; 12.5 − 12.0 = 0.5). The nominal 12.2 is not the mean of the limits.
+? A limit dimension is 26.2/26.0 mm. A part measures 26.2004 mm. Accept or reject, and why? || Reject. All limits are absolute: 26.2 is read as 26.2000…, so any value beyond it, however small, fails. Measurements are not rounded to the drawing's decimal places.
+? What is a basic dimension, and where does its tolerance come from? || A theoretically exact value for size, profile, orientation or true position (or gage info like datum targets). Its tolerance comes from a geometric tolerance in a feature control frame (gage tolerance for datum targets), never from title-block/general ± tolerances.
+? How do general notes, flag notes and local notes differ? || General notes apply to the whole drawing (numbered list). Flag notes are in the same numbered list but apply only where the flag symbol is placed. Local notes sit at the point of application and are not in the notes list.
+
+@ 3
+? What is coordinate tolerancing, and for which dimensions is it still acceptable? || Locating features/surfaces with linear ± dimensions (plus-minus, rectangular, direct tolerancing). Acceptable only for size dimensions, tangent radii and non-critical chamfers; locations and orientations should use GD&T (or the dimension origin symbol).
+? What six shortcomings of coordinate tolerancing does the mnemonic UNSAFE stand for? || Undefined measurement setup, No indication of measurement origin, Square/rectangular zones, Accumulation (stack-up), Fixed-size zones, Exact start point undefined.
+? A hole is located by X and Y dimensions, each ±0.25 mm. How far from true position can the hole axis be at a corner of the square zone? || 0.3535 mm (√(0.25² + 0.25²) = 0.25·√2). The zone is a 0.5 mm square.
+? A hole sits at the end of three chained dimensions from an edge, each ±0.25 mm. What is its worst-case location variation? || ±0.75 mm (1.5 mm total): chained tolerances accumulate, 3 × 0.25 = 0.75 each way.
+? A hole of size 8.8–9.2 mm has a position tolerance of ⌀0.7 mm at MMC. What position zone applies when the hole is produced at 9.2 mm? || ⌀1.1 mm (bonus = 9.2 − 8.8 = 0.4; 0.7 + 0.4 = 1.1). This removes the fixed-size-zone shortcoming.
+? How does GD&T remove the "undefined measurement setup" shortcoming? || Datum feature symbols identify which surfaces contact the gage, and the left-to-right order of datum letters in the feature control frame (e.g. A, B, C) gives the setup sequence: primary, secondary, tertiary.
+? What is the design philosophy behind GD&T? || Functional dimensioning: define the part by its fit/function requirements (while still considering manufacturing and inspection), rather than by how it will be made; non-critical areas may use process-based dimensions.
+? What is "the great myth" of GD&T, and why is it false? || The claim that GD&T raises part cost. It comes from fear of the unknown and poor ("wish list") tolerancing. Properly used, GD&T adds tolerance (cylindrical zones, bonus), communicates intent clearly and removes inspection disputes, so it saves money.
+
+@ 4
+? What is the difference between a radius (R) and a controlled radius (CR)? || Both have a zone between two arcs (min and max radius). R allows flats and reversals within the zone; CR requires a smooth curve with no flats or reversals (used, e.g., to limit stress concentration).
+? A feature is dimensioned SR 6 ±0.4 mm. Describe its tolerance zone. || The space between two spherical segments of radius 5.6 mm and 6.4 mm (6 − 0.4 and 6 + 0.4); the surface may have flats and reversals within it.
+? What are the two meanings of the ⌀ symbol? || In front of a dimension: the feature is circular/cylindrical in shape. In front of a tolerance in a feature control frame: the tolerance zone is cylindrical.
+? How do counterbore and spotface callouts differ regarding depth? || A counterbore is a flat-bottomed diameter that still requires a depth (or remaining thickness). A spotface gives the minimum diameter of the flat; if no depth is given, depth is the minimum needed to clean up to that diameter.
+? A callout reads 3X ⌀10.2 ±0.1 mm. How many holes, and what are their size limits? || Three holes (3X = three places), each 10.1 to 10.3 mm diameter (10.2 − 0.1 to 10.2 + 0.1).
+? What do R1 MAX and R1 MIN mean? || R1 MAX: radius may be from 0 up to 1 mm (largest acceptable limit, other limit usually zero). R1 MIN: radius at least 1 mm, up to as large as still fits on the part (e.g. a full radius).
+? Do title-block tolerances apply to MAX, MIN or reference dimensions? What is a reference dimension for? || No, title-block/general tolerances apply to none of them. A reference dimension (in parentheses) is for information only, normally untoleranced, never used for manufacturing or acceptance.
+? What does the dimension origin symbol mean, and is it equivalent to a datum feature symbol? || A small circle replacing one arrowhead: measurement starts from a plane set on that surface's high points, and the other surface must lie in the resulting zone. It is NOT equivalent to a datum feature symbol.
+
+@ 5
+? What is the difference between a feature and a feature of size, and why does the distinction matter? || A feature is any physical portion of a part (think "a surface"). A feature of size has opposed elements and a directly toleranced size dimension. Only features of size can take MMC/LMC modifiers, bonus and virtual condition, and Rule #1 applies only to regular features of size.
+? What makes a feature of size "regular" versus "irregular"? || Regular: one cylindrical or spherical surface, a circular element, or two opposed parallel elements/surfaces with a directly toleranced size. Irregular: a feature or collection that can contain or be contained by an actual mating envelope (type A or B); not covered by Rule #1, so it needs profile or other geometric controls.
+? What is the difference between an unrelated and a related actual mating envelope (AME)? || Unrelated AME: the perfect counterpart (smallest around external, largest inside internal) with no datum constraint; each feature of size has exactly one; used for the tolerance portion at RFS. Related AME: constrained in orientation and/or location to datums; can be several, used for secondary/tertiary datum features.
+? What does RFS mean, what symbol indicates it, and when does it apply? || Regardless of Feature Size: the geometric tolerance is the same at whatever size the feature is produced (no bonus). It has no symbol; it is the default for all geometric tolerances unless M or L is shown.
+? What is a simultaneous requirement for patterns? || Two or more geometric tolerances with identical datum references (same datums, same order, same modifiers) are treated as one pattern, so, e.g., two hole patterns each positioned to A then B must be checked together as a single pattern.
+? A pin is dimensioned ⌀25 ±0.05 mm. What are its MMC and LMC? || MMC = ⌀25.05 mm (largest size, most material for an external feature); LMC = ⌀24.95 mm (smallest size).
+? A hole has limits ⌀10.0–10.4 mm. What are its MMC and LMC? || MMC = ⌀10.0 mm (smallest hole holds the most material); LMC = ⌀10.4 mm (largest hole).
+? A width of 10.3 ±0.2 mm has a flatness 0.4 mm frame applied to its size dimension at RFS. What is its worst-case outer boundary? || 10.9 mm (OB = MMC + tol = 10.5 + 0.4). The derived median plane must be flat within 0.4 regardless of produced size.
+
+@ 6
+? Into which five types are the 14 geometric characteristic symbols grouped? || Form, profile, orientation, location and runout.
+? Name the four form tolerances. Can a form tolerance ever reference a datum? || Straightness, flatness, circularity and cylindricity. No, form tolerances never use a datum reference.
+? Which tolerance types always require a datum reference, and which may be used with or without one? || Always: orientation (angularity, perpendicularity, parallelism), runout (circular, total), concentricity and symmetry. Sometimes (with or without): profile of a line/surface, and position (e.g. pattern-only). Form: never.
+? The circled M modifier can appear after a tolerance value or after a datum letter in a feature control frame. What does it mean in each place? || After a tolerance value it means MMC (maximum material condition). After a datum letter it means MMB (maximum material boundary).
+? What are the five geometry attributes of a surface or feature of size? Give one example of a tolerance controlling several. || Size, location, orientation, form and surface texture. E.g. position controls location and indirectly orientation and form (Rule #1 also gives indirect form control via size). Flatness controls only form.
+? Describe the compartments of a feature control frame and what a ⌀ before the tolerance value means. || Cell 1: geometric characteristic symbol; cell 2: tolerance value with modifiers; cells 3–5: datum references (primary, secondary, tertiary) if used. ⌀ means a cylindrical zone; without it, parallel planes/lines or a uniform boundary. The value is always a total, never ± about nominal.
+? How does placement of a feature control frame decide whether it controls a surface or a feature of size? || Attached to an extension line or leader pointing to the surface: it controls the surface (feature). Placed beside/below the size dimension or attached to its dimension line/leader: it controls the feature of size (axis or median plane, worst-case boundary).
+? What does the continuous feature symbol ⟨CF⟩ do, and how does it differ from just joining surfaces with an extension line? || ⟨CF⟩ makes two or more interrupted features (or same-size features of size) one feature, e.g. one flatness zone or one Rule #1 boundary. A plain extension line only says surfaces are nominally in line, not that they form one surface.
+
+@ 7
+? State Rule #1 (the envelope principle). || The form of an individual regular feature of size is controlled by its limits of size: surfaces may not cross a boundary of perfect form at MMC, so at MMC the feature must have perfect form. Form deviation allowed grows as local size departs from MMC.
+? What does Rule #1 NOT control? || Location, orientation, and relationships between features (e.g. perpendicularity between features, coaxiality of two diameters). These need geometric tolerances such as position or perpendicularity.
+? Name the two exceptions to Rule #1 and the three ways to override it. || Exceptions: nonrigid parts in the free (unrestrained) state, and stock sizes (bar, tube, sheet). Overrides: straightness applied to a cylindrical size dimension, flatness applied to a planar size dimension, or the independency symbol (circled I).
+? State Rule #2. || RFS applies to each tolerance and RMB to each datum reference when no modifying symbol is shown; MMC/LMC (or MMB/LMB) must be specified to override it, and only for that frame cell.
+? Under the fundamental dimensioning rules, at what temperature and in what state do dimensions apply by default? || At 20 °C (68 °F), in the free state (unless a restraint note says otherwise), over the full extent of the feature, and only at that drawing level.
+? A plate is toleranced 10.8/10.2 mm thick with no geometric tolerance. How much flatness deviation does Rule #1 allow when the plate is at LMC everywhere? || 0.6 mm (MMC − LMC = 10.8 − 10.2). At MMC (10.8) it must be perfectly flat.
+? A pin is ⌀16.0–16.6 mm. At a cross-section with actual local size 16.2 mm, how much form deviation does Rule #1 allow? || 0.4 mm (|MMC − actual local size| = 16.6 − 16.2).
+? A hole is ⌀10.0–10.4 mm. What sizes are the GO and NOGO gages, and how is each used? || GO pin ⌀10.0 mm (MMC), at least as long as the hole; it must pass in, checking the Rule #1 envelope over the full length. NOGO ⌀10.4 mm (LMC); it must not enter, checked one cross-section at a time (both ends of the hole).
+
+@ 8
+? What is a worst-case boundary, and which three boundaries does the term cover? || A general term for the extreme boundary a feature of size may occupy, used for assembly checks, gage design and tolerance stacks. It covers the inner boundary, the outer boundary and the virtual condition.
+? Generally, how does attaching a feature control frame to a surface versus to a size dimension affect the worst-case boundary? || On a surface it usually leaves the worst-case boundary unchanged (still the Rule #1 MMC boundary). On a size dimension it changes it, creating a boundary of MMC ± the geometric tolerance.
+? Define virtual condition and give its formulas for external and internal features. || A fixed-size boundary from the combined effect of the feature's MMC (or LMC) and its geometric tolerance at that condition. External: VC = MMC + tol. Internal: VC = MMC − tol.
+? Which geometric tolerances may receive bonus tolerance, and which may not? || Allowed (with M or L, on a feature of size): flatness, straightness, orientation and position. Not allowed: circularity, cylindricity, profile, symmetry, concentricity and runout.
+? What is a functional gage, and what does it NOT check? || A fixed-limit (attribute) gage built at virtual condition size with datum simulators; the part is set in the datum reference frame and must not violate the VC (external passes into, internal passes over). Pass/fail only; size limits must still be checked separately.
+? A pin with limits ⌀12.2–12.7 mm has straightness ⌀0.02 mm applied to its size dimension at RFS. What is its worst-case outer boundary? || ⌀12.72 mm (OB = MMC + tol = 12.7 + 0.02). On the surface instead, it would stay ⌀12.7.
+? A hole with limits ⌀13.2–13.6 mm has perpendicularity ⌀0.3 mm at MMC. What is its virtual condition? || ⌀12.9 mm (internal VC = MMC − tol = 13.2 − 0.3).
+? A hole ⌀10.0–10.4 mm has position ⌀0.2 mm at MMC. Its actual mating envelope is ⌀10.3 mm. What are the bonus and total position tolerance? || Bonus 0.3 mm (10.3 − 10.0); total ⌀0.5 mm (0.2 + 0.3). Maximum bonus at LMC would be 0.4.
+
+@ 9
+? What is the shape of a flatness tolerance zone, and may a flatness frame reference a datum? || Two parallel planes separated by the tolerance value (oriented to best fit the surface's high and low points). Never: a datum reference in a flatness frame is always illegal.
+? How does frame placement change what a flatness tolerance controls? || Leader to the surface or frame on its extension line: the surface itself must lie in the zone. Frame beside/below the size dimension of a planar feature of size: the derived median plane is controlled, and Rule #1 is overridden.
+? When flatness is applied to a surface and Rule #1 applies, how must its value compare to the size tolerance? When can it be larger? || It must be smaller than the size tolerance (a refinement of Rule #1). It may be larger when Rule #1 does not apply: flatness on a size dimension (median plane), independency, or stock sizes.
+? What does the CARE test check for a flatness callout? || Check datums (none allowed); Assess the application (a planar surface or planar feature of size); Review modifiers (free state, ST, and M/L only on a feature of size); Evaluate the value (refines Rule #1 when applied to a surface).
+? How is surface flatness verified with a surface plate and dial indicator? || Rest the part on its high points on the plate, zero the indicator to the plate level, move the part around and read the low points; the max reading must not exceed the tolerance. Datums/setup orientation must not bias it; size and Rule #1 are checked separately.
+? A plate is 10.2–10.6 mm thick with no flatness callout. At a spot with actual local size 10.5 mm, how much flatness deviation does Rule #1 permit? || 0.1 mm (|MMC − actual local size| = 10.6 − 10.5). Zero at MMC, up to 0.4 at LMC.
+? A width of 10.3 ±0.2 mm has flatness 0.4 mm at MMC on its size dimension. What is the virtual condition, and the total flatness allowed at LMC? || VC = 10.9 mm (MMC + tol = 10.5 + 0.4). At LMC (10.1) total = 0.8 mm (0.4 + bonus 0.4).
+? An external width of 4.2 ±0.1 mm has flatness 0.2 mm at MMC on its size. What gap size should the functional gage have? || 4.5 mm (VC = MMC + tol = 4.3 + 0.2); the gage is full length/width and the part must pass through it. Size limits are checked separately.
+
+@ 10
+? What are the two possible straightness tolerance zones, and what decides which applies? || Two parallel lines (each surface line element, separately) when the frame is attached by leader/extension line to the surface; a cylinder (⌀ zone) for the derived median line when the frame is placed with the diameter size dimension.
+? What is a derived median line? || An imperfect line through the center points of all cross sections of a cylindrical feature, each section taken perpendicular to the axis of the unrelated actual mating envelope.
+? May straightness be applied to a width (planar feature of size)? If not, what is used instead? || No. Straightness applies only to line elements of a planar/cylindrical surface or a single cylindrical feature of size. For a width, use flatness (e.g. flatness at MMC on the size dimension, per the 2009 standard).
+? Does a surface-element straightness tolerance control taper? What checks apply alongside it? || No, it does not limit taper (or surface texture). Three separate checks apply: two-point local sizes, the Rule #1 MMC envelope, and straightness of each line element (value must be less than the size tolerance if Rule #1 applies).
+? Name four implications of straightness at MMC applied to a cylindrical feature of size. || Rule #1 is overridden (value may exceed size tolerance), bonus tolerance is allowed, a functional gage at virtual condition may be used, and the function is usually assembly. The ⌀ symbol is required.
+? A pin is ⌀16.0–16.6 mm with no straightness callout. How much median-line straightness deviation does Rule #1 allow when the pin is produced at ⌀16.3 mm? || 0.3 mm (departure from MMC = 16.6 − 16.3). Zero at MMC 16.6, up to 0.6 at LMC 16.0.
+? A pin ⌀19.7–19.9 mm has straightness ⌀0.05 mm at MMC on its size. Give the virtual condition and the total straightness allowed at LMC. || VC = ⌀19.95 mm (MMC + tol = 19.9 + 0.05). At LMC: 0.25 mm total (0.05 + bonus 0.2).
+? A hole ⌀20.0–20.2 mm has straightness ⌀0.1 mm at MMC on its size. What size gage pin verifies it, and how long must the pin be? || ⌀19.9 mm (internal VC = MMC − tol = 20.0 − 0.1), at least as long as the hole; the hole must fit over it. Size is checked separately with two-point measurements.
+
+@ 11
+? Describe the circularity tolerance zone and how it is applied along a feature. || Two coaxial circles a radial distance apart equal to the tolerance, in each cross section perpendicular to the axis or spine (through a common center for a sphere). Each circular element is checked independently; no datum is used.
+? Why is a ⌀ symbol never placed before a circularity tolerance value? || Because the zone is a radial width between two coaxial circles, not a diameter.
+? Which modifiers may be used with circularity? Is bonus tolerance possible? || Only free state (F) and statistical (ST). No ⌀, no M or L, so no bonus tolerance.
+? Where should a circularity feature control frame be attached? || By a leader to the surface or to its extension line (surface elements of a surface of revolution), never to the size dimension.
+? What does circularity NOT control? || Straightness of the elements, taper, and the median line/axis position (or bending); sections are independent. Surface texture is also excluded.
+? A shaft is ⌀10.0–10.2 mm and Rule #1 applies. A designer specifies circularity 0.5 mm. Is this a meaningful control? Why? || No. Rule #1 already limits circularity to the size tolerance (0.2 mm), so a specified value must be smaller than 0.2 to be a refinement; 0.5 adds nothing.
+? Name two typical functional reasons for specifying circularity. || Any two of: rolling characteristics (wheels, cam followers), sealing surfaces (engines, pumps, valves), appearance (plates, cups), performance (bearings, gears, saw blades, lenses).
+? How is circularity verified, and what is the default assessment method? || Trace (or collect points on) each circular element normal to the axis with a roundness gage (precision spindle/turntable, probe, polar chart), at several sections, then fit two coaxial circles. Default is minimum radial separation (MRS, per ASME B89.3.1); alternatives LSC, MCC, MIC.
+
+@ 12
+? Describe the cylindricity tolerance zone. || Two coaxial cylinders a radial distance apart equal to the tolerance value; the entire surface must lie between them simultaneously. No datum is used.
+? How does cylindricity differ from circularity? || Circularity checks each cross section independently (so allows taper and bending). Cylindricity applies to the whole surface at once about one common axis, so it controls circularity, straightness of elements and taper together.
+? Can a cylindricity tolerance override Rule #1? What does that imply for its value? || No. When Rule #1 applies it must be smaller than the size tolerance (a refinement). It can be larger only where Rule #1 does not apply (independency, stock size).
+? Which modifiers are allowed with cylindricity, and is bonus tolerance possible? || Only free state (F) and statistical (ST). No ⌀ and no material condition modifier, so no bonus.
+? Where is the cylindricity feature control frame attached? || By a leader to the cylindrical surface or its extension line, never to the diameter (size) dimension.
+? With no cylindricity callout, how much cylindricity deviation does Rule #1 allow on a ⌀12.0–12.8 mm feature, and at what size is it reached? || 0.8 mm, equal to the size tolerance (12.8 − 12.0), reached at LMC. At MMC the surface must be a perfect cylinder.
+? Give two typical applications for a cylindricity tolerance. || Any two of: support surfaces (spread load, reduce wear), sealing surfaces (e.g. lip seals on actuator shafts), bearing journals.
+? How is cylindricity verified, and which three checks apply to the part? || A cylindricity gage (roundness gage whose probe also moves axially) traces a spiral over the whole surface; find the smallest radial separation of two coaxial cylinders containing all points. Checks: size dimension, Rule #1 MMC boundary, and cylindricity.
+
+@ 13
+? What is an implied datum, and what problems does it cause? || An origin (plane, axis, point) assumed by the inspector rather than specified. The drawing does not say which surfaces contact the equipment or in what order, so good parts may be rejected and bad parts accepted depending on setup.
+? Distinguish a datum feature from a datum. || Datum feature: a real part feature (or feature of size) identified by a datum feature symbol or datum target. Datum: a theoretically exact point, axis, line or plane derived from the theoretical datum feature simulator.
+? What is the difference between a theoretical and a physical datum feature simulator? || Theoretical: a perfect boundary (e.g. tangent plane, MMB/LMB/RMB, actual mating envelope) with perfect form and exact orientation. Physical: real gage equipment (surface plate, fixed pin, chuck, collet); it establishes a simulated datum.
+? How many degrees of freedom does a free rigid part have, and which does a planar primary datum feature constrain? || Six: three translations (X, Y, Z) and three rotations (u, v, w). A planar primary datum constrains three: translation along Z and rotation about X and Y.
+? In the frame position ⌀0.4 (M), datums A, B, C, what does the order of the datum letters mean, and what does each plane constrain with planar datums? || Left to right = contact order: A primary (≥3 points; Z translation, rotation about X and Y), B secondary (≥2 points; rotation about Z, translation along Y), C tertiary (≥1 point; translation along X).
+? State the 3-2-1 Rule. When does it apply? || Minimum contact points are 3 on the primary, 2 on the secondary and 1 on the tertiary datum plane. It applies only when all datum features are planar.
+? On what basis should datum features be selected? Give an example. || Function and assembly: surfaces that orient (seat) and locate the part against its mating part. E.g. a cover mounting on face A and piloted by diameter B: bolt holes positioned to A primary, B secondary.
+? Should a plain size dimension (e.g. 36.0–36.2 mm length) be measured with the part mounted in the datum reference frame? Why? || No. Only dimensions tied to a DRF by geometric tolerances and basic dimensions are measured in it. Size, radii and chamfers are two-point/non-datum-related; measuring from a datum plane adds orientation error and may reject good parts.
+
+@ 14
+? What does a datum target symbol specify — a feature of the part, or something else? || It specifies the shape, size and location of the datum feature simulator (the gage contact), not the part; datum targets describe the gage.
+? Name two situations where datum targets are used instead of an entire surface as the datum feature. || Any two: the whole surface is impractical (castings, forgings, weldments, large, warped or irregular parts); the part would rock or wobble on the simulator; only part of the feature is functional.
+? How are a datum target point, a datum target line and a datum target area each drawn? || Point: an X (two lines at 90°). Line: a phantom line (shown as an X in an edge view). Area: a crosshatched area inside a phantom outline.
+? On a datum target symbol, what goes in the bottom half and in the top half, and what does a dashed leader mean? || Bottom: datum letter and target number (e.g. A1). Top: target area size when applicable. Dashed leader: target is on the hidden (far) side; solid means near side.
+? Which gage element typically simulates a target point, a target line and a target area? || Point: spherical-tipped pin. Line: side of a cylindrical pin (datum at its tangent). Area: flat-tipped pin shaped to the area.
+? For planar datum features forming a full datum reference frame, how many target points are typically used for the primary, secondary and tertiary datums? || Primary 3 points, secondary 2 points, tertiary 1 point (six in all, constraining all six degrees of freedom).
+? How should datum target sizes and locations be dimensioned, and why? Is datum A from targets A1, A2, A3 alone a repeatable setup? || Basic dimensions (gage tolerances apply), minimizing gage-to-gage variation. No — secondary and tertiary references are normally needed to constrain all six DOF and give one orientation and location.
+? When may a datum target simulator move off its basic location, and in which direction does it move by default? || When the movable datum target symbol is shown (also targets on a feature of size at RMB, or a translation modifier). It moves normal to the part surface unless another direction is specified.
+
+@ 15
+? What datum does a feature of size datum feature yield for a cylinder, a width and a sphere? || Cylinder: datum axis. Width: datum center plane. Sphere: datum center point. Each is taken from the datum feature simulator (its axis, center plane or center).
+? A size datum feature is referenced with no modifier. Which boundary condition applies, by which rule, and how does the simulator behave? || RMB, by Rule #2. The simulator is adjustable: it moves from MMB toward LMB until it makes maximum contact with the feature's high points.
+? Why is there no datum feature shift when a size datum feature is referenced at RMB? || The adjustable simulator always contacts the datum feature (high points), so there is no clearance or looseness between part and simulator, hence nothing to shift.
+? Where must a datum feature symbol never be attached when the intended datum is an axis? Name one correct place. || Never on a center line. Correct: in line with or on the size dimension line, touching the diameter surface, on the leader shelf of the size dimension, or on the feature's FCF.
+? How many DOF does a primary cylindrical datum feature at RMB constrain, and which remain free? Why are V-blocks poor simulators for it? || 4 DOF (two translations, two rotations); translation along and rotation about the axis stay free. V-blocks don't simulate the minimum circumscribed / maximum inscribed cylinder (actual mating envelope).
+? A width is the primary datum feature at RMB. What simulates it, what datum results, and how many DOF are constrained? || Adjustable (expanding or contracting) parallel plates contacting the high points; a datum center plane; 3 DOF (one translation, two rotations). The width must be long enough to orient the part.
+? Plane A primary and hole B secondary at RMB: how many DOF are constrained, and what does adding width C at RMB as tertiary do? || A plus B constrain 5 DOF (rotation about axis B still free). Tertiary width C, simulated by adjustable plates centered through axis B, stops that rotation, so all 6 DOF are constrained.
+? Two short coaxial diameters are referenced together as A-B. Is that a primary plus a secondary datum? How many DOF does it constrain? || No — A-B is a single primary datum axis from simulators contacting both features simultaneously about a common axis. It constrains 4 DOF (two translations, two rotations).
+
+@ 16
+? What changes in the datum feature simulator when a size datum feature is referenced at MMB instead of RMB? || At MMB the simulator is fixed in size (at the MMB value), not adjustable; clearance can exist between part and gage, permitting datum feature shift. At RMB it adjusts to full contact.
+? Define datum feature shift, and state when it is zero and when it is largest. || The allowable looseness between a datum feature and its fixed-size MMB simulator. Zero when the datum feature is at MMB; largest when it is at LMB (least material). Not available at RMB.
+? Is datum feature shift always additive to the tolerance? Compare a single coaxial feature with a hole pattern referenced to an MMB datum. || No. Single coaxial feature: shift is fully additive. Pattern: shift moves the whole pattern as a group but does not loosen hole-to-hole spacing (features gaged simultaneously).
+? Holes are referenced to face B primary and shaft A secondary. What differs between A at RMB and A at MMB in the gage and result? || Face B orients the part in both. At RMB, A uses an adjustable simulator and there is no shift. At MMB, A uses a fixed-size gage at its MMB, so datum feature shift is permitted.
+? A primary datum shaft is ⌀16.0–16.6 mm with straightness ⌀0.4 mm at MMC. What is its MMB? || ⌀17.0 mm (external: MMB = MMC + straightness = 16.6 + 0.4).
+? A secondary datum hole is ⌀50 ±0.2 mm with perpendicularity ⌀0.1 mm at MMC to A. What is its MMB? || ⌀49.7 mm (internal: MMB = MMC − orientation tol. = 49.8 − 0.1).
+? A datum shaft is referenced at an MMB of ⌀12.6 mm and actually measures ⌀12.0 mm. Maximum diametral datum feature shift? || 0.6 mm (shift = MMB − actual size = 12.6 − 12.0).
+? A coaxial diameter has position ⌀1.0 mm at MMC to datum A at MMB. The feature is 0.4 mm from its MMC and datum A is 0.6 mm from its MMB. Total possible tolerance? || ⌀2.0 mm (1.0 geometric + 0.4 bonus + 0.6 datum shift; shift is additive for a coaxial feature).
+
+@ 17
+? Which degrees of freedom does a perpendicularity tolerance constrain? Can it control location or size, and does it need a datum? || Only rotational DOF (orientation). It cannot control location or size. A datum reference is always required.
+? What are the two possible perpendicularity tolerance zone shapes, and how is each oriented? || Default: two parallel planes. With ⌀ before the value: a cylinder. Either zone is perpendicular to the primary datum referenced.
+? Give two shortcomings of leaving an implied 90° angle to a general ± angle note instead of using perpendicularity. || Any two: wedge-shaped zone that grows with distance from the origin; no datum sequence, so different setups and results; often overlooked; common inspection methods don't match the angular definition.
+? Perpendicularity 0.2 is applied to a planar surface. What else does it limit, and how does the tangent plane modifier (T) change that? || It also limits flatness to 0.2 (all surface points must lie in the zone). With (T) only the tangent plane through the high points must lie in the zone, so flatness is not controlled.
+? A hole has position ⌀0.4 to A, B, C and also a perpendicularity tolerance to A. What must be true of the perpendicularity value? || It must be a refinement — smaller than 0.4 — because position already limits orientation; otherwise it adds nothing and fails the CARE test (E step).
+? A hub ⌀50.0–50.2 mm has perpendicularity ⌀0.05 mm at MMC to A. What is its virtual condition? || ⌀50.25 mm (external: VC = MMC + tol. = 50.2 + 0.05).
+? A hole ⌀50 ±0.2 mm has perpendicularity ⌀0.1 mm at MMC to A and measures ⌀50.1 mm. Total allowed perpendicularity tolerance? || ⌀0.4 mm (MMC 49.8; bonus 50.1 − 49.8 = 0.3; total 0.1 + 0.3). VC stays ⌀49.7.
+? A slot 6.4–6.8 mm wide has perpendicularity 0.1 mm at MMC to A. What are its virtual condition and its total tolerance at LMC? || VC 6.3 mm (6.4 − 0.1); total at LMC 0.5 mm (0.1 + bonus 6.8 − 6.4 = 0.4).
+
+@ 18
+? With no parallelism tolerance, what controls the parallelism of the two sides of a planar width, and what are its two weaknesses? || Rule #1 with the size limits. Weaknesses: parallelism can be no tighter than the size tolerance, and there is no datum, so inspectors may use different sides.
+? Does parallelism control the location of a feature? Describe its tolerance zones. || No — it constrains only rotation; the zone can translate but not rotate. Zone: two parallel planes (default) or a cylinder with ⌀, parallel to the primary datum.
+? Is a parallelism callout with no datum reference standard-compliant? Which CARE step does it fail? || No. Parallelism always requires a datum (C step: check for datums). The feature must also be drawn nominally parallel to the primary datum.
+? A surface has parallelism 0.1 to A, and the part height is 21.8–22.2. Where can the zone sit, and is flatness controlled? || The 0.1 zone can float anywhere within the 21.8–22.2 size limits (location not controlled). Flatness is limited to 0.1, unless the tangent plane modifier (T) is used.
+? How is parallelism of a surface typically verified, and what must the method ignore? || Rest datum feature A on a surface plate (simulator) and sweep a dial indicator over the surface; full indicator movement must be ≤ the tolerance. The method must ignore the surface's height (location).
+? A hole is ⌀10.2–10.6 mm with parallelism ⌀0.1 mm at MMC to A. What is its virtual condition? || ⌀10.1 mm (internal: VC = MMC − tol. = 10.2 − 0.1).
+? A hole ⌀10.2–10.6 mm has parallelism ⌀0.1 mm at MMC to A and measures ⌀10.4 mm. Allowed parallelism tolerance? || ⌀0.3 mm (0.1 + bonus 10.4 − 10.2 = 0.2).
+? The same ⌀10.2–10.6 mm hole instead has parallelism ⌀0.1 mm with no modifier and measures ⌀10.5 mm. Allowed tolerance? || ⌀0.1 mm — no modifier means RFS (Rule #2), so the zone is fixed and there is no bonus.
+
+@ 19
+? Define angularity tolerance. Must the angle be basic, and does angularity control location? || Limits deviation of a surface, axis or center plane from a basic angle to a datum. The angle must be basic (± angle with angularity fails CARE). Controls orientation (plus form on surfaces), never location; datum required.
+? Angularity 0.3 to datum A only, at 45° on a surface: what freedom remains for the zone, and how is it removed? || The zone can still rotate about datum A's normal. Adding datum B (zone also at 90° to B) locks that remaining rotation.
+? What is the alternative practice for angularity in Y14.5-2009, and what does the author advise? || Angularity may replace perpendicularity or parallelism using an implied basic angle of 90° or 0°. The author advises against it because it makes drawings harder to read; use the conventional symbol.
+? A surface is located by a profile tolerance with basic angles to the same DRF as an angularity callout on it. What must be true of the angularity value? || Profile (or position) already limits angularity indirectly, so the angularity value must be smaller than the location tolerance (a refinement), or it adds nothing.
+? For angularity at MMC on a hole, from which envelope is bonus tolerance calculated? || From the related actual mating envelope (oriented at the basic angle to the datums), not the unrelated actual mating envelope.
+? A hole ⌀4.2 ±0.2 mm has angularity ⌀0.2 mm at MMC to A. Virtual condition? || ⌀3.8 mm (internal: VC = MMC − tol. = 4.0 − 0.2).
+? A hole ⌀4.2 ±0.2 mm has angularity ⌀0.2 mm at MMC; its related actual mating size is ⌀4.3 mm. Allowed angularity tolerance? || ⌀0.5 mm (0.2 + bonus 4.3 − 4.0 = 0.3).
+? A sine bar has rolls 100 mm apart. What gage block stack height sets it to 30°? || 50 mm (H = L·sin θ = 100 × sin 30° = 100 × 0.5).
+
+@ 20
+? What is true position, and how is it established? || The theoretically exact location of a feature of size (its center point, axis or center plane), established by basic dimensions, specified or implied (e.g. 0 offset or 90°).
+? State the four requirements of a position tolerance. || Applies only to a feature of size; true position set by basic dimensions; datum references required (except coaxial features or a composite lower segment); RFS/RMB by default (Rule #2) unless (M) or (L) is stated.
+? Which material condition suits assembly, minimum distance, and alignment/centering, and which is cheapest? || Assembly: MMC (bonus, functional gage, lowest cost). Minimum distance (wall thickness): LMC. Alignment or centering: RFS (fixed zone, no bonus, highest cost).
+? Which interpretation applies to position at MMC versus RFS? || MMC (or LMC): surface interpretation — the feature surface must not violate a virtual condition boundary at true position. RFS: axis interpretation — the unrelated AME axis or center plane lies in a fixed zone.
+? Is position legal on a plane surface, or with a ± toleranced location dimension? || No to both. Position applies only to features of size, and true position must be defined by basic dimensions; either case fails the CARE test.
+? A hole has MMC ⌀4.0 mm and position ⌀0.2 mm at MMC. Virtual condition? || ⌀3.8 mm (internal: VC = MMC − position tol. = 4.0 − 0.2).
+? A tab has MMC width 6.6 mm and position 0.2 mm at MMC. Virtual condition? || 6.8 mm (external: VC = MMC + position tol. = 6.6 + 0.2).
+? A ±0.25 mm coordinate tolerance gives a 0.5 mm square zone. What diameter round zone passes through its corners, and how much more area is that? || ⌀0.707 mm (√2 × 0.5); about 57% more area (π × 0.354² ≈ 0.393 vs 0.25 mm²).
+
+@ 21
+? List the conditions that apply to a position tolerance at RFS. || No bonus; axis or center plane interpretation; zone located and oriented by basic dimensions; variable measurement (e.g. CMM); controls both location and orientation. Size limits still apply.
+? Four holes are positioned at MMC to planar datums A, B and C. Is datum feature shift available? Why? || No. The datums are planar surfaces, not features of size at MMB, so there is no shift; only bonus from the hole sizes.
+? Two equal-size coaxial diameters are positioned at MMC to each other with no datum reference. Is datum feature shift available? || No. They act as an implied self-datum; their size departure is already used for bonus, so no datum shift is added. They are related only to each other.
+? How is position at MMC verified with a functional gage, and what kind of data does it give? || Gage holds datum simulators plus pins at virtual condition size; if every pin enters, the part passes. Attribute (pass/fail) data only. Size checked separately; gaging is optional (CMM also allowed).
+? Outline CMM inspection of a hole's position at RFS. || Set up the DRF in FCF order by probing the datum simulators 3-2-1; probe a best-fit gage pin near each end to get the axis; check that the axis (intersected with the top plane) lies in the zone at true position.
+? A hole ⌀6.0–6.4 mm has position ⌀0.2 mm at RFS. Worst-case boundary, and bonus at ⌀6.3 mm? || Worst-case boundary ⌀5.8 mm (MMC − tol. = 6.0 − 0.2). No bonus at RFS: zone stays ⌀0.2.
+? A hole ⌀6.0–6.4 mm has position ⌀0.4 mm at MMC to A, B, C. Virtual condition and total tolerance at LMC? || VC ⌀5.6 mm (6.0 − 0.4); total ⌀0.8 mm at LMC (0.4 + bonus 6.4 − 6.0 = 0.4).
+? An ID ⌀16.2–16.4 mm has position ⌀0.5 mm at MMC to OD datum A at MMB ⌀20.1 mm (OD LMC ⌀20.0 mm). Both at LMC: total tolerance? || ⌀0.8 mm (0.5 + bonus 0.2 from 16.4 − 16.2 + datum shift 0.1 from 20.1 − 20.0). VC ⌀15.7.
+
+@ 22
+? What is a projected tolerance zone, when is it used, and how tall should it be? || The position zone moved outside the hole to a stated height. Used on threaded or press-fit holes so tilt inside the hole can't make the fastener hit the mating part. Height = maximum thickness of the mating part.
+? Lower segment of a multiple single-segment position frame vs a composite frame: which one can locate the pattern to its datums? || Multiple single-segment: yes, the lower segment can also locate (translate) relative to the datums it cites. Composite: no, the lower segment (FRTZF) controls only rotation, i.e. spacing and orientation.
+? Why is the diameter symbol omitted in bidirectional position tolerancing? || Each of the two frames controls one direction, so the resulting zone is rectangular (noncylindrical), not round.
+? What does the keyword BOUNDARY mean under a slot position tolerance? || Only a surface (boundary) interpretation exists — no axis interpretation; the slot surface must not violate the boundary. Under Y14.5-2009 (M) on such a feature already implies this.
+? When is position at LMC used, and how does its bonus behave? || To protect a minimum distance (wall thickness, edge distance, machining stock). Bonus is zero at LMC and grows toward MMC (maximum at MMC). It reverses Rule #1: perfect form required at LMC.
+? A slot has length MMC 10.0 mm with position 1.0 mm at MMC, and width MMC 4.2 mm with position 0.2 mm at MMC. Virtual condition boundary? || 9.0 × 4.0 mm slotted boundary (10.0 − 1.0 long, 4.2 − 0.2 wide), at true position.
+? An OD ⌀24.2–24.8 mm has position ⌀0.2 mm at LMC to A. Inner boundary and maximum bonus? || Inner boundary ⌀24.0 mm (LMC − tol. = 24.2 − 0.2). Max bonus 0.6 mm at MMC (24.8 − 24.2).
+? A hole ⌀8.2–8.9 mm has position ⌀0 at MMC. Virtual condition, and total position tolerance at LMC? || VC ⌀8.2 mm (8.2 − 0). Total ⌀0.7 mm at LMC (0 + bonus 8.9 − 8.2).
+
+@ 23
+? Distinguish a fixed fastener assembly from a floating fastener assembly. || Fixed: the fastener is held in one part (threaded or pressed) and passes through clearance holes in the other. Floating: both parts have clearance holes, and the bolt and nut can move in either part.
+? In the fastener formulas, what do H and F stand for? || H = MMC (smallest size) of the clearance hole. F = MMC of the fastener, i.e. its maximum diameter (thread major diameter).
+? In a fixed fastener joint, which material condition is used on the clearance holes and on the threaded holes, and what does the formula assume about the threaded holes? || Clearance holes at MMC; threaded holes RFS (threads self-center). The formula assumes a projected tolerance zone on the threaded holes; otherwise use the Y14.5 Appendix B formulas.
+? Under what worst-case condition do the fastener formulas give zero clearance? || Holes at MMC and located at the extremes of their tolerance zones (virtual condition extremes), with the fastener at its MMC.
+? What do the fastener formulas ignore, and what should the designer do about it? || They assume a perfect fastener: they ignore shank bending/straightness and thread-to-shank runout. Reduce the calculated tolerances to allow margin for these.
+? Floating fastener: M6 bolts (F = 6.0 mm) pass through ⌀6.8 mm MMC holes in both plates. Position tolerance for each plate? || ⌀0.8 mm each (T = H − F = 6.8 − 6.0).
+? Fixed fastener, equal split: clearance hole MMC ⌀14.4 mm, fastener ⌀14.0 mm. Position tolerance for each part? || ⌀0.2 mm each (T = (H − F) / 2 = 0.4 / 2).
+? Fixed fastener with H − F = 0.4 mm, split 75% to the threaded holes and 25% to the clearance holes. T1 and T2? || Threaded holes T1 = ⌀0.3 mm, clearance holes T2 = ⌀0.1 mm (T1 + T2 = H − F = 0.4).
+
+@ 24
+? What is runout, and which material condition and modifiers apply? || Full indicator movement (FIM) of a surface rotated 360° about a datum axis. Always RFS, datums RMB. No ⌀, (M), (L), (P), (T) or (U); only (F) and (ST) may apply.
+? How does circular runout differ from total runout? || Circular: each circular element is checked independently (indicator reset per section). Total: the whole surface at once (indicator traversed while rotating), so it is stricter and also controls cylindricity or face flatness.
+? Name the three legal ways to establish a datum axis for runout. || One cylinder of sufficient length; two coaxial cylinders spaced well apart cited together (A-B); or a face as primary with a short diameter as secondary.
+? Why can a tapered or barrel-shaped diameter pass circular runout but fail total runout? || Each circle is checked separately, so a round, centered circle reads zero regardless of diameter change along the axis. Total runout's coaxial-cylinder zone catches straightness and taper errors.
+? What does circular runout control on a face perpendicular to the datum axis, versus total runout on that face? || Circular: wobble (orientation and form of each circular element), missing symmetric errors like a dished/conical face. Total: perpendicularity and flatness of the whole face.
+? A diameter has circular runout 0.2 mm to A. Maximum axis offset of a perfectly round section? || 0.1 mm (offset = half the runout; an offset e gives FIM = 2e).
+? A shaft ⌀24.2–24.6 mm has circular runout 0.2 mm to A. Worst-case boundary? || ⌀24.8 mm (MMC + runout = 24.6 + 0.2).
+? Rotating a part, the indicator reads a greatest positive value of +0.03 mm and a greatest negative value of −0.05 mm. FIM? || 0.08 mm (FIM = +0.03 − (−0.05)).
+
+@ 25
+? What is a median point, as used by concentricity and symmetry? || The midpoint of an opposed two-point (actual local size) measurement across a surface of revolution, radially disposed flats, or a width.
+? Compare the tolerance zones of concentricity and symmetry, including use of the ⌀ symbol. || Concentricity: cylinder centered on the datum axis, ⌀ required. Symmetry: two parallel planes centered on the datum center plane or axis, ⌀ never used.
+? Which material conditions and modifiers apply to concentricity and symmetry? Is bonus or datum shift possible? || Always RFS, datums at RMB. Only (F) and (ST) allowed; no (M), (L), (P), (T), (U). No bonus and no datum shift.
+? A part passes circular runout 0.3 to A. Does it pass concentricity ⌀0.3 to A? Is the reverse true? || Yes — runout is the tighter control. The reverse is not true: an out-of-round part can pass concentricity (median points centered) yet fail runout.
+? What controls are usually preferred instead of concentricity and of symmetry, and why? || Instead of concentricity: runout or position RFS (plus a balance note). Instead of symmetry: position RFS. They are cheaper to make and verify than median-point checks.
+? A diameter has concentricity ⌀0.2 mm to A. Maximum offset of a median point from the datum axis? || 0.1 mm (half the zone diameter).
+? A slot 22.2–22.4 mm wide has symmetry 0.6 mm to datum center plane A. Worst-case boundary? || 21.6 mm (internal: MMC − tol. = 22.2 − 0.6).
+? Opposed indicator readings are X = 0.08 mm and Y = 0.02 mm. Find the midpoint W and the median-point offset Z. || W = 0.05 mm ((X + Y) / 2 = 0.10 / 2); Z = 0.03 mm (X − W = 0.08 − 0.05).
+
+@ 26
+? What is a true profile, and how can it be defined? || The exact shape a profile tolerance applies to, defined by basic radii, angles, coordinates or size dimensions, undimensioned drawings, formulas, or the CAD model.
+? How does profile of a surface differ from profile of a line? || Surface: one 3D zone over the whole length and width (or circumference) of the surface. Line: a 2D zone normal to the true profile at each line element, checked one cross section at a time.
+? What does a profile tolerance control with datums versus without datums? || Always form. With datums: also orientation and/or location, and it can control size. Without datums: only form or coplanarity.
+? Describe the default profile zone and the alternatives. || Default: bilateral, equally disposed about the true profile. Alternatives: unequally disposed (the (U) modifier), unilateral all outside or all inside material, or non-uniform.
+? By default, which surfaces does a profile zone cover, and how is it extended? || Only the surface the leader points to. Extend with the between symbol (e.g. C↔D), all around (circle at leader elbow, around the profile in that view), all over (double circle, whole part), or a note.
+? Give the three advantages of profile tolerancing over coordinate (±) tolerancing. || A clearly defined tolerance zone; a stated datum sequence for repeatable setup; no tolerance accumulation (stack-up).
+? Which symbols may not appear in the tolerance portion of a profile frame, and may datum references be modified? || ⌀, (L), (M) and (P) are not allowed in the tolerance portion (only (F), (ST), (U), (T)). Datum references may use (M) or (L). No datum is required at all.
+? A surface has profile of a surface 0.4 mm with the default zone. How far may it deviate from the true profile in each direction? || ±0.2 mm (bilateral, equally disposed: 0.4 / 2 each side).
+
+@ 27
+? An angled planar surface has profile of a surface 1.0 to A, B, C with basic dimensions. What does this one callout control, and is bonus possible? || Location, orientation and form of the surface (all six DOF fixed by the DRF). All points must lie in the 1.0 zone centered on the true profile. No bonus.
+? Profile all around a hex bolt head relative to datum axis A: what does it control, and how many DOF are constrained? || Size, location, orientation and form of the hex (two hex boundaries). Rotation about the axis is left free, so 4 DOF are constrained. Corner radii need their own note.
+? A cone has profile of a surface to A, B with a basic taper angle, but its diameter also has a ± size tolerance. Does the profile control size? || No. With a toleranced diameter the profile zone may float within those size limits, so it still controls form and taper but does not control size.
+? Profile 0.4 is applied to 2X surfaces with no datum references. What does it control, and how is the zone located? || Coplanarity and flatness. Zone: two parallel planes 0.4 apart, the first tangent to the high points of all surfaces (implied self-datum), unilateral toward the material.
+? Multiple single-segment profile vs composite profile: can lower segments locate the surface? || Multiple single-segment: yes, each segment may locate (translate) relative to the datums it cites. Composite: no, lower segments only constrain rotation (orientation), then size and form.
+? Multiple single-segment profile: 1.0 to A, B, C; 0.4 to A, B; 0.2 with no datums. How many DOF does each zone constrain? || 1.0 zone: 6 DOF. 0.4 zone: 5 DOF (free to translate in one direction). 0.2 zone: 0 DOF (floats freely; form and size only).
+? Why is a two-point size check not a valid profile check, and what is profile of a line used for under a height dimension? || Profile imposes perfect form at MMC/LMC, so two-point checks can pass bad parts. Line profile refines each line element's orientation (parallelism) and straightness, floating within the height limits.
+? A profile zone is 0.6 mm, bilateral and equally disposed. The indicator is zeroed on the true profile with an indicator zero block. Allowed reading range? || ±0.3 mm (0.6 / 2 each side of zero).
+</script>
+
 <script>
 (function(){
   // ======== books ========
@@ -3013,6 +3541,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   const FIG_ICON='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/></svg>';
   const ICON_C='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.5"/></svg>';
   const ICON_E='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 9h14M5 15h14"/></svg>';
+  const ICON_Q='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-4.2-7.6L21 3v5h-5"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4v.3M12 16.5v.5"/></svg>';
   const ICON_S='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 6h16M4 12h16M4 18h10"/></svg>';
   const inline=(s,B)=>esc(s)
     .replace(/\*\*([^*]+)\*\*/g,'<b class="kt">$1</b>')
@@ -3027,14 +3556,23 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
     const el=document.getElementById(B.data); if(!el) return chapters;
     el.textContent.split(/\r?\n/).forEach(raw=>{
       const l=raw.trim(); if(!l) return;
+      if(ch&&!l.startsWith('# ')) ch.raw.push(l);
       if(l.startsWith('## ')){const p=l.slice(3).split('|').map(s=>s.trim());sec={no:p[0],title:p[1],star:p[2]==='*',c:[],e:[],fig:null};ch.sections.push(sec);}
-      else if(l.startsWith('# ')){const p=l.slice(2).split('|').map(s=>s.trim());ch={n:p[0],title:p[1],g:p[2],sum:p[3],sym:p[4]||'',sections:[],pts:[]};chapters.push(ch);}
+      else if(l.startsWith('# ')){const p=l.slice(2).split('|').map(s=>s.trim());ch={n:p[0],title:p[1],g:p[2],sum:p[3],sym:p[4]||'',sections:[],pts:[],raw:[]};chapters.push(ch);}
       else if(l.startsWith('- ')) sec.c.push(l.slice(2));
       else if(l.startsWith('> ')) ch.pts.push(l.slice(2));
       else if(l.startsWith('= ')||l.startsWith('=! ')){const crit=l[1]==='!';const [tex,cap]=l.slice(crit?3:2).split('||');sec.e.push({tex:tex.trim(),cap:(cap||'').trim(),crit});}
       else if(l.startsWith('! ')){const [spec,cap]=l.slice(2).split('||');const [kind,id,crop]=spec.trim().split(/\s+/);sec.fig={kind,id,crop:crop==='crop',cap:(cap||'').trim()};}
     });
     return chapters;
+  }
+  function parseQuiz(B){
+    const Q={}, el=document.getElementById(B.key==='mom'?'quiz':'quiz-'+B.key); if(!el) return Q;
+    let n=null;
+    el.textContent.split(/\r?\n/).forEach(raw=>{const l=raw.trim(); let m;
+      if((m=l.match(/^@\s*(\d+)/))){n=m[1]; Q[n]=[];}
+      else if(n&&l.startsWith('? ')){const [q,a]=l.slice(2).split('||'); Q[n].push({q:q.trim(),a:(a||'').trim()});}});
+    return Q;
   }
   function secFig(f,B){
     if(!f) return '';
@@ -3052,7 +3590,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   const ic=B=>B.sheet.html||B.sheet.icon;
   BY.gdt.sheet.html=glyph('position','gly sheetico');
   BOOKS.forEach(B=>{
-    B.chapters=parse(B); if(!B.chapters.length){B.off=true; return;}
+    B.chapters=parse(B); B.quiz=parseQuiz(B); if(!B.chapters.length){B.off=true; return;}
     const acc=c=>`var(${(B.groups[c.g]||['--ink2'])[0]})`;
     const nav=document.createElement('div'); nav.className='bnav'; nav.dataset.book=B.key; navBox.appendChild(nav); B.nav=nav;
     let lastG=null, nSec=0, nEq=0, nFig=0;
@@ -3076,7 +3614,9 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
       const sheetPg=`<a class="pg next sheetpg" href="#${B.pre}eq"><small>Next →</small><span><b>${ic(B)}</b>${B.sheet.label}</span></a>`;
       const pg=(c2,dir)=>(!c2&&dir==='next')?sheetPg:c2?`<a class="pg ${dir}" href="#${B.pre}ch${c2.n}" style="--acc:${acc(c2)}"><small>${dir==='prev'?'← Previous':'Next →'}</small><span><b>${c2.n}</b>${esc(c2.title)}</span></a>`:'<span></span>';
       if(c.pts.length) h+=`</div><div class="csum"><div class="lbl">${ICON_S}Chapter summary</div><ul class="c">${c.pts.map(x=>`<li>${inline(x,B)}</li>`).join('')}</ul></div><div>`;
-      book.insertAdjacentHTML('beforeend',h+`</div><nav class="pager">${pg(prev,'prev')}${pg(next,'next')}</nav></section>`);
+      const nq=(B.quiz[c.n]||[]).length;
+      const qcta=nq?`<a class="qcta" href="#${B.pre}quiz${c.n}"><span class="qico">${ICON_Q}</span><span class="qtx"><b>Chapter ${c.n} quiz</b><small>${nq} quick questions on the basics · type your answer and Gemini checks it</small></span><span class="qgo">Start quiz →</span></a>`:'';
+      book.insertAdjacentHTML('beforeend',h+`</div>${qcta}<nav class="pager">${pg(prev,'prev')}${pg(next,'next')}</nav></section>`);
     });
     // reference sheet
     nav.insertAdjacentHTML('beforeend',`<h4>Reference</h4><a href="#${B.pre}eq" data-ch="eq" class="sheetnav"><b>${ic(B)}</b>${B.sheet.label}</a>`);
@@ -3143,18 +3683,19 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
     q.placeholder=B.search; if(q.value){q.value=''; filter();}
     curCh=null;
   }
-  function showChapter(B,n){
+  function showChapter(B,n,qz){
     setBook(B);
     if(n!=='eq'&&!B.chapters.some(c=>c.n===n)) n=B.chapters[0].n;
-    const id=n==='eq'?B.pre+'cheq':B.pre+'ch'+n;
-    const changed=n!==curCh; curCh=n;
+    if(qz&&!document.getElementById(B.pre+'cq'+n)) qz=false;
+    const id=qz?B.pre+'cq'+n:n==='eq'?B.pre+'cheq':B.pre+'ch'+n;
+    const key=qz?'q'+n:n, changed=key!==curCh; curCh=key;
     document.querySelectorAll('.chapter').forEach(el=>{const on=el.id===id; el.classList.toggle('off',!on); if(on&&changed){el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter');}});
-    const hero=document.getElementById(B.home); if(hero) hero.classList.toggle('off',n!==B.chapters[0].n);
+    const hero=document.getElementById(B.home); if(hero) hero.classList.toggle('off',qz||n!==B.chapters[0].n);
     B.nav.querySelectorAll(':scope > a').forEach(a=>a.classList.toggle('on',a.dataset.ch===n));
     B.nav.querySelectorAll('.subnav').forEach(s=>s.classList.toggle('open',s.dataset.ch===n));
     chsel.value=n;
     const c=B.chapters.find(x=>x.n===n);
-    document.title=(c?`${n}. ${c.title}`:B.sheet.label)+` · ${B.short} · Study Atlas`;
+    document.title=(qz?`Quiz ${n}. ${c.title}`:c?`${n}. ${c.title}`:B.sheet.label)+` · ${B.short} · Study Atlas`;
     return changed;
   }
   function parseHash(){
@@ -3166,6 +3707,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
       if((m=h.match(new RegExp(`^#${p}fig-(\\d+)-(\\d+)$`)))) return {B,kind:'fig',n:m[1],fig:m[1]+'-'+m[2]};
       if((m=h.match(new RegExp(`^#${p}s(\\d+)\\.(\\d+)$`)))) return {B,kind:'sec',n:m[1],sec:m[1]+'.'+m[2]};
       if((m=h.match(new RegExp(`^#${p}ch(\\d+)$`)))) return {B,kind:'ch',n:m[1]};
+      if((m=h.match(new RegExp(`^#${p}quiz(\\d+)$`)))) return {B,kind:'quiz',n:m[1]};
       if(h==='#'+B.pre+'eq') return {B,kind:'ch',n:'eq'};
     }
     return {B:live[0],kind:'ch',n:live[0].chapters[0].n};
@@ -3177,6 +3719,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
       const a=document.querySelector(`#${B.pre}ch${r.n} a.fig[data-fig="${B.pre}${r.fig}"], #${B.pre}ch${r.n} a.sfa[data-fig="${B.pre}${r.fig}"]`);
       if(a) openFrom(a); return;
     }
+    if(r.kind==='quiz'){showQuiz(B,r.n); scrollTo(0,0); return;}
     if(r.kind==='sec'){
       const changed=showChapter(B,r.n); const el=document.getElementById(B.pre+'s'+r.sec);
       if(changed) scrollTo(0,0);
@@ -3191,6 +3734,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   chsel.addEventListener('change',()=>{const B=curBook; location.hash=chsel.value==='eq'?B.pre+'eq':B.pre+'ch'+chsel.value;});
   document.addEventListener('keydown',e=>{
     if(lb.open||e.target.matches('input,select,textarea')) return;
+    if(String(curCh)[0]==='q') return;
     const B=curBook, order=[...B.chapters.map(c=>c.n),'eq'], j=order.indexOf(curCh);
     let d=0; if(e.key===']'||(e.altKey&&e.key==='ArrowRight')) d=1; if(e.key==='['||(e.altKey&&e.key==='ArrowLeft')) d=-1;
     if(d&&order[j+d]){e.preventDefault(); location.hash=order[j+d]==='eq'?B.pre+'eq':B.pre+'ch'+order[j+d];}
@@ -3250,7 +3794,269 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   lb.querySelector('.close').onclick=()=>lb.close();
   lb.addEventListener('click',e=>{if(e.target===lb) lb.close();});
   lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft') openFig(cur-1); if(e.key==='ArrowRight') openFig(cur+1);});
+  // ======== Gemini (key lives only in this browser) ========
+  const lsGet=k=>{try{return localStorage.getItem(k)||'';}catch(e){return '';}};
+  const lsSet=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k);}catch(e){}};
+  const API='https://generativelanguage.googleapis.com/v1beta/';
+  const GM={key:()=>lsGet('atlas-gemini-key'),model:()=>lsGet('atlas-gemini-model')||'gemini-2.5-flash'};
+  class NeedKey extends Error{constructor(){super('Add your Gemini API key first.');}}
+  const textOf=j=>((j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[]).filter(p=>!p.thought).map(p=>p.text||'').join('');
+  async function gemini(body,onText){
+    const key=GM.key(); if(!key) throw new NeedKey();
+    const url=`${API}models/${encodeURIComponent(GM.model())}:${onText?'streamGenerateContent?alt=sse':'generateContent'}`;
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
+    if(!r.ok){let m='HTTP '+r.status; try{const j=await r.json(); if(j.error&&j.error.message) m=j.error.message;}catch(e){} throw new Error(m);}
+    if(!onText){const j=await r.json(); const t=textOf(j); if(!t) throw new Error('Empty response from Gemini.'); return t;}
+    const rd=r.body.getReader(), dec=new TextDecoder(); let buf='', out='';
+    for(;;){
+      const {done,value}=await rd.read(); if(done) break;
+      buf+=dec.decode(value,{stream:true}); let i;
+      while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim(); buf=buf.slice(i+1);
+        if(line.startsWith('data:')){try{out+=textOf(JSON.parse(line.slice(5))); onText(out);}catch(e){}}}
+    }
+    if(!out) throw new Error('Empty response from Gemini.');
+    return out;
+  }
+  async function listModels(key){
+    const r=await fetch(API+'models?pageSize=200',{headers:{'x-goog-api-key':key}});
+    if(!r.ok){let m='HTTP '+r.status; try{const j=await r.json(); if(j.error&&j.error.message) m=j.error.message;}catch(e){} throw new Error(m);}
+    const j=await r.json();
+    return (j.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')&&/gemini/i.test(m.name)&&!/embed|tts|image|audio|live|robotics|computer-use|aqa/i.test(m.name))
+      .map(m=>({id:m.name.replace(/^models\//,''),label:m.displayName||m.name}));
+  }
+  function pickModel(ms){
+    const ver=id=>{const m=id.match(/gemini-(\d+(?:\.\d+)?)/); return m?parseFloat(m[1]):0;};
+    const score=m=>ver(m.id)*10+(/flash/.test(m.id)?3:0)-(/lite/.test(m.id)?2:0)-(/preview|exp/.test(m.id)?1.5:0)-(/-\d{3}$|latest/.test(m.id)?0.5:0);
+    return ms.slice().sort((a,b)=>score(b)-score(a))[0];
+  }
+  // ======== tiny markdown + KaTeX renderer (for model output) ========
+  function md(src){
+    const math=[], code=[];
+    const keep=(t,d)=>{math.push([t,d]); return `\u0000${math.length-1}\u0000`;};
+    let s=String(src).replace(/```[\w-]*\n?([\s\S]*?)```/g,(m,t)=>{code.push(t); return `\n\u0001${code.length-1}\u0001\n`;})
+      .replace(/\$\$([\s\S]+?)\$\$/g,(m,t)=>keep(t,true)).replace(/\\\[([\s\S]+?)\\\]/g,(m,t)=>keep(t,true))
+      .replace(/\\\(([\s\S]+?)\\\)/g,(m,t)=>keep(t,false)).replace(/\$([^$\n]+?)\$/g,(m,t)=>keep(t,false));
+    s=esc(s);
+    const inl=t=>t.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*\w])\*([^*\n]+)\*(?!\w)/g,'$1<i>$2</i>');
+    let out='', list=null, para=[];
+    const fp=()=>{if(para.length){out+=`<p>${inl(para.join('<br>'))}</p>`; para=[];}};
+    const fl=()=>{if(list){out+=`</${list}>`; list=null;}};
+    for(const ln of s.split('\n')){
+      let m;
+      if(!ln.trim()){fp(); fl(); continue;}
+      if((m=ln.match(/^\u0001(\d+)\u0001$/))){fp(); fl(); out+=`<pre><code>${esc(code[+m[1]])}</code></pre>`; continue;}
+      if((m=ln.match(/^\s*#{1,6}\s+(.*)/))){fp(); fl(); out+=`<h5>${inl(m[1])}</h5>`; continue;}
+      if((m=ln.match(/^\s*[-*•]\s+(.*)/))){fp(); if(list!=='ul'){fl(); out+='<ul>'; list='ul';} out+=`<li>${inl(m[1])}</li>`; continue;}
+      if((m=ln.match(/^\s*\d+[.)]\s+(.*)/))){fp(); if(list!=='ol'){fl(); out+='<ol>'; list='ol';} out+=`<li>${inl(m[1])}</li>`; continue;}
+      if(list&&/^\s{2,}\S/.test(ln)){out=out.replace(/<\/li>$/,' '+inl(ln.trim())+'</li>'); continue;}
+      fl(); para.push(ln.trim());
+    }
+    fp(); fl();
+    return out.replace(/\u0000(\d+)\u0000/g,(m,i)=>{const [t,d]=math[+i]; try{return window.katex?katex.renderToString(t,{displayMode:d,throwOnError:false}):esc(t);}catch(e){return esc(t);}});
+  }
+  // ======== chapter context for the tutor ========
+  function context(){
+    const B=curBook, n=String(curCh||''), cn=n.replace(/^q/,''), c=B.chapters.find(x=>x.n===cn);
+    if(c) return {label:`${B.key==='mom'?'':'GD&T · '}Ch ${c.n} · ${c.title}`, where:`Chapter ${c.n}, "${c.title}"${n[0]==='q'?' (taking the chapter quiz)':''}`, notes:`# ${c.n} ${c.title}\n`+c.raw.join('\n')};
+    return {label:`${B.short} · all chapters`, where:B.sheet.label, notes:B.chapters.map(x=>`# ${x.n} ${x.title}: ${x.sum}\n`+x.pts.map(p=>'> '+p).join('\n')).join('\n')};
+  }
+  const NOTES_FMT='Notes format: "#" chapter, "##" section, "-" key concept, "=" LaTeX equation ("=!" critical), "!" figure caption, ">" chapter summary.';
+  // ======== quizzes ========
+  const QS={
+    k:(B,n)=>`atlas-quiz-${B.key}-${n}`,
+    get(B,n){try{const v=JSON.parse(localStorage.getItem(this.k(B,n))); if(v&&v.r) return v;}catch(e){} return {r:{},extra:[]};},
+    set(B,n,v){try{localStorage.setItem(this.k(B,n),JSON.stringify(v));}catch(e){}}
+  };
+  const VERD={correct:['Correct','✓'],partial:['Partly right','◐'],incorrect:['Not quite','✗'],revealed:['Answer shown','👁']};
+  live.forEach(B=>{
+    const acc=c=>`var(${(B.groups[c.g]||['--ink2'])[0]})`;
+    const qch=B.chapters.filter(c=>(B.quiz[c.n]||[]).length);
+    qch.forEach((c,i)=>{
+      const nx=qch[i+1];
+      book.insertAdjacentHTML('beforeend',`<section class="chapter off quizpg" id="${B.pre}cq${c.n}" data-book="${B.key}" data-n="${c.n}" style="--acc:${acc(c)}">
+        <div class="chead qhead"><div class="cnum">Q${c.n}</div><div>${B.key!=='mom'?`<span class="btag">${esc(B.short)}</span>`:''}<h2>Chapter ${c.n} quiz</h2><p>${esc(c.title)} · Type your answer in your own words; Gemini checks it against the reference answer.</p></div>
+        <div class="qscore"><b>0 / 0</b><small>correct</small></div></div>
+        <div class="qnokey">${ICON_C}<span>Grading uses your Gemini API key, stored only in this browser.</span><button type="button" class="qbtn" data-act="setup">Add API key</button></div>
+        <ol class="qlist"></ol>
+        <div class="qactions"><button type="button" class="qbtn" data-act="more">✦ 5 more questions</button><button type="button" class="qlink" data-act="reset">Reset quiz</button><span class="qmsg"></span></div>
+        <nav class="pager"><a class="pg prev" href="#${B.pre}ch${c.n}"><small>← Back to chapter</small><span><b>${c.n}</b>${esc(c.title)}</span></a>${nx?`<a class="pg next" href="#${B.pre}quiz${nx.n}" style="--acc:${acc(nx)}"><small>Next quiz →</small><span><b>${nx.n}</b>${esc(nx.title)}</span></a>`:'<span></span>'}</nav></section>`);
+    });
+  });
+  const qItems=(B,n,st)=>[...(B.quiz[n]||[]),...st.extra.map(x=>({...x,gen:true}))];
+  function fbHTML(res,it){
+    const v=VERD[res.v]||VERD.incorrect;
+    return `${res.v!=='revealed'?`<div class="qv v-${res.v}"><span>${v[1]}</span>${v[0]}</div>${res.f?`<div class="qfbt md">${md(res.f)}</div>`:''}`:''}
+      <div class="qref"><small>Reference answer</small><p>${esc(it.a)}</p></div>
+      <button type="button" class="qlink" data-act="discuss">Discuss with tutor →</button>`;
+  }
+  function renderQuiz(B,n){
+    const sec=document.getElementById(B.pre+'cq'+n); if(!sec) return;
+    const st=QS.get(B,n), items=qItems(B,n,st);
+    sec.querySelector('.qlist').innerHTML=items.map((it,i)=>{
+      const r=st.r[it.q];
+      return `<li class="qi${r?' v-'+r.v:''}" data-i="${i}"><div class="qq"><span class="qn">${i+1}</span><p>${esc(it.q)}</p>${it.gen?'<span class="qgen" title="Generated by Gemini">AI</span>':''}</div>
+        <form class="qa"><textarea rows="2" placeholder="Your answer… (Enter to check, Shift+Enter for a new line)">${r&&r.ans?esc(r.ans):''}</textarea>
+        <div class="qbar"><button type="submit" class="qbtn">Check</button><button type="button" class="qlink" data-act="reveal">Show answer</button></div></form>
+        <div class="qfb">${r?fbHTML(r,it):''}</div></li>`;
+    }).join('');
+    sec.querySelector('.qnokey').classList.toggle('off',!!GM.key());
+    score(B,n);
+  }
+  function score(B,n){
+    const sec=document.getElementById(B.pre+'cq'+n), st=QS.get(B,n), items=qItems(B,n,st);
+    const vs=items.map(it=>st.r[it.q]&&st.r[it.q].v), ok=vs.filter(v=>v==='correct').length, part=vs.filter(v=>v==='partial').length;
+    sec.querySelector('.qscore b').textContent=`${ok} / ${items.length}`;
+    sec.querySelector('.qscore small').textContent=part?`correct · ${part} partly`:'correct';
+  }
+  function showQuiz(B,n){showChapter(B,n,true); renderQuiz(B,n);}
+  async function grade(B,it,ans){
+    const sys=`You grade short free-text answers in a ${B.title} quiz (${B.src}). Judge substance, not wording or spelling. For numeric answers accept values within about 2% of the reference; a correct number with missing or wrong units is "partial". An answer that has the main idea but misses an essential point from the reference is "partial". Address the student directly in feedback (1–3 short sentences): say what is right, and what is missing or wrong. If correct, add one brief reinforcing insight instead of restating the answer. Use $...$ for math.`;
+    const txt=await gemini({systemInstruction:{parts:[{text:sys}]},
+      contents:[{role:'user',parts:[{text:`Question: ${it.q}\nReference answer: ${it.a}\nStudent answer: ${ans}`}]}],
+      generationConfig:{temperature:0,responseMimeType:'application/json',responseSchema:{type:'OBJECT',properties:{verdict:{type:'STRING',enum:['correct','partial','incorrect']},feedback:{type:'STRING'}},required:['verdict','feedback']}}});
+    const j=JSON.parse(txt.replace(/^```(?:json)?|```$/g,'').trim());
+    return {v:['correct','partial','incorrect'].includes(j.verdict)?j.verdict:'incorrect',f:String(j.feedback||'')};
+  }
+  async function moreQuestions(B,n){
+    const c=B.chapters.find(x=>x.n===n), st=QS.get(B,n), have=qItems(B,n,st).map(x=>'- '+x.q).join('\n');
+    const prompt=`Write 5 NEW short-answer quiz questions for Chapter ${c.n} "${c.title}" of ${B.title} (${B.src}), based on the notes below. About 3 should test basic concepts and about 2 should be quick-solve calculations (one or two steps, given numbers with units) where the chapter allows it. Do not repeat these existing questions:\n${have}\n\nRules: plain text only (no LaTeX; use Unicode symbols like σ τ ε δ θ ν π ⌀ ² √ and / for division). Question ≤ 40 words. Reference answer ≤ 45 words: for numeric questions give the value with units and the key step; for concept questions list the essential points a correct answer must contain.\n\n${NOTES_FMT}\nNOTES:\n${c.raw.join('\n')}`;
+    const txt=await gemini({contents:[{role:'user',parts:[{text:prompt}]}],
+      generationConfig:{temperature:0.8,responseMimeType:'application/json',responseSchema:{type:'ARRAY',items:{type:'OBJECT',properties:{q:{type:'STRING'},a:{type:'STRING'}},required:['q','a']}}}});
+    const arr=JSON.parse(txt.replace(/^```(?:json)?|```$/g,'').trim()).filter(x=>x&&x.q&&x.a).slice(0,5);
+    const st2=QS.get(B,n); st2.extra.push(...arr.map(x=>({q:String(x.q).trim(),a:String(x.a).trim()}))); QS.set(B,n,st2);
+    return arr.length;
+  }
+  book.addEventListener('submit',async e=>{
+    const f=e.target.closest('.quizpg .qa'); if(!f) return; e.preventDefault();
+    const sec=f.closest('.quizpg'), B=BY[sec.dataset.book], n=sec.dataset.n, li=f.closest('.qi'), it=qItems(B,n,QS.get(B,n))[+li.dataset.i];
+    const ta=f.querySelector('textarea'), ans=ta.value.trim(); if(!ans){ta.focus(); return;}
+    if(!GM.key()){openTutor(true,'Add your Gemini API key to grade quiz answers.'); return;}
+    const btn=f.querySelector('button[type=submit]'); btn.disabled=true; btn.textContent='Checking…'; li.classList.add('busy');
+    try{
+      const res=await grade(B,it,ans); res.ans=ans;
+      const st=QS.get(B,n); st.r[it.q]=res; QS.set(B,n,st);
+      li.className='qi v-'+res.v; li.querySelector('.qfb').innerHTML=fbHTML(res,it); score(B,n);
+    }catch(err){
+      li.querySelector('.qfb').innerHTML=`<div class="qerr">${esc(err.message)}${err instanceof NeedKey||/api key/i.test(err.message)?' <button type="button" class="qlink" data-act="setup">Check API key settings →</button>':''}</div>`;
+    }finally{btn.disabled=false; btn.textContent='Check'; li.classList.remove('busy');}
+  });
+  book.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey&&e.target.matches('.quizpg .qa textarea')){e.preventDefault(); e.target.form.requestSubmit();}
+  });
+  book.addEventListener('click',async e=>{
+    const b=e.target.closest('.quizpg [data-act]'); if(!b) return;
+    const sec=b.closest('.quizpg'), B=BY[sec.dataset.book], n=sec.dataset.n, act=b.dataset.act;
+    const li=b.closest('.qi'), st=QS.get(B,n), it=li&&qItems(B,n,st)[+li.dataset.i];
+    if(act==='setup') return openTutor(true);
+    if(act==='reveal'){
+      const ans=li.querySelector('textarea').value.trim();
+      if(!st.r[it.q]) st.r[it.q]={v:'revealed',f:'',ans};
+      QS.set(B,n,st); li.className='qi v-'+st.r[it.q].v; li.querySelector('.qfb').innerHTML=fbHTML(st.r[it.q],it); score(B,n); return;
+    }
+    if(act==='discuss'){
+      const r=st.r[it.q]||{};
+      openTutor(false);
+      return sendChat(`Quiz question: ${it.q}\nMy answer: ${r.ans||'(none)'}\nReference answer: ${it.a}${r.f?`\nGrader feedback: ${r.f}`:''}\n\nCan you explain this so I really understand it?`);
+    }
+    if(act==='reset'){
+      if(!confirm('Clear your answers for this quiz? Generated questions are removed too.')) return;
+      QS.set(B,n,{r:{},extra:[]}); renderQuiz(B,n); return;
+    }
+    if(act==='more'){
+      const msg=sec.querySelector('.qmsg');
+      if(!GM.key()) return openTutor(true,'Add your Gemini API key to generate questions.');
+      b.disabled=true; msg.textContent='Writing new questions…';
+      try{const k=await moreQuestions(B,n); renderQuiz(B,n); msg.textContent=`Added ${k} questions.`;
+        const last=sec.querySelectorAll('.qi'); const first=last[last.length-k]; if(first) fastScroll(yOf(first));}
+      catch(err){msg.textContent='Could not generate questions: '+err.message;}
+      finally{b.disabled=false;}
+    }
+  });
+  // ======== tutor chat panel ========
+  const T=document.getElementById('tutor'), fab=document.getElementById('tutorFab'), tmsgs=document.getElementById('tmsgs'), tform=document.getElementById('tform'), tq=document.getElementById('tq');
+  const tset=document.getElementById('tset'), tkey=document.getElementById('tkey'), tmodel=document.getElementById('tmodel'), tst=document.getElementById('tst'), tctx=document.getElementById('tctx');
+  let hist=[], busy=false;
+  const SUGG=['Explain the main idea of this chapter simply','Give me a quick practice problem','What mistakes do students commonly make here?'];
+  function updCtx(){if(curBook) tctx.textContent=context().label;}
+  function welcome(){
+    if(hist.length) return;
+    tmsgs.innerHTML=`<div class="twel"><p>Ask anything about what you're studying. The tutor reads your notes for the chapter you have open.</p><div class="tsugg">${SUGG.map(s=>`<button type="button">${s}</button>`).join('')}</div></div>`;
+  }
+  function addMsg(role,html){const d=document.createElement('div'); d.className='tm '+role; d.innerHTML=html; tmsgs.appendChild(d); tmsgs.scrollTop=tmsgs.scrollHeight; return d;}
+  function openTutor(settings,notice){
+    T.hidden=false; fab.classList.add('off'); updCtx();
+    showSettings(!!settings||!GM.key(),notice);
+    if(!tset.hidden) return;
+    welcome(); setTimeout(()=>tq.focus(),30);
+  }
+  function closeTutor(){T.hidden=true; fab.classList.remove('off');}
+  function showSettings(on,notice){
+    tset.hidden=!on; tmsgs.hidden=on; tform.hidden=on;
+    if(!on) return;
+    tkey.value=GM.key(); tst.textContent=notice||''; tst.className='tst'+(notice?' warn':'');
+    fillModels(GM.key());
+    setTimeout(()=>tkey.focus(),30);
+  }
+  async function fillModels(key){
+    const cur=GM.model();
+    if(!tmodel.options.length) tmodel.innerHTML=`<option value="${esc(cur)}">${esc(cur)}</option>`;
+    if(!key) return;
+    try{
+      const ms=await listModels(key); if(!ms.length) return;
+      const sel=ms.some(m=>m.id===cur)?cur:pickModel(ms).id;
+      tmodel.innerHTML=ms.map(m=>`<option value="${esc(m.id)}"${m.id===sel?' selected':''}>${esc(m.label)} (${esc(m.id)})</option>`).join('');
+      if(sel!==cur) lsSet('atlas-gemini-model',sel);
+    }catch(e){}
+  }
+  document.getElementById('tsave').onclick=async()=>{
+    const key=tkey.value.trim(); if(!key){tst.textContent='Paste a key first.'; tst.className='tst warn'; return;}
+    tst.textContent='Checking key…'; tst.className='tst';
+    try{
+      const ms=await listModels(key);
+      lsSet('atlas-gemini-key',key);
+      const cur=lsGet('atlas-gemini-model'); const sel=ms.some(m=>m.id===tmodel.value)?tmodel.value:(ms.some(m=>m.id===cur)?cur:(ms.length?pickModel(ms).id:GM.model()));
+      lsSet('atlas-gemini-model',sel);
+      tmodel.innerHTML=ms.map(m=>`<option value="${esc(m.id)}"${m.id===sel?' selected':''}>${esc(m.label)} (${esc(m.id)})</option>`).join('');
+      tst.textContent=`Key saved · using ${sel}`; tst.className='tst ok';
+      document.querySelectorAll('.qnokey').forEach(x=>x.classList.add('off'));
+      setTimeout(()=>{if(!tset.hidden){showSettings(false); welcome(); tq.focus();}},900);
+    }catch(err){tst.textContent='That key did not work: '+err.message; tst.className='tst warn';}
+  };
+  tmodel.onchange=()=>lsSet('atlas-gemini-model',tmodel.value);
+  document.getElementById('tforget').onclick=()=>{lsSet('atlas-gemini-key',''); tkey.value=''; tst.textContent='Key removed from this browser.'; tst.className='tst'; document.querySelectorAll('.qnokey').forEach(x=>x.classList.remove('off'));};
+  document.getElementById('tSet').onclick=()=>showSettings(tset.hidden);
+  document.getElementById('tClose').onclick=closeTutor;
+  document.getElementById('tNew').onclick=()=>{if(busy) return; hist=[]; tmsgs.innerHTML=''; showSettings(false); welcome(); tq.focus();};
+  fab.onclick=()=>openTutor(false);
+  T.addEventListener('keydown',e=>{if(e.key==='Escape') closeTutor();});
+  tmsgs.addEventListener('click',e=>{const b=e.target.closest('.tsugg button'); if(b) sendChat(b.textContent);});
+  tq.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault(); tform.requestSubmit();}});
+  tq.addEventListener('input',()=>{tq.style.height='auto'; tq.style.height=Math.min(tq.scrollHeight,140)+'px';});
+  tform.addEventListener('submit',e=>{e.preventDefault(); const t=tq.value.trim(); if(t) sendChat(t);});
+  async function sendChat(text){
+    if(busy) return;
+    if(!GM.key()) return openTutor(true,'Add your Gemini API key to chat.');
+    showSettings(false);
+    const w=tmsgs.querySelector('.twel'); if(w) w.remove();
+    tq.value=''; tq.style.height='auto';
+    addMsg('user',esc(text).replace(/\n/g,'<br>'));
+    hist.push({role:'user',parts:[{text}]});
+    const cx=context();
+    const sys=`You are a friendly, concise tutor helping a student study ${curBook.title} (${curBook.src}). The student currently has open: ${cx.where}. Ground your answers in the student's notes below when relevant, and say so briefly when you go beyond them. Keep answers short unless asked for depth; for problems show the steps and units. Format with Markdown; write math as $...$ inline or $$...$$ for display (rendered with KaTeX).\n\n${NOTES_FMT}\nNOTES:\n${cx.notes}`;
+    const d=addMsg('model md','<span class="tdots"><i></i><i></i><i></i></span>');
+    busy=true; T.classList.add('busy');
+    try{
+      const out=await gemini({systemInstruction:{parts:[{text:sys}]},contents:hist.slice(-20),generationConfig:{temperature:0.4}},t=>{d.innerHTML=md(t); tmsgs.scrollTop=tmsgs.scrollHeight;});
+      d.innerHTML=md(out); hist.push({role:'model',parts:[{text:out}]});
+    }catch(err){
+      hist.pop(); d.className='tm err';
+      d.innerHTML=esc(err.message)+(err instanceof NeedKey||/api key|permission|quota/i.test(err.message)?' <button type="button" class="qlink" id="tfix">Open settings</button>':'');
+      const fx=d.querySelector('#tfix'); if(fx) fx.onclick=()=>showSettings(true);
+    }finally{busy=false; T.classList.remove('busy'); tmsgs.scrollTop=tmsgs.scrollHeight;}
+  }
+  window.addEventListener('hashchange',updCtx);
   route();
+  updCtx();
   // ======== theme ========
   try{const t=localStorage.getItem('mom-theme'); if(t) root.dataset.theme=t;}catch(e){}
   document.getElementById('theme').onclick=()=>{
