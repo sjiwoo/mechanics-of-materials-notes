@@ -17,6 +17,16 @@ Condensed, single-page study guide for a 14-chapter Mechanics of Materials cours
   Clicking a **Fig.** pill in a bullet opens it in a pop-up viewer (←/→ to step through, Esc to close).
   Deep link: `index.html#fig-6-24`.
 
+## Books
+The site holds two separate textbooks, switched from the top bar (no reload):
+- **Mechanics of Materials** (Hibbeler, 9th ed.): data block `id="data"`, figures in `figures/`, hashes `#ch6`, `#s6.4`, `#eq`.
+- **GD&T** (Krulikowski, *Fundamentals of GD&T*, 3rd ed., ASME Y14.5-2009), clearly marked as a separate topic:
+  data block `id="data-gdt"`, figures in `figures/gdt/`, hashes `#gdt`, `#g-ch9`, `#g-s9.2`, `#g-eq`
+  (Symbol & formula sheet). Chapter lines take an optional 5th field naming a symbol used as chapter art.
+  Extra inline markup: `{sym position}`, `{mod M}`, `{datum A}`, `{fcf position|dia 0.4 (M)|A|B|C}`.
+  Note: the source PDF is missing book pages 353–362 (most of ch. 26); those sections were written from the
+  chapter summary + Y14.5 and use custom SVG figures (`sf-g-26-*` in `tools/section_figs.py`).
+
 ## Editing content
 All notes live in the `<script type="text/plain" id="data">` block in `index.html`:
 

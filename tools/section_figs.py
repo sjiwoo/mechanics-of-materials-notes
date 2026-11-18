@@ -484,6 +484,103 @@ b += text(150, 112, 'Δ = ∫ M (∂M/∂P′) dx / EI', 't')
 b += text(150, 130, 'add fictitious P′ where Δ is wanted, then set P′ = 0', 's')
 F['14-10'] = (svg(b), 'Put a fictitious force where the deflection is wanted, differentiate M, then set it to zero.')
 
+# ================= GD&T (Krulikowski ch 26 — pages missing from the scan) =================
+def band(d, w=12):
+    """tolerance-zone band along path d (wide translucent stroke)"""
+    return f'<path class="zb" d="{d}" stroke-width="{w}"/>'
+
+def bbox_text(x, y, s):
+    """basic dimension: text in a box"""
+    w = 7 * len(s) + 8
+    return rect(x - w / 2, y - 11, w, 15, 'k') + text(x, y, s)
+
+def fcfbox(x, y, cells):
+    """draw a feature control frame; first cell is an svg glyph path string"""
+    out = ''; cx = x
+    widths = [22] + [8 * len(c) + 12 for c in cells[1:]]
+    for i, wd in enumerate(widths):
+        out += rect(cx, y, wd, 20, 'kfr')
+        if i == 0:
+            out += f'<g transform="translate({cx+3},{y+2})"><path class="k" d="{cells[0]}"/></g>'
+        else:
+            out += text(cx + wd / 2, y + 14, cells[i])
+        cx += wd
+    return out, cx
+
+PSURF = 'M2.5 13a6.5 6.5 0 0 1 13 0z'
+
+# 26.1 true profile
+b = ''
+d = 'M40 120V60H110A40 40 0 0 1 150 20H250V120'
+b += band(d, 12) + path(d, 'g')
+b += bbox_text(75, 52, '70') + bbox_text(200, 14, '100') + bbox_text(128, 36, 'R40')
+b += text(176, 82, 'true profile', 't') + text(176, 97, 'exact, from basic dims', 's')
+b += text(150, 140, 'zone straddles the true profile (equal bilateral by default)', 's')
+F['g-26-1'] = (svg(b), 'The true profile is defined exactly by basic dimensions; the zone follows it.')
+
+# 26.2 surface vs line
+b = ''
+def slab(x0, curved_band, slices):
+    s = ''
+    top = f'M{x0} 60C{x0+30} 30 {x0+70} 30 {x0+100} 60'
+    s += path(f'M{x0} 60V110H{x0+100}V60', 'k')
+    s += path(f'M{x0+100} 60l24 -18v50l-24 18', 'k')
+    s += path(f'M{x0} 60l24 -18C{x0+54} 12 {x0+94} 12 {x0+124} 42', 'k')
+    s += path(top, 'k')
+    if curved_band:
+        s += f'<path class="zfill" d="M{x0} 60l24 -18C{x0+54} 12 {x0+94} 12 {x0+124} 42L{x0+100} 60C{x0+70} 30 {x0+30} 30 {x0} 60z"/>'
+    for t in slices:
+        xs = x0 + 24 * t
+        ys = 60 - 18 * t
+        s += band(f'M{xs} {ys}C{xs+30} {ys-30} {xs+70} {ys-30} {xs+100} {ys}', 6)
+    return s
+b += slab(20, True, []) + text(80, 132, 'profile of a surface', 't') + text(80, 146, 'one 3D zone, whole surface', 's')
+b += slab(176, False, [0.15, 0.5, 0.85]) + text(236, 132, 'profile of a line', 't') + text(236, 146, '2D zone at each cross section', 's')
+F['g-26-2'] = (svg(b, 152), 'Surface profile is one 3D zone over the whole surface; line profile checks each cross section separately.')
+
+# 26.3 five zone types
+b = ''
+def zpanel(x, kind, lab, sub):
+    s = ''
+    y = 56
+    if kind == 'eq':
+        s += rect(x, y - 8, 52, 16, 'zr')
+    elif kind == 'uneq':
+        s += rect(x, y - 12, 52, 16, 'zr')
+    elif kind == 'out':
+        s += rect(x, y - 16, 52, 16, 'zr')
+    elif kind == 'in':
+        s += rect(x, y, 52, 16, 'zr')
+    else:
+        s += f'<path class="zr" d="M{x} {y-4}L{x+52} {y-14}V{y+14}L{x} {y+4}z"/>'
+    s += line(x - 2, y, x + 54, y, 'a')
+    s += text(x + 26, 98, lab, 't') + text(x + 26, 112, sub, 's')
+    return s
+b += zpanel(8, 'eq', 'equal', 'bilateral')
+b += zpanel(70, 'uneq', 'unequal', 'bilateral Ⓤ')
+b += zpanel(132, 'out', 'outside', 'unilateral')
+b += zpanel(194, 'in', 'inside', 'unilateral')
+b += zpanel(256, 'non', 'varies', 'non-uniform')
+b += text(160, 20, 'solid line = true profile;  shaded = tolerance zone', 's')
+b += text(160, 140, 'outside = away from material (part material below the line)', 's')
+F['g-26-3'] = (svg(b), 'Where the zone sits relative to the true profile: centered, offset with Ⓤ, all outside, all inside, or varying.')
+
+# 26.4 between / all around / all over
+b = ''
+d = 'M40 112V44H120L160 24H260V112z'
+b += path(d, 'ah')
+b += circ(40, 44, 3, 'af') + text(30, 40, 'X', 't', 'end') + circ(260, 112, 3, 'af') + text(268, 120, 'Y', 't', 'start')
+f, xe = fcfbox(120, 116, [PSURF, '0.4', 'A'])
+b += f + text(xe + 8, 130, 'X ↔ Y', 't', 'start')
+b += line(120, 126, 104, 126, 'k') + line(104, 126, 96, 112, 'k')
+b += circ(214, 52, 0, 'k')
+# all around on a second leader
+b += line(260, 64, 290, 40, 'k') + circ(290, 40, 5, 'k') + line(290, 40, 306, 40, 'k')
+b += text(306, 26, 'all around', 's', 'end')
+b += circ(70, 20, 5, 'k') + circ(70, 20, 8.5, 'k') + line(78, 20, 100, 20, 'k') + text(104, 24, 'all over', 's', 'start')
+b += text(160, 150, 'between: control applies only from X to Y', 's')
+F['g-26-4'] = (svg(b, 152), 'Between (X↔Y) limits the extent; a circle on the leader means all around; a double circle, all over.')
+
 
 def build():
     root = pathlib.Path(__file__).resolve().parent.parent
