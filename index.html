@@ -3798,14 +3798,30 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   const lsGet=k=>{try{return localStorage.getItem(k)||'';}catch(e){return '';}};
   const lsSet=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k);}catch(e){}};
   const API='https://generativelanguage.googleapis.com/v1beta/';
-  const GM={key:()=>lsGet('atlas-gemini-key'),model:()=>lsGet('atlas-gemini-model')||'gemini-2.5-flash'};
+  // model: a pinned choice from settings, else the newest Flash model this key can use (auto-picked, cached)
+  const GM={key:()=>lsGet('atlas-gemini-key'),pinned:()=>lsGet('atlas-gemini-model-pin'),model:()=>lsGet('atlas-gemini-model-pin')||lsGet('atlas-gemini-auto')};
+  async function resolveModel(avoid){
+    if(!avoid&&GM.model()) return GM.model();
+    const ms=(await listModels(GM.key())).filter(m=>m.id!==avoid);
+    if(!ms.length) throw new Error('No Gemini models are available for this key.');
+    const id=pickModel(ms).id; lsSet('atlas-gemini-auto',id); return id;
+  }
+  const RETIRED=/no longer available|not found|not supported|deprecated|retired|discontinued|is not available/i;
   class NeedKey extends Error{constructor(){super('Add your Gemini API key first.');}}
   const textOf=j=>((j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[]).filter(p=>!p.thought).map(p=>p.text||'').join('');
   async function gemini(body,onText){
     const key=GM.key(); if(!key) throw new NeedKey();
-    const url=`${API}models/${encodeURIComponent(GM.model())}:${onText?'streamGenerateContent?alt=sse':'generateContent'}`;
-    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
-    if(!r.ok){let m='HTTP '+r.status; try{const j=await r.json(); if(j.error&&j.error.message) m=j.error.message;}catch(e){} throw new Error(m);}
+    let model=await resolveModel(), r;
+    for(let attempt=0;;attempt++){
+      r=await fetch(`${API}models/${encodeURIComponent(model)}:${onText?'streamGenerateContent?alt=sse':'generateContent'}`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
+      if(r.ok) break;
+      let m='HTTP '+r.status; try{const j=await r.json(); if(j.error&&j.error.message) m=j.error.message;}catch(e){}
+      if(attempt||!(r.status===404||RETIRED.test(m))) throw new Error(m);
+      // model retired: use the replacement Google names if any, else the newest other model; drop a stale pin
+      const sug=[...m.matchAll(/models\/(gemini-[\w.-]*\w)/g)].map(x=>x[1]).find(x=>x!==model);
+      if(GM.pinned()===model) lsSet('atlas-gemini-model-pin','');
+      model=sug||await resolveModel(model); lsSet('atlas-gemini-auto',model); syncModelSelect();
+    }
     if(!onText){const j=await r.json(); const t=textOf(j); if(!t) throw new Error('Empty response from Gemini.'); return t;}
     const rd=r.body.getReader(), dec=new TextDecoder(); let buf='', out='';
     for(;;){
@@ -3997,15 +4013,19 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
     fillModels(GM.key());
     setTimeout(()=>tkey.focus(),30);
   }
+  let modelList=[];
+  function syncModelSelect(){
+    const pin=GM.pinned(), auto=lsGet('atlas-gemini-auto');
+    const opts=modelList.length?modelList:(pin?[{id:pin,label:pin}]:[]);
+    tmodel.innerHTML=`<option value="">Auto: newest Flash${auto?` (${esc(auto)})`:''}</option>`+opts.map(m=>`<option value="${esc(m.id)}"${m.id===pin?' selected':''}>${esc(m.label)} (${esc(m.id)})</option>`).join('');
+  }
   async function fillModels(key){
-    const cur=GM.model();
-    if(!tmodel.options.length) tmodel.innerHTML=`<option value="${esc(cur)}">${esc(cur)}</option>`;
-    if(!key) return;
+    syncModelSelect(); if(!key) return;
     try{
-      const ms=await listModels(key); if(!ms.length) return;
-      const sel=ms.some(m=>m.id===cur)?cur:pickModel(ms).id;
-      tmodel.innerHTML=ms.map(m=>`<option value="${esc(m.id)}"${m.id===sel?' selected':''}>${esc(m.label)} (${esc(m.id)})</option>`).join('');
-      if(sel!==cur) lsSet('atlas-gemini-model',sel);
+      modelList=await listModels(key); if(!modelList.length) return;
+      if(GM.pinned()&&!modelList.some(m=>m.id===GM.pinned())) lsSet('atlas-gemini-model-pin','');
+      if(!GM.pinned()) lsSet('atlas-gemini-auto',pickModel(modelList).id);
+      syncModelSelect();
     }catch(e){}
   }
   document.getElementById('tsave').onclick=async()=>{
@@ -4014,15 +4034,16 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
     try{
       const ms=await listModels(key);
       lsSet('atlas-gemini-key',key);
-      const cur=lsGet('atlas-gemini-model'); const sel=ms.some(m=>m.id===tmodel.value)?tmodel.value:(ms.some(m=>m.id===cur)?cur:(ms.length?pickModel(ms).id:GM.model()));
-      lsSet('atlas-gemini-model',sel);
-      tmodel.innerHTML=ms.map(m=>`<option value="${esc(m.id)}"${m.id===sel?' selected':''}>${esc(m.label)} (${esc(m.id)})</option>`).join('');
-      tst.textContent=`Key saved · using ${sel}`; tst.className='tst ok';
+      if(!ms.length) throw new Error('no Gemini models are available for this key');
+      modelList=ms; lsSet('atlas-gemini-auto',pickModel(ms).id);
+      if(tmodel.value&&ms.some(m=>m.id===tmodel.value)) lsSet('atlas-gemini-model-pin',tmodel.value); else lsSet('atlas-gemini-model-pin','');
+      lsSet('atlas-gemini-model',''); syncModelSelect();
+      tst.textContent=`Key saved · using ${GM.model()}`; tst.className='tst ok';
       document.querySelectorAll('.qnokey').forEach(x=>x.classList.add('off'));
       setTimeout(()=>{if(!tset.hidden){showSettings(false); welcome(); tq.focus();}},900);
     }catch(err){tst.textContent='That key did not work: '+err.message; tst.className='tst warn';}
   };
-  tmodel.onchange=()=>lsSet('atlas-gemini-model',tmodel.value);
+  tmodel.onchange=()=>lsSet('atlas-gemini-model-pin',tmodel.value);
   document.getElementById('tforget').onclick=()=>{lsSet('atlas-gemini-key',''); tkey.value=''; tst.textContent='Key removed from this browser.'; tst.className='tst'; document.querySelectorAll('.qnokey').forEach(x=>x.classList.remove('off'));};
   document.getElementById('tSet').onclick=()=>showSettings(tset.hidden);
   document.getElementById('tClose').onclick=closeTutor;
