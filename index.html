@@ -575,6 +575,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 - **Effect of alloying.** Changing steel's carbon content shifts resilience and toughness: soft steel is most ductile, hard steel strongest, structural steel toughest {fig 3-17}.
 = u=\frac{\Delta U}{\Delta V}=\tfrac12\sigma\epsilon
 =! u_r=\tfrac12\sigma_{pl}\epsilon_{pl}=\frac{\sigma_{pl}^2}{2E}
+= u=\frac{\sigma^2}{2E} || Elastic strain-energy density
 ## 3.6 | Poisson's Ratio
 ! fig 3-21 crop || Stretching a bar makes it thinner; ν is the ratio of the two strains.
 - **Lateral contraction.** An axially stretched body also contracts sideways (a rubber band thins); a compressed body shortens and its sides expand.
@@ -583,6 +584,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 - **Sign and cause.** The minus sign makes $\nu$ positive since elongation causes contraction; the lateral strain comes from the axial force alone—no lateral stress acts.
 - **Range of values.** Dimensionless, typically 1/4 to 1/3 for nonporous solids; 0 for an ideal material with no lateral deformation and at most 0.5, so $0\le\nu\le0.5$.
 =! \nu=-\frac{\epsilon_{lat}}{\epsilon_{long}}
+= \epsilon_{long}=\frac{\delta}{L},\qquad \epsilon_{lat}=\frac{\delta'}{r}
 ## 3.7 | The Shear Stress–Strain Diagram
 ! fig 3-24 || The shear diagram mirrors the tension one; its initial slope is G.
 - **Pure shear element.** Pure shear puts equal $\tau_{xy}$ on four faces, directed toward or away from opposite corners; in homogeneous, isotropic material it distorts the element uniformly by $\gamma_{xy}$ {fig 3-23}.
@@ -603,8 +605,6 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 - **Fatigue mechanism.** Surface imperfections raise local stress far above average; cycling forms microcracks whose tips concentrate stress further until the remaining area fails suddenly—a ductile metal behaving as if brittle.
 - **Endurance limit.** The **endurance** or **fatigue limit** is the stress below which no failure is detected after a specified number of cycles; found by cycling specimens at set stresses to failure.
 - **S–N diagram.** Stress $S$ vs. cycles to failure $N$ (log scale); the endurance limit is where it levels off—about 27 ksi for steel; aluminum has none, so 500 million cycles defines 19 ksi. Below it, life is taken as infinite {fig 3-28}.
-= u=\frac{\sigma^2}{2E} || Elastic strain-energy density
-= \epsilon_{long}=\frac{\delta}{L},\qquad \epsilon_{lat}=\frac{\delta'}{r}
 
 # 4 | Axial Load | load | Elastic deformation, superposition, indeterminate members, thermal and residual stress.
 > Away from loads and supports, stress is uniform (Saint-Venant), so $\delta=\sum NL/AE$ gives the axial deformation.
