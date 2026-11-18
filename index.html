@@ -176,6 +176,7 @@ nav.side .subnav a.on,nav.side .subnav a:hover{color:var(--ink);background:trans
   .symtab{grid-template-columns:minmax(0,1fr)}
   .symrow{grid-template-columns:minmax(0,1fr)}
 }
+.kt{font-weight:650;color:var(--ink)}
 /* chapter summary */
 .csum{margin-top:4px;background:color-mix(in srgb,var(--acc) 7%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 30%,var(--line));border-left:5px solid var(--acc);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
 .csum .lbl{color:var(--acc);margin-top:0}
@@ -397,49 +398,91 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Design keeps stresses safe: allowable-stress design uses a factor of safety; LRFD factors loads up ($\gamma$) and strength down ($\phi$).
 ## 1.1 | Introduction
 ! svg 1-1 || Loads produce internal stress (strength) and strain (deformation).
-- Mechanics of materials studies the internal effects (stress, strain) of external loads on deformable bodies, plus stability (buckling).
-- Stress governs strength; strain governs deformation; most design-code formulas trace back to this subject.
+- **Mechanics of materials.** Branch of mechanics studying the internal effects—stress and strain—of external loads on a solid body; stress relates to the material's strength, strain measures the body's deformation.
+- **Stability.** The subject also covers stability, e.g. whether a column under compressive load will buckle.
+- **Why it matters.** Many formulas and design rules in engineering codes are built directly on the principles of this subject.
+- **Historical development.** Began with Galileo's 17th-century load tests on rods and beams; 18th-century advances in testing led to theory by Saint-Venant, Poisson, Lamé and Navier in France.
+- **Modern extensions.** Harder problems required advanced math and computers, spinning the subject into the theory of elasticity and the theory of plasticity, where research continues.
 ## 1.2 | Equilibrium of a Deformable Body
 ! fig 1-2 || Cut the body, keep one segment, and solve for the internal resultants on the cut face.
-- External loads: surface forces (concentrated or distributed $w(s)$), body forces (weight), and support reactions {fig 1-1}.
-- Method of sections: cut the body, draw a FBD of one segment, solve for internal resultants at the cut {fig 1-2}.
-- Four internal resultants: normal force $N$, shear force $V$, torsional moment $T$, bending moment $M$.
-- Coplanar loading reduces the internal resultants to $N$, $V$, $M$ {fig 1-3}.
+- **Statics review.** Statics underpins both the development and use of mechanics of materials, so its main principles are reviewed first.
+- **External loads.** A body carries only two kinds of external load: surface forces and body forces {fig 1-1}.
+- **Surface forces.** Caused by direct contact, always distributed over the contact area; a small area is idealized as a **concentrated force**, a narrow strip as a **linear distributed load** $w(s)$ (force/length).
+- **Resultant of a distributed load.** $F_R$ equals the area under the $w(s)$ curve and acts through the centroid $C$ of that area—typical for loads along a beam.
+- **Body forces.** Act without contact (gravity, electromagnetism); represented by one concentrated force—for gravity, the **weight** acting at the center of gravity.
+- **Support reactions.** **Reactions** are the surface forces at supports; a support that prevents translation in a direction exerts a force that way, and one that prevents rotation exerts a couple moment (Table 1–1).
+- **Common 2D supports.** Cable, roller and smooth support: one unknown force; external/internal pin: two components $F_x,F_y$; fixed support: $F_x,F_y$ and a moment $M$.
+- **Equations of equilibrium.** A **balance of forces** prevents translation or accelerated motion and a **balance of moments** prevents rotation: $\Sigma\mathbf F=0$, $\Sigma\mathbf M_O=0$, i.e. six scalar equations in 3D.
+- **Coplanar forces.** When all forces lie in the $x$–$y$ plane, only $\Sigma F_x=0$, $\Sigma F_y=0$, $\Sigma M_O=0$ are needed, with moments along $z$.
+- **Free-body diagram.** Equilibrium can only be applied correctly if every known and unknown force is accounted for, which is best done by drawing the body's FBD first.
+- **Internal resultant loadings.** Method of sections: pass an imaginary cut, separate the parts, draw the FBD of one; the distributed internal force is replaced by $\mathbf F_R$ and $\mathbf M_{R_O}$ at a point $O$ {fig 1-2}.
+- **Cross section.** $O$ is normally taken at the centroid of the sectioned area; for long slender members the cut is perpendicular to the longitudinal axis, called the **cross section**.
+- **Three dimensions.** Resolving $\mathbf F_R$, $\mathbf M_{R_O}$ normal and tangent to the cut gives four resultants: normal force $N$ (push/pull), shear force $V$ (sliding), torque $T$ (twist about the normal) and bending moment $M$ (bend about an in-plane axis).
+- **Moment notation.** Moments and torques are drawn as vectors with a curl; by the right-hand rule the thumb gives the arrow sense and the fingers the rotation.
+- **Coplanar loadings.** A coplanar force system leaves only $N$, $V$ and $M_O$ at the section: $N$ from $\Sigma F_x=0$, $V$ from $\Sigma F_y=0$, $M_O$ from $\Sigma M_O=0$ about the centroid {fig 1-3}.
+- **Procedure for analysis.** (1) Support reactions: FBD of the entire body if the chosen segment is supported; (2) FBD: keep loads in exact locations, cut, show $N,V,M,T$ at the centroid with $x,y,z$ axes; (3) equilibrium: sum moments at the section to solve $M$, $T$ directly; a negative result means opposite sense.
 =! \sum \mathbf{F}=0,\qquad \sum \mathbf{M}_O=0 || Equilibrium of any segment
 = \sum F_x=0,\;\; \sum F_y=0,\;\; \sum M_O=0 || Coplanar case
 = F_R=\int_L w(s)\,ds || Resultant of a distributed load (acts through its centroid)
 ## 1.3 | Stress
 ! fig 1-11 || Six independent stress components act on the faces of a small cube.
-- Stress is the intensity of internal force on a plane through a point; it depends on the plane's orientation {fig 1-9}.
-- Normal stress $\sigma$ acts perpendicular to the area; shear stress $\tau$ acts tangent to it.
-- General state of stress at a point: 6 independent components ($\sigma_x,\sigma_y,\sigma_z,\tau_{xy},\tau_{yz},\tau_{xz}$) on a cubic element {fig 1-11}.
-- Assumes a continuous, cohesive material; units Pa (N/m²) or psi.
+- **Concept of stress.** The resultant force and moment at $O$ only represent the actual distribution of internal loading over the cut; finding that distribution is the central problem, so stress is introduced {fig 1-9}.
+- **Continuous and cohesive.** Shrinking an area $\Delta A$ requires assuming the material is **continuous** (uniform matter, no voids) and **cohesive** (no breaks, cracks or separations).
+- **Stress.** The force $\Delta\mathbf F$ on $\Delta A$ is split into two tangent and one normal component; as $\Delta A\to0$ the force/area ratio tends to a finite limit—the intensity of internal force on a specific plane through a point.
+- **Normal stress.** Intensity of force acting normal to $\Delta A$, $\sigma_z=\lim_{\Delta A\to0}\Delta F_z/\Delta A$; it is **tensile** if it pulls on $\Delta A$, **compressive** if it pushes.
+- **Shear stress.** Intensity of force tangent to $\Delta A$, $\tau_{zx}$ and $\tau_{zy}$; the first subscript gives the orientation (normal) of the area, the second the axis along which the stress acts.
+- **General state of stress.** Cutting further with planes parallel to $x$–$z$ and $y$–$z$ isolates a cubic element whose faces each carry three components—the **state of stress** at the point {fig 1-11}.
+- **Dependence on loading and orientation.** The magnitudes of the stress components at a point depend on the type of loading and on the orientation of the element chosen.
+- **Units.** SI: pascal, 1 Pa = 1 N/m², usually with kPa, MPa, GPa prefixes (write MPa rather than N/mm²); FPS: psi or ksi (1 kip = 1000 lb).
 = \sigma_z=\lim_{\Delta A\to 0}\frac{\Delta F_z}{\Delta A},\qquad \tau_{zx}=\lim_{\Delta A\to 0}\frac{\Delta F_x}{\Delta A}
 ## 1.4 | Average Normal Stress in an Axially Loaded Bar
 ! fig 1-14 || A centrally loaded bar carries uniform σ = P/A in tension or compression.
-- Assumes a prismatic, homogeneous, isotropic bar with $P$ applied through the centroid, giving uniform deformation {fig 1-13}.
-- Stress is uniform over the cross section away from load points; element is in uniaxial stress {fig 1-14}.
-- Positive $\sigma$ = tension, negative = compression; find the max by checking where $N/A$ peaks (use an axial-force diagram).
+- **Prismatic bar.** A **prismatic** bar has the same cross section along its whole length; with $P$ applied through the centroid, its central region deforms uniformly.
+- **Homogeneous and isotropic.** **Homogeneous** material has the same properties throughout its volume; **isotropic** has them in all directions. Steel qualifies since its countless random crystals are tiny compared with the part.
+- **Anisotropic materials.** Materials like wood differ by direction, but if the anisotropy is aligned with the bar's axis the bar still deforms uniformly under axial load.
+- **Average normal stress distribution.** Uniform deformation demands a constant $\sigma$ over the cut; integrating $dF=\sigma\,dA$ gives $P=\sigma A$, so $\sigma=P/A$ with $P$ found by sections and equilibrium {fig 1-14}.
+- **Zero moment check.** Because $P$ acts through the centroid, the uniform stress produces no moment about the $x$ and $y$ axes, since $\int y\,dA=\int x\,dA=0$ by definition of the centroid.
+- **Equilibrium (uniaxial stress).** A volume element in the bar carries only normal stress; vertical equilibrium makes the two opposite-face stresses equal and opposite, a state called **uniaxial stress** {fig 1-13}.
+- **Tension or compression.** The analysis holds for both; graphically $P$ equals the volume under the stress diagram ($\sigma A$) and passes through that volume's centroid.
+- **Slight taper.** The result can be applied to slightly tapered bars—for a 15° taper, $P/A$ is only about 2.2% below the elasticity solution.
+- **Maximum average normal stress.** With several axial loads or area changes, $\sigma$ varies; find the max of $P/A$ using an **axial (normal) force diagram** of $P$ vs. $x$, with tension positive.
+- **Procedure for analysis.** (1) Section perpendicular to the axis and use an FBD and force equilibrium to get $P$; (2) find $A$ and compute $\sigma=P/A$; (3) draw $\sigma$ on a volume element—same direction as $P$ on the cut face, opposite on the other face.
 =! \sigma_{avg}=\frac{N}{A}
 ## 1.5 | Average Shear Stress
 ! fig 1-19 || A block pushed between supports shears on two planes, each carrying V.
-- Direct (simple) shear arises in bolts, pins, glued joints, and other connections {fig 1-19}.
-- Single shear: one shear plane; double shear: two planes, each carrying $V=P/2$.
-- Shear stresses on perpendicular faces are equal in magnitude and directed toward or away from the shared edge (pure shear) {fig 1-20}.
+- **Origin of shear.** A bar pushed by $\mathbf F$ between rigid supports tends to fail along two planes; the freed middle segment needs $V=F/2$ on each section {fig 1-19}.
+- **Average shear stress.** $\tau_{avg}=V/A$, assumed the same at every point of the section, with $V$ from equilibrium; $\tau_{avg}$ acts in the same direction as $\mathbf V$.
+- **Simple or direct shear.** Shear caused by the direct action of the load, common in connections with bolts, pins, welds and glue.
+- **Approximation.** $\tau=V/A$ is only approximate—actual peak shear can be much larger—but codes accept it for sizing fasteners and glued-joint bond strength; it suits thin or small parts that shear with negligible bending.
+- **Single vs. double shear.** A connection with one shear plane carries $V=P$; with two planes (e.g. a pin through a clevis) each plane carries $V=P/2$.
+- **Shear stress equilibrium.** Force equilibrium of a volume element gives equal shear stresses on opposite faces; moment equilibrium gives $\tau_{zy}=\tau_{yz}$, so a shear stress on one face requires equal ones on three adjacent faces {fig 1-20}.
+- **Complementary property of shear.** All four shear stresses have equal magnitude and point either toward or away from each other at opposite edges; an element so loaded is in **pure shear**.
+- **Procedure for analysis.** (1) Section where $\tau$ is wanted and use an FBD to find $V$; (2) compute $\tau_{avg}=V/A$; (3) draw it on an element face in the direction of $V$, then add the three complementary stresses per Fig. 1–20.
 =! \tau_{avg}=\frac{V}{A}
 = \tau_{xy}=\tau_{yx} || Complementary property of shear
 ## 1.6 | Allowable Stress Design
 ! fig 1-24 crop || Required area = load ÷ allowable stress.
-- Keep working stress well below failure stress to cover load/material uncertainty, wear, and corrosion.
-- Factor of safety F.S. > 1; required area follows directly from the allowable stress {fig 1-24}.
+- **Why limit the load.** Applied load must stay below full capacity because of fabrication/assembly errors, unknown vibration, impact or accidental loads, corrosion and weathering, and variable material properties (wood, concrete, composites).
+- **Factor of safety.** **F.S.** $=F_{fail}/F_{allow}$, with $F_{fail}$ from testing and F.S. chosen from experience to cover the uncertainties.
+- **Stress form.** When load is linear in stress (as with $P/A$, $V/A$), the area cancels and F.S. $=\sigma_{fail}/\sigma_{allow}=\tau_{fail}/\tau_{allow}$; not valid for columns, where only the load form applies.
+- **Choosing F.S.** Must exceed 1; near 1 for weight-critical aircraft and spacecraft, up to about 3 for some nuclear plant components; values often come from codes and handbooks.
+- **Allowable stress design.** **Allowable stress design** (ASD) bases the design on an allowable-stress limit, balancing public and environmental safety against economy.
+- **Simple connections.** With simplifying assumptions, required area is $A=P/\sigma_{allow}$ for normal force and $A=V/\tau_{allow}$ for shear, with allowable values from F.S. or a code.
+- **Typical applications.** Bolt area in a lap joint from shear, base-plate area from allowable concrete bearing stress, and embedded rod length $l=P/(\tau_{allow}\pi d)$ from glue bond shear {fig 1-24}.
 =! \text{F.S.}=\frac{F_{fail}}{F_{allow}}=\frac{\sigma_{fail}}{\sigma_{allow}}=\frac{\tau_{fail}}{\tau_{allow}}
 =! A=\frac{N}{\sigma_{allow}},\qquad A=\frac{V}{\tau_{allow}}
 ## 1.7 | Limit State Design
 ! svg 1-7 || Loads are scaled up, strength is scaled down; the scaled strength must still exceed the scaled load.
-- LRFD: amplify loads with load factors $\gamma_i$, reduce member strength with a resistance factor $\phi\le 1$.
-- Accounts separately for uncertainty in loads (dead vs. live) and in material strength.
+- **Limit state design.** Uncertainty can be handled with statistics, so modern practice separates load uncertainty from material uncertainty—**limit state design** (LSD), called **load and resistance factor design** (LRFD) in the U.S.; ASD lumps both into one F.S.
+- **Load factors.** Each load $R$ is multiplied by a **load factor** $\gamma$ reflecting its variability: dead load (fixed self-weight) gets a smaller factor (e.g. $\gamma_D=1.4$) than live loads like people ($\gamma_L=1.6$), wind, snow or earthquake.
+- **Load combinations.** Codes require combinations such as $R=1.2D+1.6L+0.5S$; snow's small factor reflects the low probability of maximum snow coinciding with maximum dead and live load.
+- **Resistance factors.** **Resistance factors** $\phi$ come from the probability of material failure given its quality and strength consistency; concrete gets smaller values than steel (e.g. $\phi=0.9$ for steel in tension).
+- **Design criteria.** LRFD requires $\phi P_n\ge\sum\gamma_i R_i$, where the **nominal strength** $P_n$ is the load causing failure or loss of serviceability.
+- **ASD or LRFD.** Strength design either picks an allowable stress/F.S. (ASD) or factors both the material strength and the loads (LRFD).
+- **Procedure for analysis.** (1) Choose the critical section, cut it and find the internal resultant from equilibrium; (2) with allowable stress or load/resistance factors known, size the area from $A=P/\sigma$ or $A=V/\tau$ for the (factored) load.
 =! \phi P_n \ge \sum \gamma_i R_i
 = R = 1.2D + 1.6L || Typical factored-load combination (dead + live)
+= R=1.2D+1.6L+0.5S || Dead + live + snow combination
 
 # 2 | Strain | fund | Normal and shear strain as measures of deformation.
 > Strain measures deformation independent of size: normal strain $\epsilon$ is change in length per unit length.
@@ -448,18 +491,27 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Strain at a point has three normal and three shear components, mirroring the state of stress.
 ## 2.1 | Deformation
 ! fig 2-1 || Deformation measured by how a line segment changes length and direction.
-- Applied loads change a body's shape and size; deformation is generally non-uniform from point to point.
-- Measured through changes in length of line segments and changes in angle between them {fig 2-1}.
+- **Deformation.** Any applied force changes a body's shape and size—**deformation**—which may be large and visible (a stretched rubber band) or practically unnoticeable (a building floor under foot traffic).
+- **Thermal deformation.** Temperature change alone also deforms a body, e.g. a roof expanding and contracting with the weather.
+- **Non-uniform deformation.** Deformation generally varies through the volume, so geometry changes are studied on very short line segments in the neighborhood of a point {fig 2-1}.
+- **Dependence on orientation.** The change also depends on the segment's direction at the point—one line may elongate while another through the same point contracts.
 ## 2.2 | Strain
 ! svg 2-2 || Normal strain = stretch per unit length; shear strain = loss of a right angle.
-- Normal strain $\epsilon$: elongation or contraction per unit length (dimensionless, often μ or %).
-- Shear strain $\gamma$: change in angle between two originally perpendicular segments (radians) {fig 2-2}.
-- Positive $\gamma$ when the right angle decreases.
-- Small-strain analysis ($\epsilon\ll 1$) lets us linearize geometry: $\sin\theta\approx\tan\theta\approx\theta$.
-- State of strain at a point: 3 normal + 3 shear strains {fig 2-3}.
+- **Concept of strain.** Strain describes deformation through changes in segment lengths and in the angles between segments; it is what experiments measure, and the next chapter relates it to stress.
+- **Normal strain.** Change in length per unit length, so actual lengths need not be specified; average $\epsilon_{avg}=(\Delta s'-\Delta s)/\Delta s$ for a line $AB$ along $n$ {fig 2-1}.
+- **Strain at a point.** Letting $B\to A$ along $n$ gives the normal strain at $A$ in direction $n$; positive $\epsilon$ means elongation, negative means contraction.
+- **Units.** Normal strain is dimensionless but often quoted as a length ratio—μm/m, in./in., percent, or "micros" (e.g. $480(10^{-6})$ = 480 μ = 0.048%).
+- **Shear strain.** Change in angle between two segments originally perpendicular, $\gamma_{nt}=\pi/2-\lim\theta'$, in radians {fig 2-2}.
+- **Shear strain sign.** $\gamma$ is positive when the right angle closes ($\theta'<\pi/2$) and negative when it opens ($\theta'>\pi/2$).
+- **Cartesian strain components.** A tiny $\Delta x\,\Delta y\,\Delta z$ element deforms into a parallelepiped with sides $(1+\epsilon_x)\Delta x$, etc., and angles $\pi/2-\gamma_{xy}$, $\pi/2-\gamma_{yz}$, $\pi/2-\gamma_{xz}$ {fig 2-3}.
+- **Volume vs. shape change.** Normal strains change the element's volume; shear strains change its shape—both occur simultaneously.
+- **State of strain.** Three normal strains $\epsilon_x,\epsilon_y,\epsilon_z$ and three shear strains $\gamma_{xy},\gamma_{yz},\gamma_{xz}$ fully describe deformation at a point; they depend on segment orientation and location, and known everywhere they fix the deformed shape.
+- **Displacements.** Loads deform all bodies, so points undergo displacements; strain is the measured geometric quantity from which stress is later found via material properties.
+- **Small strain analysis.** Design usually allows only tiny deformations, so $\epsilon\ll1$ is assumed; this permits first-order approximations $\sin\theta\approx\theta$, $\cos\theta\approx1$, $\tan\theta\approx\theta$.
 = \epsilon_{avg}=\frac{\Delta s'-\Delta s}{\Delta s},\qquad \Delta s'\approx(1+\epsilon)\Delta s
 =! \gamma_{nt}=\frac{\pi}{2}-\lim\theta'
 =! \epsilon=\frac{\delta}{L} || Uniform bar
+= \epsilon=\lim_{B\to A\ \text{along}\ n}\frac{\Delta s'-\Delta s}{\Delta s} || Normal strain at a point
 
 # 3 | Mechanical Properties of Materials | fund | Stress–strain behavior, Hooke's law, Poisson's ratio, creep and fatigue.
 > The tension test gives the stress–strain diagram: elastic region, yielding, strain hardening, necking, fracture.
@@ -469,48 +521,90 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Strain energy density is the area under the curve (resilience to $\sigma_{pl}$, toughness to fracture); creep and fatigue cause failure below static strength.
 ## 3.1 | The Tension and Compression Test
 ! svg 3-1 || Record load and gauge elongation, then divide by the original area and length.
-- Standard specimen loaded in a testing machine {fig 3-2}; record load $P$ and elongation $\delta$ over a gauge length $L_0$ {fig 3-3}.
-- Converted to engineering stress and strain using original area $A_0$ and length $L_0$.
+- **Strength by experiment.** A material's ability to carry load without undue deformation or failure is inherent to it and must be measured; the **tension or compression test** mainly establishes the average normal stress–strain relation for metals, ceramics, polymers and composites.
+- **Standard specimen.** Constant circular cross section with enlarged ends so failure avoids the grips; two punch marks define the **gauge length** $L_0$, and $A_0$ is measured (typically $d_0=0.5$ in., $L_0=2$ in.).
+- **Testing machine.** Ends seat in ball-and-socket joints to avoid bending; the machine stretches the specimen at a slow constant rate to failure, reading the load needed {fig 3-2}.
+- **Measuring elongation.** Load $P$ is recorded at intervals and elongation $\delta=L-L_0$ is taken with a caliper or an **extensometer**, then used to compute average normal strain.
+- **Strain gauge.** An **electrical-resistance strain gauge** cemented to the specimen strains with it; the change in resistance of its thin wire or foil is calibrated to read normal strain directly {fig 3-3}.
 = \sigma=\frac{P}{A_0},\qquad \epsilon=\frac{\delta}{L_0}
 ## 3.2 | The Stress–Strain Diagram
 ! fig 3-4 || Elastic → yielding → strain hardening → necking, for a ductile steel.
-- Regions: elastic (linear to proportional limit $\sigma_{pl}$, then elastic limit), yielding ($\sigma_Y$), strain hardening (up to ultimate $\sigma_u$), necking (to fracture $\sigma_f$) {fig 3-4}.
-- Engineering diagram uses original dimensions; true diagram uses instantaneous area and length {fig 3-5}.
-- Elastic region is reversible; beyond yield, permanent (plastic) deformation remains.
+- **Stress–strain diagram.** Specimens can't match every member's size, so load–deformation data are converted to stress and strain and plotted as the **stress–strain diagram**, valid for a member of any size.
+- **Conventional stress–strain diagram.** **Engineering (nominal) stress** $\sigma=P/A_0$ and **engineering strain** $\epsilon=\delta/L_0$ assume uniform stress and strain over the gauge length; plotting $\sigma$ vs. $\epsilon$ gives the conventional diagram.
+- **Test-to-test variation.** Two diagrams for one material are similar but never identical, since results depend on composition, microscopic flaws, manufacture, loading rate and temperature.
+- **Elastic behavior.** In the elastic region the curve is mostly a straight line (linear elastic) up to the **proportional limit** $\sigma_{pl}$; slightly above, up to the **elastic limit**, the specimen still fully recovers. For steel the two are too close to distinguish {fig 3-4}.
+- **Yielding.** Just past the elastic limit the material breaks down and deforms permanently—**yielding** at the **yield stress** $\sigma_Y$, producing **plastic deformation**; it continues to elongate with no load increase (**perfectly plastic**).
+- **Upper and lower yield points.** Low-carbon or hot-rolled steels show an **upper yield point** followed by a sudden drop to a **lower yield point**.
+- **Strain hardening.** After yielding the specimen carries more load; the curve rises, flattening, to the **ultimate stress** $\sigma_u$—this rise is **strain hardening**.
+- **Necking.** Area shrinks uniformly up to $\sigma_u$; beyond it a localized "neck" forms and the engineering curve drops until the specimen breaks at the **fracture stress** $\sigma_f$ {fig 3-5}.
+- **True stress–strain diagram.** Using the instantaneous area and length gives **true stress** and **true strain**; they match engineering values at small strain, diverge in strain hardening, and in necking true stress keeps rising to $\sigma_f'$ while engineering stress falls.
+- **Why use engineering values.** Design keeps stress in the elastic range, where the engineering-vs-true error is only about 0.1%, so the conventional diagram is used.
+- **Mild steel example.** $\sigma_{pl}=35$ ksi at $\epsilon_{pl}=0.0012$, upper/lower yield 38/36 ksi, yielding ends at $\epsilon_Y=0.030$ (25× $\epsilon_{pl}$), $\sigma_u=63$ ksi, $\sigma_f=47$ ksi, $\epsilon_f=0.380$ (317× $\epsilon_{pl}$).
 ## 3.3 | Stress–Strain Behavior of Ductile and Brittle Materials
 ! svg 3-3 || Ductile metals stretch a lot before breaking; brittle materials fracture with almost no yielding.
-- Ductile materials (steel, aluminum) show large strain before fracture; measured by percent elongation and percent reduction of area.
-- Offset method (0.2% strain) defines yield strength when no clear yield point exists {fig 3-7}.
-- Brittle materials (cast iron, concrete, glass) fail with little yielding; usually much stronger in compression than tension {fig 3-10}.
+- **Classification.** Materials are classed as ductile or brittle according to their stress–strain characteristics.
+- **Ductile materials.** A **ductile material** (e.g. mild steel) sustains large strains before fracture; engineers favor them because they absorb shock or energy and deform visibly before failing when overloaded.
+- **Percent elongation.** **Percent elongation** is the fracture strain in percent, $(L_f-L_0)/L_0\,(100\%)$—about 38% for mild steel.
+- **Percent reduction in area.** **Percent reduction in area** $(A_0-A_f)/A_0\,(100\%)$, with $A_f$ the neck area at fracture; about 60% for mild steel.
+- **Other ductile metals.** Brass, molybdenum and zinc behave like steel (elastic, constant-stress yielding, hardening, necking), but most metals—aluminum, for one—show no constant-stress yielding past the elastic range.
+- **Offset method.** With no clear yield point, a **yield strength** is found by drawing a line parallel to the initial slope from 0.2% strain; its intersection with the curve gives $\sigma_{YS}$ (51 ksi for the aluminum alloy); also used for plastics {fig 3-7}.
+- **Coinciding limits assumption.** Yield strength is not a physical property (it reflects a chosen permanent strain); the text assumes yield strength, yield point, elastic limit and proportional limit coincide unless stated.
+- **Nonlinear elastic materials.** Natural rubber, a polymer, has no proportional limit—its elastic stress–strain behavior is nonlinear.
+- **Wood.** Moderately ductile and designed elastically; strength varies with species, moisture, age and knots, and since it splits easily in tension across the grain, tensile loads are applied parallel to the grain.
+- **Brittle materials.** **Brittle materials** (gray cast iron) show little or no yielding; fracture starts at a random flaw and spreads rapidly, so an average fracture stress from several tests is reported {fig 3-10}.
+- **Compression strength of brittle materials.** In compression cracks close up, so resistance is much higher and the specimen bulges or barrels as strain grows.
+- **Concrete.** Brittle and weak in tension; behavior depends on mix and curing; compressive strength is about 12.5× tensile (5 vs. 0.4 ksi), so it is reinforced with steel for tensile loads.
+- **Ductile–brittle transition.** Most materials can show both behaviors: high-carbon steel is brittle, low-carbon ductile; low temperature makes materials harder and more brittle, high temperature softer and more ductile.
 = \%\,\text{elong.}=\frac{L_f-L_0}{L_0}(100\%),\qquad \%\,\text{red. area}=\frac{A_0-A_f}{A_0}(100\%)
 ## 3.4 | Hooke's Law
 ! svg 3-4 || Below the proportional limit, stress is proportional to strain; the slope is E.
-- Linear relation between stress and strain in the elastic region; slope is the modulus of elasticity $E$ (stiffness).
-- $E$ is nearly the same for all steels (~200 GPa); heat treatment changes strength, not stiffness.
-- Strain hardening: unloading follows a line parallel to the elastic slope, raising the effective yield point on reload {fig 3-14}.
+- **Hooke's law.** Within the elastic region stress is proportional to strain, $\sigma=E\epsilon$, found by Robert Hooke (1676); $E$ is the **modulus of elasticity** or **Young's modulus** (Thomas Young, 1807).
+- **Meaning of E.** The equation describes the initial straight line up to $\sigma_{pl}$ and $E$ is its slope, with units of stress; e.g. $E=\sigma_{pl}/\epsilon_{pl}=35/0.0012\approx29(10^3)$ ksi for steel.
+- **E for steels.** Carbon content changes the proportional limit, but nearly all steels—soft to tool steel—share $E_{st}\approx29(10^3)$ ksi = 200 GPa.
+- **Stiffness.** $E$ indicates stiffness: large for steel, tiny for spongy materials like vulcanized rubber (0.10 ksi); values are tabulated in codes and the book's back cover.
+- **Validity limits.** $E$ may be used only for linear elastic behavior; above the proportional limit the curve is no longer straight and $\sigma=E\epsilon$ does not hold.
+- **Strain hardening.** Loading a ductile specimen into the plastic region and unloading recovers the elastic strain along a line of slope $E$, leaving a **permanent set** (plastic strain) {fig 3-14}.
+- **Reloading.** On reloading the material follows the unloading line and yields near the previous peak stress—a higher yield point and larger elastic region, but less ductility.
 =! \sigma=E\epsilon
 ## 3.5 | Strain Energy
 ! fig 3-16 || Strain energy density is the area under the curve; up to σpl it is the modulus of resilience.
-- Energy stored in the material by deformation, per unit volume = area under the stress–strain curve {fig 3-15}.
-- Modulus of resilience $u_r$: energy density up to the proportional limit {fig 3-16}. Modulus of toughness $u_t$: entire area to fracture {fig 3-17}.
+- **Strain energy.** External work done by a load as it deforms a material is stored as internal **strain energy**; for an element with uniaxial $\sigma$, average force $\Delta F/2$ times displacement $\epsilon\Delta z$ gives $\Delta U=\tfrac12\sigma\epsilon\,\Delta V$ (no heat loss) {fig 3-15}.
+- **Strain-energy density.** Energy per unit volume, $u=\tfrac12\sigma\epsilon$; for linear elastic material, Hooke's law gives $u=\sigma^2/2E$. It equals the area under the $\sigma$–$\epsilon$ diagram.
+- **Modulus of resilience.** $u_r$ is the strain-energy density at the proportional limit—the triangular area under the elastic line—i.e. the most energy per volume absorbed without permanent damage; key for bumpers and shock absorbers {fig 3-16}.
+- **Modulus of toughness.** $u_t$ is the entire area under the diagram, the maximum energy absorbed before fracture; important for members that may be accidentally overloaded.
+- **Effect of alloying.** Changing steel's carbon content shifts resilience and toughness: soft steel is most ductile, hard steel strongest, structural steel toughest {fig 3-17}.
 = u=\frac{\Delta U}{\Delta V}=\tfrac12\sigma\epsilon
 =! u_r=\tfrac12\sigma_{pl}\epsilon_{pl}=\frac{\sigma_{pl}^2}{2E}
 ## 3.6 | Poisson's Ratio
 ! fig 3-21 crop || Stretching a bar makes it thinner; ν is the ratio of the two strains.
-- A bar stretched axially contracts laterally; the ratio of lateral to longitudinal strain is constant in the elastic range {fig 3-21}.
-- Dimensionless, $0\le\nu\le 0.5$; typically 1/4 – 1/3 for metals.
+- **Lateral contraction.** An axially stretched body also contracts sideways (a rubber band thins); a compressed body shortens and its sides expand.
+- **Longitudinal and lateral strains.** For a bar of radius $r$, length $L$ elongating by $\delta$ while the radius shrinks by $\delta'$: $\epsilon_{long}=\delta/L$, $\epsilon_{lat}=\delta'/r$ {fig 3-21}.
+- **Poisson's ratio.** Poisson (early 1800s) found the ratio of these strains constant in the elastic range; **Poisson's ratio** $\nu=-\epsilon_{lat}/\epsilon_{long}$ is unique to a homogeneous, isotropic material.
+- **Sign and cause.** The minus sign makes $\nu$ positive since elongation causes contraction; the lateral strain comes from the axial force alone—no lateral stress acts.
+- **Range of values.** Dimensionless, typically 1/4 to 1/3 for nonporous solids; 0 for an ideal material with no lateral deformation and at most 0.5, so $0\le\nu\le0.5$.
 =! \nu=-\frac{\epsilon_{lat}}{\epsilon_{long}}
 ## 3.7 | The Shear Stress–Strain Diagram
 ! fig 3-24 || The shear diagram mirrors the tension one; its initial slope is G.
-- Pure-shear (torsion) tests give a $\tau$–$\gamma$ diagram with analogous proportional limit, yield, ultimate {fig 3-23} {fig 3-24}.
-- Shear modulus $G$ is related to $E$ and $\nu$ — only two of the three are independent.
+- **Pure shear element.** Pure shear puts equal $\tau_{xy}$ on four faces, directed toward or away from opposite corners; in homogeneous, isotropic material it distorts the element uniformly by $\gamma_{xy}$ {fig 3-23}.
+- **Torsion test.** Thin-tube specimens are twisted; torque and angle of twist are converted (Ch. 5) to $\tau$ and $\gamma$ for the shear stress–strain diagram.
+- **Shear diagram features.** Like tension: linear-elastic to a proportional limit $\tau_{pl}$, strain hardening to an ultimate shear stress $\tau_u$, then loss of strength to fracture at $\tau_f$ {fig 3-24}.
+- **Hooke's law for shear.** $\tau=G\gamma$, with $G$ the **shear modulus of elasticity** or **modulus of rigidity**, the slope $\tau_{pl}/\gamma_{pl}$; units match $\tau$ since $\gamma$ is in radians.
+- **Relation among E, ν, G.** $G=E/[2(1+\nu)]$ (derived in Sec. 10.6), so $\nu$ can be computed from measured $E$ and $G$; for A-36 steel, 29 and 11 ($10^3$ ksi) give $\nu=0.32$.
 =! \tau=G\gamma
 =! G=\frac{E}{2(1+\nu)}
 ## 3.8 | Failure of Materials Due to Creep and Fatigue | *
 ! fig 3-28 || S–N diagram: below the endurance limit, steel survives any number of cycles.
-- Creep: time-dependent permanent deformation under sustained load, worse at high temperature; design uses creep strength for a given life {fig 3-27}.
-- Fatigue: fracture under repeated (cyclic) stress below static strength, starting at microcracks and stress raisers.
-- $S$–$N$ diagram: stress amplitude vs. cycles to failure; endurance (fatigue) limit $S_{el}$ is the stress below which failure does not occur (steel) {fig 3-28}.
+- **Beyond static loading.** Properties so far assume slow loading at constant temperature; long-term loads at high temperature or repeated loads need special design treatment, only briefly covered here.
+- **Creep.** **Creep** is time-dependent permanent deformation under long-term load, ending in sudden fracture or loss of usefulness; important for hot metals and ceramics, but polymers, wood and concrete creep from load alone.
+- **Creep rate factors.** Both stress and temperature govern creep rate; e.g. a rubber band held stretched for a long time won't return to shape.
+- **Creep strength.** Highest stress sustained for a specified time without exceeding an allowable creep strain; requires specified temperature, duration and strain limit (e.g. 0.1%/year for steel bolts and piping).
+- **Creep testing.** Specimens at constant temperature under different stresses give a stress-vs-time curve, usually to 1000 h; longer lives need experienced extrapolation, then a factor of safety yields the allowable stress {fig 3-27}.
+- **Fatigue.** **Fatigue** is fracture from repeated cycles of stress or strain, at stress below yield; it causes many failures of crankshafts, turbine blades, bridge connections, rail wheels and axles.
+- **Fatigue mechanism.** Surface imperfections raise local stress far above average; cycling forms microcracks whose tips concentrate stress further until the remaining area fails suddenly—a ductile metal behaving as if brittle.
+- **Endurance limit.** The **endurance** or **fatigue limit** is the stress below which no failure is detected after a specified number of cycles; found by cycling specimens at set stresses to failure.
+- **S–N diagram.** Stress $S$ vs. cycles to failure $N$ (log scale); the endurance limit is where it levels off—about 27 ksi for steel; aluminum has none, so 500 million cycles defines 19 ksi. Below it, life is taken as infinite {fig 3-28}.
+= u=\frac{\sigma^2}{2E} || Elastic strain-energy density
+= \epsilon_{long}=\frac{\delta}{L},\qquad \epsilon_{lat}=\frac{\delta'}{r}
 
 # 4 | Axial Load | load | Elastic deformation, superposition, indeterminate members, thermal and residual stress.
 > Away from loads and supports, stress is uniform (Saint-Venant), so $\delta=\sum NL/AE$ gives the axial deformation.
@@ -520,48 +614,88 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Beyond yield, elastic–plastic analysis gives the plastic load $\sigma_Y A$ and residual stresses after unloading.
 ## 4.1 | Saint-Venant's Principle
 ! fig 4-1 || Distortion is local to the load and support; the grid stays straight in between.
-- Localized stress/strain near load points or supports smooths out to a uniform distribution a short distance away (about the largest cross-section dimension) {fig 4-1}.
-- Allows using $\sigma=P/A$ away from load application points {fig 4-2}.
+- **Deformation near loads and supports.** A bar loaded through a hole at one end and fixed at the other shows grid lines distorted only near the ends; through the midsection the lines stay straight and deformation is uniform {fig 4-1}.
+- **Stress evens out with distance.** Because elastic strain tracks stress, the stress profile on sections a–a, b–b, c–c becomes more uniform farther from the load; at c–c the local effect of $P$ has vanished.
+- **How far away.** Elasticity theory shows uniformity is reached at a distance at least equal to the largest dimension of the loaded cross section (the bar's width, not thickness); there $\sigma_{max}\approx1.02\,\sigma_{avg}$.
+- **At the support.** The same smoothing happens near the support: stress becomes uniform at the same distance away from it.
+- **Saint-Venant's principle.** (Saint-Venant, 1855) Far from the loaded region, stress and strain are the same for any loadings with the same statically equivalent resultant applied in the same region — e.g. two forces $P/2$ give $\sigma_{avg}=P/A$ at c–c.
+- **Practical use.** Lets $\sigma=P/A$ be used everywhere except small regions at load points and supports; localized deformations "even out" away from those regions.
 ## 4.2 | Elastic Deformation of an Axially Loaded Member
 ! fig 4-3 crop || Elongation adds up segment by segment: δ = Σ PL/AE.
-- Integrate strain along the length; for piecewise-constant $N$, $A$, $E$ sum segment contributions {fig 4-3}.
-- Sign convention: tension and elongation positive {fig 4-5}.
-- Relative displacement between two points of the member.
+- **Goal: relative displacement.** Find the elastic displacement $\delta$ of one end of a bar relative to the other, for a bar whose area varies gradually and that carries end loads plus a distributed load (e.g. self-weight, surface friction).
+- **Neglecting local effects.** Localized deformations at concentrated loads and abrupt section changes are ignored; by Saint-Venant they affect only short lengths, so stress is taken as uniform over each section.
+- **Differential element.** A wafer $dx$ at position $x$ carries internal force $N(x)$ on area $A(x)$; with $\sigma=N/A$, $\epsilon=d\delta/dx$ and Hooke's law $\sigma=E\epsilon$, $d\delta=N\,dx/(AE)$, integrated over $L$ {fig 4-2}.
+- **Linear-elastic requirement.** Since Hooke's law is used, no internal load may cause yielding; stress must stay below the proportional limit.
+- **Constant load and cross-sectional area.** For constant $A$, homogeneous material (constant $E$) and end forces only, the internal force is constant and the integral reduces to $\delta=NL/AE$ {fig 4-3}.
+- **Multiple segments.** If the forces, area or modulus change abruptly, apply $NL/AE$ to each segment where they are constant and add the segment displacements algebraically.
+- **Sign convention.** Internal force and displacement are positive for tension and elongation, negative for compression and contraction; the normal-force diagram shows how $N$ varies along the bar {fig 4-5}.
+- **Subscript notation.** $\delta_{A/D}$ is the displacement of A relative to D (positive = A moves away, bar elongates); relative to a fixed point a single subscript is used, e.g. $\delta_A$.
+- **Procedure for analysis.** (1) Internal force: section to find $N$, as $N(x)$ under distributed load or per segment between external forces; tension positive; draw the normal-force diagram. (2) Displacement: express $A(x)$ if varying, apply $NL/AE$ per constant segment with signs and consistent units; positive = elongation.
 = \delta=\int_0^L\frac{N(x)\,dx}{A(x)\,E}
 =! \delta=\frac{NL}{AE},\qquad \delta=\sum\frac{NL}{AE}
 ## 4.3 | Principle of Superposition
 ! svg 4-3 || With linear-elastic behavior, the response to several loads is the sum of the separate responses.
-- Total stress or displacement equals the sum of effects from each load applied separately.
-- Valid only if response is linear in load (linear-elastic material) and geometry change is small {fig 4-9}.
+- **Principle of superposition.** Split a complicated load into components; the resultant stress or displacement at a point is the algebraic sum of the effects of each component applied separately.
+- **Condition 1: linearity.** The load must be linearly related to the stress or displacement sought, as in $\sigma=P/A$ and $\delta=PL/AE$.
+- **Condition 2: small geometry change.** The loading must not significantly change the member's geometry; with large deflection the moments of the component loads ($P_1d_1+P_2d_2$) no longer sum to $Pd$ {fig 4-9}.
+- **Use in this text.** Superposition is applied throughout wherever Hooke's law holds and deformations are small enough that changes in load position and direction can be neglected.
 ## 4.4 | Statically Indeterminate Axially Loaded Member
 ! fig 4-10 || Two unknown reactions, one equation: add the compatibility δ_A/B = 0.
-- More unknown reactions than equilibrium equations; add compatibility (kinematic) conditions {fig 4-10}.
-- Write compatibility in terms of displacements, then substitute load–displacement relations.
+- **Statically indeterminate.** A bar fixed at both ends with load $P$ has two unknown reactions but one equilibrium equation $F_A+F_B-P=0$; equilibrium alone cannot find all reactions {fig 4-10}.
+- **Compatibility (kinematic) condition.** An extra equation stating how points displace; for fixed ends the relative displacement of one end to the other is zero, $\delta_{A/B}=0$.
+- **Load–displacement relationship.** Expresses compatibility in terms of the forces using material behavior, e.g. $\delta=NL/AE$; with $+F_A$ in AC and $-F_B$ in CB, $F_AL_{AC}-F_BL_{CB}=0$.
+- **Result for the fixed–fixed bar.** $F_A=P\,L_{CB}/L$ and $F_B=P\,L_{AC}/L$; positive answers confirm the directions assumed on the free-body diagram.
+- **Example: reinforced concrete.** Steel rods and concrete in a column share the load, so the force in each material is statically indeterminate.
+- **Procedure for analysis.** (1) Equilibrium: draw FBD, count unknowns vs. equations, write equilibrium. (2) Compatibility: sketch the displacement diagram and write displacement constraints. (3) Load–displacement: substitute $\delta=NL/AE$, solve; a negative result means the force acts opposite to the assumed sense.
 = \delta_{A/B}=0 || e.g. bar fixed at both ends
 ## 4.5 | The Force Method of Analysis for Axially Loaded Members
 ! svg 4-5 || Release the redundant support, then size the redundant force so the displacement there returns to zero.
-- Remove a redundant support, compute displacement of the released structure, then require the redundant to restore compatibility {fig 4-15}.
+- **Flexibility (force) method.** An alternative for indeterminate members: write the compatibility equation by superposition instead of directly from the deformed shape.
+- **Choosing the redundant.** Remove one support (e.g. B) to make the bar statically determinate, then add back the unknown redundant force $F_B$ as a separate load case {fig 4-15}.
+- **Compatibility by superposition.** The load's displacement at B, $\delta_P$, must be cancelled by the redundant's displacement $\delta_B$, so $0=\delta_P-\delta_B$ (positive downward).
+- **Solving.** With $\delta_P=PL_{AC}/AE$ and $\delta_B=F_BL/AE$, $F_B=P\,L_{AC}/L$; equilibrium then gives $F_A=P\,L_{CB}/L$ — the same as Sec. 4.4, but compatibility finds one reaction and equilibrium the other.
+- **Nonzero known displacement.** If the redundant support has a gap, the known displacement there (not zero) is set equal to $\delta_P-\delta_B$.
+- **Procedure for analysis.** (1) Compatibility: pick a redundant support; equate its known displacement (usually 0) to the displacement from external loads alone plus that from the redundant alone, written with $\delta=NL/AE$; solve for the redundant. (2) Equilibrium: FBD with the redundant known, solve for the other reactions.
 = 0=\delta_P-\delta_B || Released-structure deflection cancelled by redundant
 ## 4.6 | Thermal Stress
 ! svg 4-6 || A bar that cannot expand freely develops stress proportional to the temperature change.
-- Temperature change causes free expansion; if constrained, it produces thermal stress.
-- In indeterminate members, combine thermal and load-induced displacements in compatibility.
+- **Thermal expansion.** Temperature rise generally makes a body expand and a drop makes it contract (Invar and scandium trifluoride are exceptions), usually linearly with the temperature change.
+- **Linear coefficient of thermal expansion.** For homogeneous, isotropic material $\delta_T=\alpha\,\Delta T\,L$; $\alpha$ is a material property in strain per degree (1/°F, 1/°C or 1/K), $\Delta T$ the algebraic temperature change.
+- **Determinate members.** A statically determinate member is free to expand or contract, so its length change follows directly from $\delta_T$ with no stress.
+- **Thermal stress.** In an indeterminate member the supports restrain the thermal displacement, creating thermal stresses that must be designed for; solved with the same equilibrium–compatibility–load-displacement method.
+- **Combining effects.** Compatibility then includes both thermal and force-induced displacements, e.g. $0=\delta_T-\delta_F$ for a bar between fixed walls, giving $\sigma=E\alpha\Delta T$; even modest $\Delta T$ yields large forces.
+- **Expansion joints.** Bridges, long ducts and pipelines use expansion joints so thermal movement is accommodated and thermal stress avoided.
 =! \delta_T=\alpha\,\Delta T\,L
 =! \sigma=E\alpha\,\Delta T || Fully restrained bar
 ## 4.7 | Stress Concentrations
 ! fig 4-20 crop || A hole spikes the actual stress well above the average value.
-- Abrupt changes in cross section (holes, fillets, notches) raise local stress above the average {fig 4-20} {fig 4-21}.
-- Stress-concentration factor $K$ from charts depends on geometry only {fig 4-24}; most important for brittle materials and fatigue.
+- **Where concentrations arise.** Complex stress distributions occur not only under concentrated loads but also where the cross section changes, such as a hole in a bar under axial load {fig 4-20}.
+- **Maximum at smallest section.** The peak normal stress acts on the section of smallest area (through the hole or at shoulder fillets); its distribution is found by elasticity theory or by measuring strain and using $\sigma=E\epsilon$ {fig 4-21}.
+- **Equilibrium of the distribution.** $P=\int_A\sigma\,dA$: the "volume" under the stress-distribution diagram equals $P$ and acts through that volume's centroid.
+- **Stress-concentration factor.** In practice only $\sigma_{max}$ is needed; $K=\sigma_{max}/\sigma_{avg}$, with $\sigma_{avg}=P/A$ on the smallest area, so $\sigma_{max}=K(P/A)$.
+- **K depends on geometry only.** Handbook charts give $K$ as a function of geometry and discontinuity type, not material; smaller radius $r$ means larger $K$ {fig 4-24}.
+- **Reducing K.** A sharp step gives $K>3$; a fillet can cut this to about 1.5, and small grooves or holes at the transition reduce it further by lowering local rigidity so strain spreads out.
+- **Brittle materials.** Charts assume static load below the proportional limit; a brittle material can crack at the concentration, the crack tip raises stress further and causes sudden fracture, so $K$ must be used.
+- **Ductile, static loading.** Usually $K$ need not be used: stress above the proportional limit causes yielding and strain hardening, not cracking, giving reserve strength.
+- **Fatigue loading.** Under cyclic loads a crack starts if stress exceeds the endurance limit, for ductile or brittle material; the crack tip stays brittle and grows progressively, so concentrations govern fatigue failure.
 =! K=\frac{\sigma_{max}}{\sigma_{avg}}
 ## 4.8 | Inelastic Axial Deformation | *
 ! svg 4-8 || Elastic–perfectly plastic model: once at σY, stress stays there; the plastic load is σY A.
-- Elastic–perfectly plastic model: stress stays at $\sigma_Y$ once yielding occurs.
-- Plastic load: entire cross section at yield; in indeterminate structures, load redistributes to members still elastic {fig 4-26}.
+- **Elastic perfectly plastic (elastoplastic).** Some members are designed to yield; highly ductile metals like annealed low-carbon steel are modelled as linear up to $\sigma_Y$, then straining at constant $\sigma_Y$.
+- **Plastic load.** Elastic stress $\sigma_1$ gives $P=\sigma_1A$; at yield $P_p=\int\sigma_Y\,dA=\sigma_YA$, the maximum load an elastoplastic member can carry.
+- **Indefinite strain.** At $P_p$ strain is not uniquely defined — the bar keeps elongating with no load increase in the model.
+- **Strain hardening is conservative.** Real materials strain-harden after some yielding, stopping further strain, so a design based on the elastoplastic model is safe.
+- **Bar with a hole.** Elastically the peak stress is at the hole edge; once it reaches $\sigma_Y$, yielding spreads outward, the stress "volume" grows, and full-section yield gives $P_p=\sigma_YA$ on the net section {fig 4-26}.
+- **Indeterminate structures.** When one member yields it carries a constant force while additional load redistributes to members that are still elastic.
 =! P_p=\sigma_Y A
 ## 4.9 | Residual Stress | *
 ! fig 4-27 || Load past yield, unload elastically, and a permanent strain (and residual stress) remains.
-- After loading into the plastic range and unloading elastically, locked-in residual stresses remain {fig 4-27}.
-- Residual = (stress at max load) − (elastic stress for the reverse load), via superposition.
+- **Origin of residual stress.** In an indeterminate system able to carry tension and compression, loads that cause yielding leave residual stresses after removal, because of elastic recovery during unloading.
+- **Elastic unloading path.** Loaded to $\sigma_Y$ at strain $\epsilon_C$, the material unloads elastically along CD (slope $E$), recovering some strain {fig 4-27}.
+- **Determinate member.** Reactions must go to zero, so the member returns to zero stress at O′ with a permanent set $\epsilon_{O'}$ and no residual stress.
+- **Indeterminate member.** Supports resist full recovery, so they induce residual stresses as the member springs back.
+- **Superposition method.** Treat load-then-unload as a positive load plus an equal negative load: loading gives the plastic distribution, unloading an elastic one; the loads cancel but stresses don't, leaving residual stress.
+- **Computing residuals.** Residual stress = (stress at maximum load) − (elastic stress from applying the same load reversed); strains at peak load, from $\delta=NL/AE$ in elastic segments, give the permanent displacement.
 
 # 5 | Torsion | load | Circular shafts, power transmission, angle of twist, thin-walled tubes.
 > In circular shafts, sections stay plane and shear strain grows linearly with radius.
@@ -571,56 +705,112 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Non-circular sections warp, thin-walled tubes carry constant shear flow $q=T/2A_m$, and plastic torsion raises capacity to $\tfrac43 T_Y$.
 ## 5.1 | Torsional Deformation of a Circular Shaft
 ! fig 5-1 || Circles stay circular and radial lines stay straight; longitudinal lines twist.
-- Cross sections remain plane and circular; radial lines stay straight and rotate {fig 5-1} {fig 5-2}.
-- Shear strain varies linearly with radial distance $\rho$, max at outer surface {fig 5-4}.
+- **Torque.** A moment that twists a member about its longitudinal axis; its effects are the main concern in designing drive shafts for vehicles and machinery.
+- **Observed deformation.** On a twisted rubber shaft, circles stay circular, longitudinal lines become helices crossing the circles at equal angles, end sections stay flat (no warping) and radial lines stay straight {fig 5-1}.
+- **Small-twist assumption.** For a small angle of twist, the shaft's length and radius are taken to remain unchanged.
+- **Angle of twist.** With one end fixed, a radial line at distance $x$ rotates by $\phi(x)$, which grows along the shaft {fig 5-2}.
+- **Shear strain of an element.** An element at radius $\rho$ between faces rotated $\phi$ and $\phi+\Delta\phi$ loses its right angle; arc length $\rho\,\Delta\phi=\Delta x\,\gamma$ gives $\gamma=\rho\,d\phi/dx$.
+- **Linear strain distribution.** Since $d\phi/dx$ is the same for every element on a section, $\gamma$ varies linearly with $\rho$, from zero at the axis to $\gamma_{max}$ at the outer surface $c$ {fig 5-4}.
+- **Applies to tubes.** These results also hold for circular tubes, and depend only on the deformation assumptions, not on material behavior.
 = \gamma=\frac{\rho}{c}\gamma_{max}
 ## 5.2 | The Torsion Formula
 ! fig 5-5 || Shear stress grows linearly from zero at the center to τmax at the surface.
-- For linear-elastic material, shear stress also varies linearly from zero at the center {fig 5-5}.
-- Polar moment of inertia $J$ for solid and hollow (tube) circular sections {fig 5-9}.
-- Shear acts on both transverse and longitudinal planes — wood shafts may split axially.
+- **Internal torque.** An external torque creates an internal torque at each section; the torsion formula links it to the shear-stress distribution on a circular shaft or tube.
+- **Linear stress distribution.** For linear-elastic material, Hooke's law $\tau=G\gamma$ turns the linear strain into linear stress, $\tau=(\rho/c)\tau_{max}$, zero at the axis to $\tau_{max}$ at the surface {fig 5-5}.
+- **Torque equivalence.** Each area $dA$ carries $dF=\tau\,dA$ and moment $\rho\,\tau\,dA$; summing over the section must equal the internal resultant torque $T$, giving $T=(\tau_{max}/c)\int\rho^2dA$.
+- **Polar moment of inertia.** $J=\int\rho^2dA$ depends only on geometry about the shaft axis; always positive, in mm⁴ or in⁴.
+- **Torsion formula.** $\tau_{max}=Tc/J$ and $\tau=T\rho/J$; valid only for circular sections of homogeneous, linear-elastic material, with $\tau_{max}$ not exceeding the proportional limit.
+- **Solid shaft.** Integrating thin rings $dA=2\pi\rho\,d\rho$ gives $J=\tfrac{\pi}{2}c^4$.
+- **Axial-plane shear.** By complementary shear, the same linear distribution also acts on longitudinal planes; wood (anisotropic, weak parallel to grain) therefore splits along the axis under excessive torque.
+- **Tubular shaft.** Subtract inner from outer: $J=\tfrac{\pi}{2}(c_o^4-c_i^4)$; stress again varies linearly along radial lines and axial planes {fig 5-9}.
+- **Absolute maximum torsional stress.** Find where $Tc/J$ is largest; a torque diagram (internal $T$ vs. position $x$) helps locate it.
+- **Procedure for analysis.** (1) Internal loading: section perpendicular to the axis, use equilibrium for $T$. (2) Section property: compute $J$. (3) Shear stress: apply $\tau=T\rho/J$ or $\tau_{max}=Tc/J$; $\tau$ is perpendicular to $\rho$ and its torque matches $T$'s sense, which sets the directions on the element's other faces.
 =! \tau_{max}=\frac{Tc}{J},\qquad \tau=\frac{T\rho}{J}
 =! J=\frac{\pi}{2}c^4,\qquad J=\frac{\pi}{2}\left(c_o^4-c_i^4\right)
 ## 5.3 | Power Transmission
 ! svg 5-3 || Power is torque times angular speed, so the torque a shaft must carry follows from power and rpm.
-- Shaft power equals torque times angular velocity; select shaft size from power and speed.
+- **Shafts transmit power.** Circular shafts and tubes carry power from machines; the torque depends on the power generated and the shaft's angular speed.
+- **Power.** Work per unit time; a shaft rotating $d\theta$ under torque $T$ does work $T\,d\theta$, so $P=T\,d\theta/dt=T\omega$.
+- **Units.** SI: watts, with $T$ in N·m and $\omega$ in rad/s (1 W = 1 N·m/s); FPS: ft·lb/s, or horsepower, 1 hp = 550 ft·lb/s.
+- **Frequency form.** Machinery is rated by rotation frequency $f$ in hertz (cycles/s); with $\omega=2\pi f$, $P=2\pi fT$.
+- **Shaft design.** Given power and frequency, $T=P/2\pi f$; with $\tau_{allow}$ and linear-elastic behavior, the torsion formula gives the required $J/c=T/\tau_{allow}$.
+- **Solid vs. tubular sizing.** A solid shaft yields a unique radius $c$; a tube allows many solutions, since either $c_o$ or $c_i$ can be chosen and the other solved for.
 =! P=T\omega=2\pi f T
 = \frac{J}{c}=\frac{T}{\tau_{allow}}
 ## 5.4 | Angle of Twist
 ! fig 5-2 || The twist angle φ(x) accumulates along the shaft.
-- Integrate twist along the shaft; sum segments for piecewise-constant $T$, $J$, $G$ {fig 5-14}.
-- Right-hand rule sign convention for both torque and angle {fig 5-17}.
+- **Why twist matters.** Shaft design may limit rotation, and twist angles are needed to solve statically indeterminate shafts.
+- **Assumptions.** Circular section that may vary gradually along the length, homogeneous linear-elastic material; localized effects at applied torques and abrupt changes are neglected by Saint-Venant's principle {fig 5-14}.
+- **Differential disk.** A disk $dx$ under internal $T(x)$ twists $d\phi=\gamma\,dx/\rho$; with $\gamma=\tau/G$ and $\tau=T\rho/J$, $d\phi=T\,dx/(JG)$, integrated over $L$ (radians).
+- **Constant torque and cross-sectional area.** With constant $G$, $J$ and $T$, $\phi=TL/JG$ — the direct analogue of $\delta=NL/AE$ for axial bars.
+- **Measuring G.** A torsion-testing machine twists a specimen of known $L$ and diameter while $T$ and $\phi$ are recorded; $G=TL/J\phi$, averaged over several tests.
+- **Multiple torques.** If torques, section or $G$ change abruptly, apply $TL/JG$ to each constant segment and add the segment twists with their signs.
+- **Sign convention.** Right-hand rule: torque and angle are positive when the thumb points outward from the sectioned end as fingers curl in the rotation sense {fig 5-17}.
+- **Subscript notation.** $\phi_{A/D}$ is A's twist relative to D (positive = rotation per the right-hand curl); relative to a fixed support only one subscript is used, e.g. $\phi_A$.
+- **Important point.** Applied torques must not cause yielding; material must be homogeneous and linear elastic.
+- **Procedure for analysis.** (1) Internal torque: section and use moment equilibrium; express $T(x)$ or find $T$ per segment and draw the torque diagram. (2) Angle of twist: write $J(x)$ if varying; apply the integral or $TL/JG$ per segment where $T$, $J$, $G$ are constant, with consistent signs and units.
 = \phi=\int_0^L\frac{T(x)\,dx}{J(x)\,G}
 =! \phi=\frac{TL}{JG},\qquad \phi=\sum\frac{TL}{JG}
 ## 5.5 | Statically Indeterminate Torque-Loaded Members
 ! fig 5-22 || Split at the load; the two twists must cancel for a shaft fixed at both ends.
-- Equilibrium plus compatibility of twist (e.g., total angle zero for a shaft fixed at both ends) {fig 5-22}.
+- **Statically indeterminate shaft.** Moment equilibrium about the axis can't find the unknown torques, e.g. a shaft fixed at both ends with $T$ applied between: $T-T_A-T_B=0$ {fig 5-22}.
+- **Compatibility condition.** Fixed ends require zero relative twist, $\phi_{A/B}=0$ — the same method as Sec. 4.4.
+- **Torque–displacement relation.** With linear elasticity and $\phi=TL/JG$, internal torques $+T_A$ in AC and $-T_B$ in CB give $T_AL_{AC}-T_BL_{BC}=0$.
+- **Result.** $T_A=T\,L_{BC}/L$ and $T_B=T\,L_{AC}/L$; such a shaft can act as a torsional spring.
+- **Procedure for analysis.** (1) Equilibrium: FBD of external torques, moment equation about the axis. (2) Compatibility: relate twists at two points, considering how supports constrain them. (3) Load–displacement: write twists as $TL/JG$, solve; a negative torque acts opposite to the assumed sense.
 = T-T_A-T_B=0,\qquad \phi_{A/B}=0
 ## 5.6 | Solid Noncircular Shafts | *
 ! fig 5-25 crop || Non-circular sections warp out of plane when twisted.
-- Cross sections warp {fig 5-25}; max shear stress occurs at the boundary point nearest the centroid {fig 5-26}.
-- Circular sections are the most efficient in torsion; results come from elasticity tables (square, triangle, ellipse).
+- **Noncircular sections warp.** Circular (axisymmetric) shafts have uniform strain at each radius so sections stay plane; noncircular shafts are not axisymmetric, so sections bulge or warp when twisted {fig 5-25}.
+- **Scope.** Because warping complicates analysis, noncircular torsion isn't derived in the text; elasticity-theory results are used instead.
+- **Square-section stress.** Shear stress varies in a complex way along radial lines and warps the section; corner points carry zero shear stress and strain {fig 5-26}.
+- **Why corners are stress-free.** The complementary shear stresses on the outer, free surface of a corner element must be zero, so no stress can act on its cross-section faces either.
+- **Table 5–1 results.** Elasticity gives $\tau_{max}$ and $\phi$ for square, equilateral-triangle and elliptical sections; $\tau_{max}$ occurs at the boundary point closest to the shaft's center axis.
+- **Circle is most efficient.** For the same area and torque, a circular shaft has both a smaller maximum shear stress and a smaller angle of twist than any noncircular one.
 = \tau_{max}=\frac{4.81\,T}{a^3},\quad \phi=\frac{7.10\,TL}{a^4G} || Square section, side a
 ## 5.7 | Thin-Walled Tubes Having Closed Cross Sections | *
 ! fig 5-28 crop || In a thin-walled tube q = τt is constant, so τ is largest where the wall is thinnest.
-- Shear flow $q=\tau t$ is constant around the tube; max stress where wall is thinnest {fig 5-28}.
-- $A_m$ = area enclosed by the wall's centerline.
+- **Use and scope.** Thin-walled noncircular tubes appear in lightweight frameworks such as aircraft; analysis covers closed sections (no slits or breaks) of constant shape but possibly variable thickness $t$.
+- **Thin-wall assumption.** Since walls are thin, shear stress is taken as uniform across the thickness at each point, giving an average stress $\tau_{avg}$.
+- **Shear flow.** Equilibrium of a longitudinal wall element gives $\tau_At_A=\tau_Bt_B$: the product $q=\tau_{avg}t$ is the same everywhere on the section, so the largest $\tau_{avg}$ is where the wall is thinnest {fig 5-28}.
+- **Why "flow".** Like water in a channel of constant depth and varying width: velocity changes but flow rate $q=vw$ stays constant.
+- **Force per unit length.** On an element $t\,ds$, $dF=q\,ds$, so shear flow measures force per unit length along the section's centerline.
+- **Direction.** Inner and outer walls are stress-free, so no shear acts across the thickness; shear flow and $\tau_{avg}$ are always tangent to the wall, in the sense that contributes to $T$.
+- **Average shear stress.** Moments about a point O: $T=\oint h\,q\,ds=2qA_m$, using $dA_m=\tfrac12h\,ds$; hence $\tau_{avg}=T/(2tA_m)$ and $q=T/2A_m$.
+- **Mean area.** $A_m$ is the area enclosed by the centerline of the wall thickness, not the inner or outer outline.
+- **Angle of twist.** From energy methods, for linear-elastic material $\phi=\frac{TL}{4A_m^2G}\oint\frac{ds}{t}$, integrated around the whole boundary.
 =! q=\tau_{avg}t=\frac{T}{2A_m},\qquad \tau_{avg}=\frac{T}{2tA_m}
 = \phi=\frac{TL}{4A_m^2G}\oint\frac{ds}{t}
 ## 5.8 | Stress Concentration
 ! fig 5-32 || A smaller fillet radius r/d gives a larger concentration factor K.
-- Shoulder fillets, keyways and couplings raise shear stress {fig 5-31}; factor $K$ from charts {fig 5-32}.
+- **Torsion formula fails at discontinuities.** At sudden section changes, stress and strain distributions are complex and need experiment or elasticity theory.
+- **Common discontinuities.** Couplings joining collinear shafts, keyways for gears or pulleys, and step shafts machined from one bar; $\tau_{max}$ occurs at specific points on each {fig 5-31}.
+- **Torsional stress-concentration factor.** As in Sec. 4.7, $K$ from experimental charts replaces detailed analysis; for a shoulder fillet, pick the $D/d$ curve, then read $K$ at $r/d$ {fig 5-32}.
+- **Using K.** $\tau_{max}=K\,Tc/J$, with the torsion formula applied to the smaller shaft, since the maximum is at the fillet base.
+- **Reducing K.** A larger fillet radius $r$, or a smaller larger-diameter $D$ (lower $D/d$), lowers $K$ and $\tau_{max}$.
+- **K depends on geometry only.** It is found experimentally; the more severe the geometric change, the larger the concentration.
+- **When to use K.** Always for brittle shafts or fatigue/cyclic torsion, where cracks form at the concentration; for ductile shafts under static torque, yielding redistributes stress, so it is usually not needed.
 = \tau_{max}=K\frac{Tc}{J}
 ## 5.9 | Inelastic Torsion | *
 ! svg 5-9 || Partly yielded shaft: linear stress in the elastic core, constant τY in the outer annulus.
-- Elastic–plastic shaft: elastic core inside radius $\rho_Y$, yielded annulus outside {fig 5-34}.
-- Plastic torque when fully yielded is 4/3 of the max elastic torque {fig 5-35} (solid shaft).
+- **Plastic analysis.** Excessive torque yields the material, so stress and twist need a plastic analysis that still satisfies deformation and equilibrium conditions.
+- **Strain is always linear.** From geometry alone, shear strain varies linearly with $\rho$ for any material; stress then comes from the $\tau$–$\gamma$ diagram {fig 5-34}.
+- **Torque from stress.** The stress distribution must produce the internal torque: $T=\int_A\rho\,\tau\,dA=2\pi\int_0^c\tau\rho^2\,d\rho$ using ring elements.
+- **Elastic-plastic torque.** For elastic–perfectly plastic material, maximum elastic torque at $\gamma_Y$ is $T_Y=\tfrac{\pi}{2}\tau_Yc^3$; above it, yielding starts at the surface.
+- **Elastic core and plastic annulus.** As strain grows, yielding moves inward: an elastic core of radius $\rho_Y=(\gamma_Y/\gamma')c$ with linear stress, inside an annulus at constant $\tau_Y$; $T=\tfrac{\pi\tau_Y}{6}(4c^3-\rho_Y^3)$ {fig 5-35}.
+- **Plastic torque.** As $\rho_Y\to0$ the whole section yields, stress is uniform $\tau_Y$, and $T_p=\tfrac{2\pi}{3}\tau_Yc^3=\tfrac43T_Y$ — 33% more than $T_Y$; the largest torque the shaft can carry.
+- **Twist is indeterminate.** At $T_p$, $\tau_Y$ maps to no unique strain, so the shaft keeps twisting with no increase in torque.
+- **Ultimate torque.** For a general $\tau$–$\gamma$ curve, scale strains linearly to $\gamma_u$ at the surface, read stresses, and integrate; numerically $T_u\approx2\pi\sum\tau\rho^2\Delta\rho$ over rings, or directly if $\tau=f(\rho)$ is analytic.
 = T=2\pi\int_0^c\tau\rho^2\,d\rho
 =! T_Y=\frac{\pi}{2}\tau_Y c^3,\qquad T_p=\frac{2\pi}{3}\tau_Y c^3=\tfrac43T_Y
 ## 5.10 | Residual Stress | *
 ! fig 5-36 || Elastic unloading recovers at most 2γY; what remains is residual strain.
-- Unload a plastically twisted shaft elastically (by superposing the reverse torque); remaining stress is residual {fig 5-36}.
-- Elastic recovery in twist equals $T_pL/JG$.
+- **Residual stress.** Removing a torque that caused plastic strain leaves shear stress locked in; it is found by superposition and elastic recovery, as in Sec. 4.9.
+- **Elastic unloading path.** On release the material follows CD, parallel to the initial elastic line (slope $G$); maximum elastic recovery is $2\gamma_Y$ {fig 5-36}.
+- **Superposing the reversed torque.** Add to the plastic distribution a linear distribution from $T_p$ applied in reverse; elastic recovery in twist equals $T_pL/JG$.
+- **Modulus of rupture for torsion.** The peak of that reversed linear distribution, $\tau_r=T_pc/J=\tfrac43\tau_Y$; named as if the material stayed elastic and ruptured suddenly at the proportional limit.
+- **Why reversal is valid.** Recovery up to $2\gamma_Y$ allows a reversed stress up to $2\tau_Y$, more than $\tfrac43\tau_Y$, so purely elastic unloading holds.
+- **Residual distribution.** Plastic minus reversed elastic gives the residual stresses; the nonzero value at the center is an artifact of assuming full yield — an elastic–plastic torque model is more realistic.
 
 # 6 | Bending | bend | Shear/moment diagrams, flexure formula, unsymmetric, composite and curved beams.
 > Shear and moment diagrams come from $dV/dx=w$ and $dM/dx=V$; the max moment occurs where $V=0$ or at a point load.
@@ -630,60 +820,120 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Special cases: composite beams (transformed section, $n=E_1/E_2$), reinforced concrete, curved beams (hyperbolic stress), plastic moment $M_p$.
 ## 6.1 | Shear and Moment Diagrams
 ! svg 6-1 || Cut the beam at x to get V(x) and M(x); the moment peaks where the shear changes sign.
-- Determine $V(x)$ and $M(x)$ with the method of sections; new function wherever loading changes {fig 6-1}.
-- Sign convention: positive $w$ upward, positive $V$ rotates segment clockwise, positive $M$ causes concave-up (sagging) {fig 6-3}.
+- **Beams.** Slender members loaded perpendicular to their longitudinal axis, usually straight with constant cross section; classified by support as **simply supported** (pin + roller), **cantilevered** (fixed–free) or **overhanging** (end extends past a support) {fig 6-1}.
+- **Where beams appear.** Among the most important structural elements: floors, bridge decks, aircraft wings, vehicle axles, crane booms, even bones all act as beams.
+- **Shear and moment diagrams.** Internal $V$ and $M$ vary along the axis; plotting them as functions of $x$ gives the **shear and moment diagrams**, which locate the maximum values and guide where to reinforce or how to proportion the beam.
+- **Choice of coordinate.** The origin and positive direction of $x$ are arbitrary, but usually $x$ starts at the left end and runs to the right.
+- **Discontinuities and regions.** $V$ and $M$ (or their slopes) are discontinuous where distributed load changes or concentrated forces/couples act, so a separate function (coordinate $x_1, x_2, \dots$) is written for each region between discontinuities.
+- **Beam sign convention.** Positive distributed load acts upward; positive internal shear rotates the segment clockwise; positive internal moment compresses the top fibers so the segment bends concave up ("holds water"); opposite senses are negative {fig 6-3}.
+- **Procedure for analysis.** (1) Find all support reactions and resolve forces perpendicular/parallel to the axis. (2) Choose coordinates $x$ from the left end for each region, section, and draw an FBD with $V$, $M$ in their positive sense; $\Sigma F$ normal to the axis gives $V$, moments about the cut end give $M$. (3) Plot $V$ and $M$ versus $x$, positive above the axis.
 ## 6.2 | Graphical Method for Constructing Shear and Moment Diagrams
 ! fig 6-9 || Load is the slope of V and V is the slope of M; M peaks where V = 0.
-- Slope of shear diagram = distributed load; slope of moment diagram = shear {fig 6-8}.
-- Change in shear = area under load; change in moment = area under shear {fig 6-9}.
-- Concentrated forces jump $V$; concentrated couple moments jump $M$ {fig 6-10} (clockwise couple → positive jump).
-- Maximum moment occurs where $V=0$ (or at a jump/point load).
+- **Why a graphical method.** Writing and plotting $V(x)$, $M(x)$ for many loads is tedious; instead use two differential relations, load–shear and shear–moment.
+- **Regions of distributed load.** Equilibrium of a tiny segment $\Delta x$ (no point loads on it), with the load replaced by $w\Delta x$ at its midpoint, gives $\Delta V=w\Delta x$ and $\Delta M=V\Delta x+\tfrac12 w\Delta x^2$; in the limit $dV/dx=w$, $dM/dx=V$ {fig 6-8}.
+- **Slope of the shear diagram.** Eq. 6–1: at each point the slope of the $V$ diagram equals the distributed-load intensity, e.g. a downward load growing from 0 to $w_B$ gives a curve of increasingly negative slope {fig 6-9}.
+- **Slope of the moment diagram.** Eq. 6–2: at each point the slope of the $M$ diagram equals the shear $V$, so as $V$ falls from $+V_A$ through zero to $-V_B$, the slope of $M$ does the same.
+- **Change in shear and moment.** Integrating, $\Delta V=\int w\,dx$ (area under the load curve) and $\Delta M=\int V\,dx$ (area under the shear diagram) between any two points; a downward load makes $\Delta V$ negative.
+- **Regions of concentrated force.** Equilibrium of a segment under a point force gives $\Delta V=F$: the shear jumps up for an upward force and down for a downward force {fig 6-10}.
+- **Regions of concentrated moment.** A couple $M_0$ gives $\Delta M=M_0$: a clockwise couple makes the moment diagram jump up, a counterclockwise couple makes it jump down; the differential relations do not hold at these points.
+- **Procedure for analysis.** (1) Find support reactions. (2) Shear diagram: plot end values; slope $=w$ (positive upward); get values by sections or $\Delta V=\int w\,dx$. (3) Moment diagram: plot end values; slope $=V$; where $V=0$, $M$ is max/min; get values by sections or $\Delta M=\int V\,dx$.
+- **Degree of the curves.** Since $V$ integrates $w$ and $M$ integrates $V$, if $w$ is degree $n$ then $V$ is degree $n+1$ and $M$ is degree $n+2$ (uniform $w$ → linear $V$ → parabolic $M$).
+- **Maximum moment.** Occurs where $V=0$ (zero slope of $M$) or at a jump/point load where $V$ changes sign.
 =! \frac{dV}{dx}=w(x),\qquad \frac{dM}{dx}=V
 = \Delta V=\int w\,dx,\qquad \Delta M=\int V\,dx
+= \Delta V=F,\qquad \Delta M=M_0 || Jumps at a concentrated force / clockwise couple
 ## 6.3 | Bending Deformation of a Straight Member
 ! fig 6-19 || Horizontal lines curve; vertical lines stay straight but rotate.
-- Plane sections remain plane and perpendicular to the longitudinal axis {fig 6-19}.
-- Longitudinal strain varies linearly through the depth, zero at the neutral axis {fig 6-22}.
+- **Scope.** Straight prismatic beams of homogeneous material whose cross section is symmetric about an axis, with the moment applied about the perpendicular axis; unsymmetric and multi-material members are treated later.
+- **Rubber-bar observations.** A gridded rubber bar under moment shows longitudinal lines becoming curved while transverse lines stay straight but rotate {fig 6-19}.
+- **Neutral surface.** The bottom stretches and the top compresses, so between them lies a **neutral surface** whose longitudinal fibers do not change length.
+- **Assumption 1: longitudinal axis.** The $x$ axis, lying in the neutral surface, keeps its length but bends into a curve in the $x$–$y$ plane of symmetry.
+- **Assumption 2: plane sections.** All cross sections remain plane and perpendicular to the longitudinal axis during deformation.
+- **Assumption 3: in-plane distortion neglected.** Deformation of the cross section within its own plane is ignored; the $z$ axis about which the section rotates is the **neutral axis**.
+- **Strain–curvature relation.** For a segment of length $\Delta x=\rho\Delta\theta$, a fiber at $y$ deforms to $(\rho-y)\Delta\theta$, giving $\epsilon=-y/\rho$: strain depends only on position $y$ and the radius of curvature $\rho$.
+- **Linear strain variation.** On any section, longitudinal strain varies linearly with $y$: contraction above the neutral axis, elongation below, max at the outer fiber $y=c$, so $\epsilon=-(y/c)\epsilon_{max}$ {fig 6-22}.
+- **Uniaxial stress and Poisson effect.** The moment produces only longitudinal normal stress; Poisson strains $\epsilon_y=\epsilon_z=-\nu\epsilon_x$ (neglected here) shrink the section below the neutral axis and widen it above {fig 6-23}.
 = \epsilon=-\frac{y}{c}\epsilon_{max}
+= \epsilon=-\frac{y}{\rho} || Strain in terms of radius of curvature
 ## 6.4 | The Flexure Formula
 ! fig 6-24 || Strain and stress vary linearly from zero at the neutral axis.
-- Neutral axis passes through the centroid of the cross section (from $\int\sigma\,dA=0$) {fig 6-23}.
-- Normal stress varies linearly with distance $y$ from the neutral axis; max at the extreme fiber {fig 6-24}.
-- Section modulus $S=I/c$ measures bending efficiency.
+- **Linear stress distribution.** For linear-elastic material, Hooke's law turns the linear strain variation into a linear stress variation, $\sigma=-(y/c)\sigma_{max}$, zero at the neutral axis and largest at distance $c$ {fig 6-24}.
+- **Sign of the stress.** For positive $M$ (along $+z$), positive $y$ gives compressive (negative) $\sigma$ and negative $y$ gives tension; an element at any point carries only this normal stress.
+- **Neutral axis location.** Zero resultant force, $\int\sigma\,dA=0$, requires $\int y\,dA=0$: the first moment about the neutral axis vanishes, so the neutral axis is the horizontal centroidal axis.
+- **Moment resultant.** Equating $M$ to the moment of the stress distribution, $M=\int y\sigma\,dA=(\sigma_{max}/c)\int y^2dA$; the integral is the moment of inertia $I$ about the neutral axis.
+- **Flexure formula.** $\sigma_{max}=Mc/I$, with $M$ the internal moment about the neutral axis, $c$ the distance to the farthest fiber and $I$ the section's moment of inertia; at a general point $\sigma=-My/I$, the minus sign matching the $x,y,z$ axes.
+- **Range of validity.** Applies to straight members symmetric about an axis with $M$ perpendicular to it; also usable for slightly tapered members (a 15° taper gives an actual peak stress only about 5.4% below the formula).
+- **Important points.** Plane sections cause tension on one side and compression on the other, with a zero-stress neutral axis between; strain (and, for homogeneous linear-elastic material, stress) is linear; the neutral axis passes through the centroid.
+- **Procedure for analysis.** (1) Section the member and find the internal moment $M$ about the centroidal axis (use the moment diagram for the absolute maximum). (2) Compute $I$ about the neutral axis. (3) Apply $\sigma=-My/I$ or $\sigma_{max}=Mc/I$ with consistent units; the stress must give a moment in the same sense as $M$.
+- **Section modulus.** $S=I/c$ measures bending efficiency, so $\sigma_{max}=M/S$.
 =! \sigma_{max}=\frac{Mc}{I},\qquad \sigma=-\frac{My}{I}
 =! I=\tfrac{1}{12}bh^3\;\;\text{(rectangle)},\qquad I=I_{\bar x}+Ad^2
 ## 6.5 | Unsymmetric Bending
 ! svg 6-5 || When the moment is not about a principal axis, the neutral axis tilts away from the moment axis.
-- For moments about principal axes, superpose bending about $y$ and $z$ {fig 6-29} {fig 6-31}.
-- Neutral axis is generally not aligned with the moment axis unless $I_y=I_z$ {fig 6-30}.
+- **Beyond symmetry.** The flexure formula's conditions (section symmetric about an axis perpendicular to the neutral axis, $M$ along the neutral axis) are unnecessary; it extends to any cross-section shape and any moment direction {fig 6-29}.
+- **Moment applied about principal axis.** With origin at the centroid and $M$ along $+z$, three conditions must hold: zero axial force, zero moment about $y$ ($\int z\sigma\,dA=0$), and moment about $z$ equal to $M$ {fig 6-30}.
+- **Product of inertia condition.** Substituting the linear stress gives $\int yz\,dA=0$, the **product of inertia**, which vanishes only when $y$ and $z$ are **principal axes of inertia**; for symmetric sections these lie along and perpendicular to the symmetry axis.
+- **Finding principal axes.** For arbitrary shapes (e.g. Z-sections in light-gage roof framing) the principal axes come from inertia transformation equations or Mohr's circle (Appendix A); with $M$ about one, $\sigma=-My/I_z$ {fig 6-31}.
+- **Moment arbitrarily applied.** If $M$ is not about a principal axis, resolve it into $M_z=M\cos\theta$ and $M_y=M\sin\theta$ ($\theta$ from $+z$ toward $+y$), apply the flexure formula to each, and superpose; peak tension and compression occur at opposite corners of a rectangle.
+- **Combined stress equation.** $\sigma=-M_zy/I_z+M_yz/I_y$ with $y,z$ measured from the centroid in a right-handed system, $z$ the maximum and $y$ the minimum principal axis; with correct signs, positive $\sigma$ is tension.
+- **Orientation of the neutral axis.** Setting $\sigma=0$ gives $y=(I_z/I_y)\tan\theta\,z$, so $\tan\alpha=(I_z/I_y)\tan\theta$; unless $I_y=I_z$, the neutral-axis angle $\alpha$ differs from the moment angle $\theta$.
 =! \sigma=-\frac{M_zy}{I_z}+\frac{M_yz}{I_y}
 = \tan\alpha=\frac{I_z}{I_y}\tan\theta || Orientation of neutral axis
 ## 6.6 | Composite Beams | *
 ! svg 6-6 || Transformed section: widen the stiffer material by n so the whole beam acts as one material.
-- Transformed-section method: convert to one material using $n=E_1/E_2$, scaling the width (not height) {fig 6-35}.
-- Compute stress on the transformed section, then multiply by $n$ in the transformed material {fig 6-36}.
+- **Composite beams.** Beams made of two or more materials (e.g. wood with steel straps top and bottom) are called **composite beams**; they are designed this way to carry load more efficiently {fig 6-35}.
+- **Why the flexure formula fails.** It assumes a homogeneous material, so the composite section must first be "transformed" into one material.
+- **Strain and stress in two materials.** Sections still remain plane, so strain is linear across the whole depth, but stress is $E_1\epsilon$ or $E_2\epsilon$, jumping at the material interface; a direct solution needs trial and error {fig 6-36}.
+- **Transformed-section method.** Keep the height (preserving the strain distribution) but change the width; equating forces on corresponding elements gives the **transformation factor** $n=E_1/E_2$, so material 1 of width $b$ becomes width $nb$ of material 2.
+- **Transforming to the stiffer material.** Alternatively convert material 2 into material 1 with $n'=E_2/E_1<1$: less of the stiffer material is needed to carry the same moment.
+- **Stress in the actual beam.** On the transformed section, find the centroid (neutral axis) and $I$, apply the flexure formula, then multiply stress in the transformed material by $n$ (or $n'$), since its area is $n$ times the real area: $\sigma=n\sigma'$.
+- **Important points.** The transformed beam has the same strength as the composite; stiff material is replaced by more soft material and vice versa; stresses in the untransformed material need no correction.
 =! n=\frac{E_1}{E_2},\qquad \sigma=n\sigma'
 ## 6.7 | Reinforced Concrete Beams | *
 ! fig 6-37 || Cracked concrete carries only compression; the steel carries the tension.
-- Concrete is assumed cracked (no tension); steel rebar carries tension {fig 6-37}.
-- Locate the neutral axis by equating first moments of the transformed compression zone and steel.
+- **Concrete's weakness in tension.** Concrete cracks easily in tension (it can be about 12.5 times stronger in compression), so by itself it cannot resist bending; steel rebar is placed in the tension zone {fig 6-37}.
+- **Placement of reinforcement.** Rods go as far from the neutral axis as possible to maximize their moment arm, but keep some concrete cover against corrosion and loss of strength in a fire.
+- **Cracked-section assumption.** Design codes assume concrete carries no tension since cracking is unpredictable; only the compression zone above the neutral axis and the steel carry stress.
+- **Transforming the steel.** Steel area $A_{st}$ is converted to equivalent concrete $nA_{st}$ with $n=E_{st}/E_{conc}>1$, placed as a thin strip at depth $d$.
+- **Locating the neutral axis.** The transformed section's centroid must lie on the neutral axis, so the first moments of the compression block and the steel cancel: $\tfrac12bh'^2+nA_{st}h'-nA_{st}d=0$, a quadratic for $h'$.
+- **Completing the analysis.** With $h'$ known, compute $I$ of the transformed section and apply the flexure formula for concrete and (times $n$) steel stresses.
 = \tfrac12 b h'^2 - nA_{st}(d-h')=0
 ## 6.8 | Curved Beams | *
 ! fig 6-40 || In a curved beam the neutral axis shifts toward the center of curvature.
-- Strain is linear but stress is hyperbolic; neutral axis shifts toward the center of curvature {fig 6-40}.
-- Required when curvature radius is small relative to depth ($r/h\lesssim 5$).
+- **Curved beams.** Members with a curved axis under bending, such as hooks and chain links, whose cross-section dimensions are large relative to their radius of curvature; strain is not linear, so the flexure formula does not apply.
+- **Assumptions.** Constant cross section symmetric about an axis perpendicular to $M$; homogeneous, isotropic, linear-elastic material; plane sections stay plane; in-plane distortion neglected.
+- **Three radii.** From the center of curvature $O'$: $\bar r$ to the centroid, $R$ to the (unknown) neutral axis, and $r$ to an arbitrary area element $dA$ {fig 6-40}.
+- **Hyperbolic strain and stress.** Each section rotates $d\theta/2$, so a fiber at $r$ has $\epsilon=k(R-r)/r$, a hyperbolic (nonlinear) variation even though sections stay plane; then $\sigma=Ek(R-r)/r$.
+- **Neutral axis location.** Zero resultant force gives $R=A/\int_A dA/r$; the integral is tabulated for common shapes (Table 6–1). $R<\bar r$, so the neutral axis shifts toward the center of curvature.
+- **Curved-beam formula.** Equating $M$ to the stress moment gives $\sigma=M(R-r)/[Ar(\bar r-R)]$, or with $e=\bar r-R$ and $y=R-r$, $\sigma=My/[Ae(R-y)]$; $M$ is positive when it tends to straighten the member.
+- **Circumferential and radial stress.** The bending stress acts along the circumference (**circumferential stress**); curvature also requires a **radial stress** to balance the inclined forces; it can rival the circumferential stress in thin-plate I-sections but is negligible for solid sections.
+- **When to use it.** Needed when curvature is pronounced (radius less than about five times the depth); at a ratio of 5 the flexure formula underestimates peak stress by about 7% for rectangles, less for larger ratios.
+- **Procedure for analysis.** (1) Find $A$ and $\bar r$; find $R$ from Eq. 6–23 or Table 6–1 (composite parts: $R=\Sigma A/\Sigma\int dA/r$). (2) Get $\sigma$ from Eq. 6–24, or 6–25 with $e=\bar r-R$, computing $\bar r$ and $R$ precisely so $e$ keeps four significant figures. (3) Positive $\sigma$ is tension.
 = R=\frac{A}{\int_A dA/r}
 = \sigma=\frac{M(R-r)}{Ar(\bar r-R)}
+= \sigma=\frac{My}{Ae(R-y)},\qquad e=\bar r-R || Alternative form of the curved-beam formula
 ## 6.9 | Stress Concentrations
 ! fig 6-43 crop || A notch or fillet raises bending stress by K; a sharper r/h gives a higher K.
-- Notches, fillets, and holes in beams amplify bending stress by $K$ from charts {fig 6-43}.
+- **Where the flexure formula fails.** At abrupt section changes (surface notches, holes for fasteners, shoulder changes in outer dimensions) stress and strain become nonlinear; results come from experiment or elasticity theory.
+- **Location of maximum stress.** The peak normal stress at a discontinuity occurs on the section through the smallest cross-sectional area; the more severe the change, the larger the concentration.
+- **Stress-concentration factor.** For design only the peak matters, so $\sigma_{max}=K\,Mc/I$, with $K$ read from charts using geometry ratios such as $w/h$ and $r/h$ (shoulder fillets, or circular grooves/notches); $K$ depends only on geometry {fig 6-43}.
+- **When it matters.** Must be considered for brittle materials and fatigue/cyclic loading; for ductile materials under static moment it is usually ignored.
+- **Elastic-only validity.** $K$ applies only to elastic behavior; if the moment causes yielding, stress redistributes and the actual peak is lower than predicted, which leads into inelastic bending.
 = \sigma_{max}=K\frac{Mc}{I}
 ## 6.10 | Inelastic Bending | *
 ! svg 6-10 || As the moment grows, yielding spreads inward from the outer fibers until the whole section is at σY.
-- Elastic–plastic beam: linear stress near neutral axis, $\sigma_Y$ outward; plastic moment when fully yielded {fig 6-47} {fig 6-48}.
-- Shape factor $k=M_p/M_Y$ (1.5 for a rectangle; ~1.1–1.2 for wide-flange {fig 6-50}).
+- **Need for plastic analysis.** Earlier bending equations hold only for linear-elastic behavior; once the moment causes yielding, a plastic analysis based on three conditions is required.
+- **Linear normal-strain distribution.** From geometry alone (Sec. 6.3), strain always varies linearly from zero at the neutral axis, regardless of load; stress must then come from the stress–strain diagram.
+- **Resultant force equals zero.** Since only a moment acts, $\int\sigma\,dA=0$; this condition locates the neutral axis {fig 6-47}.
+- **Resultant moment.** The internal moment equals the moment of the stress distribution about the neutral axis, $M=\int y\sigma\,dA$.
+- **Plastic moment.** For an elastic–perfectly plastic rectangle, first yield occurs at $M_Y=\tfrac16bh^2\sigma_Y$; beyond it an elastic core of half-depth $y_Y$ is bounded by yielded zones, and as $y_Y\to0$ the section is fully plastic at $M_p=\tfrac14bh^2\sigma_Y=\tfrac32M_Y$ {fig 6-48}.
+- **Shape factor.** Codes list $k=M_p/M_Y$, the extra capacity beyond the maximum elastic moment; a rectangle has $k=1.5$ (50% more moment), wide-flange sections about 1.1–1.2; $M_p$ depends on section geometry.
+- **Residual stress.** Removing $M_p$ is an elastic unloading, superposed as a reversed linear distribution peaking at $\sigma_r=M_pc/I=1.5\sigma_Y$ (the **modulus of rupture**); this is admissible since elastic recovery allows up to $2\sigma_Y$, leaving residual stresses of $\pm0.5\sigma_Y$ with zero net force and moment.
+- **Ultimate moment.** For a section symmetric only about the vertical axis, with strain hardening and different tension/compression curves, solve by trial: (1) assume neutral axis and strain slope; (2) map strains to stresses via the stress–strain curve; (3) shift the axis until $T=C$; (4) adjust slope until $M=Ty'+Cy''$ {fig 6-50}.
+- **Practical simplification.** This trial procedure is rarely needed: most beams are doubly symmetric with similar tension/compression behavior, so the neutral axis passes through the centroid.
 =! M_Y=\tfrac16\sigma_Y bh^2,\qquad M_p=\tfrac14\sigma_Y bh^2 || Rectangular section
 = k=\frac{M_p}{M_Y}
+= M=\tfrac32M_Y\left(1-\tfrac43\frac{y_Y^2}{h^2}\right) || Elastic–plastic rectangle with elastic core half-depth y_Y
 
 # 7 | Transverse Shear | bend | Shear formula, shear flow in built-up and thin-walled members, shear center.
 > Transverse shear $V$ is always accompanied by equal longitudinal shear, which is why stacked boards slip.
@@ -693,29 +943,62 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Loads must pass through the shear center to bend an open section without twisting it.
 ## 7.1 | Shear in Straight Members
 ! fig 7-2 || Unbonded boards slide past each other; bonded boards act as one beam.
-- Transverse shear $V$ is accompanied by longitudinal shear (complementary property) — boards slip if not connected {fig 7-1} {fig 7-2}.
-- Shear strain distorts cross sections (warping), but this is neglected in the flexure formula.
+- **Transverse and longitudinal shear.** A beam generally carries both $V$ and $M$; $V$ is the resultant of a transverse shear-stress distribution, and by the complementary property of shear an equal longitudinal shear stress acts along longitudinal planes {fig 7-1}.
+- **Stacked-board illustration.** Three smooth, unbonded boards slide relative to one another as the beam deflects; bonded boards develop longitudinal shear between them that prevents sliding, so the beam acts as a single unit {fig 7-2}.
+- **Composite action.** Shear connectors tack-welded to a corrugated metal floor liner keep a poured concrete slab from slipping on it, so the two materials act together as one composite slab.
+- **Warping.** Shear strains are nonuniform over the section: a highly deformable bar marked with a grid shows the cross section distorting into a curved (warped) shape when $V$ is applied.
+- **Warping neglected.** Under combined bending and shear the section does not stay plane as the flexure formula assumes, but the warping is small enough to ignore, especially for slender beams (depth small compared with length).
 ## 7.2 | The Shear Formula
 ! fig 7-5 || Q is the first moment of the area A′ beyond the point where τ is wanted.
-- $Q=\bar y'A'$ is the first moment of the area above (or below) the point about the neutral axis {fig 7-4} {fig 7-5}.
-- $t$ is the width of the section at the point; stress is parabolic in a rectangle, max at neutral axis {fig 7-6}.
-- Not accurate at short wide sections or at abrupt width changes.
+- **Indirect derivation.** Shear strain is not easily defined, so the formula comes from horizontal force equilibrium of a beam element $dx$; $V$, $V+dV$ and $w(x)$ are vertical and drop out, and the whole element satisfies $\Sigma F_x=0$ because bending stresses form only couples {fig 7-4}.
+- **Longitudinal shear on a segment.** Cutting off the portion above $y'$ (width $t$), the end moments $M$ and $M+dM$ no longer balance, so a longitudinal $\tau$, assumed constant across $t$, must act on the face $t\,dx$: $(dM/I)\int_{A'}y\,dA'=\tau(t\,dx)$.
+- **First moment Q.** With $V=dM/dx$, the integral is the moment of $A'$ about the neutral axis, $Q=\int_{A'}y\,dA'=\bar y'A'$, where $\bar y'$ locates the centroid of $A'$ {fig 7-5}.
+- **Shear formula.** $\tau=VQ/It$: $\tau$ is averaged across the width $t$ at the point; $V$ is the internal shear from sections; $I$ is for the entire section about the neutral axis; $Q=\bar y'A'$ for the area above (or below) the point.
+- **Transverse stress too.** Although derived for the longitudinal plane, the formula also gives the transverse shear stress on the cross section, since complementary shear stresses are numerically equal.
+- **Conditions of use.** Because the flexure formula was used, the member must be straight, prismatic and homogeneous, linear elastic with the same $E$ in tension and compression, and $V$ must act along an axis of symmetry of the section.
+- **Rectangular section.** Worked in Example 7.2: $\tau=\frac{6V}{bh^3}(h^2/4-y^2)$, a parabola that is zero at top and bottom and peaks at the neutral axis at $1.5V/A$, 50% above the average $V/A$; integrating it over the area returns $V$.
+- **Timber splitting.** $\tau_{max}$ also acts longitudinally, so timber beams split horizontally through the neutral axis near the supports, where shear is large and wood is weak along its longitudinal grain.
+- **Limitations on the use of the shear formula.** It assumes $\tau$ uniform across $t$; elasticity theory shows the true peak $\tau'_{max}$ at the sides, about 3% above the formula for $b/h=0.5$ but about 40% for $b/h=2$, growing as sections get flatter, so it fails in wide flanges {fig 7-6}.
+- **Flange–web junction.** The abrupt change of section causes a stress concentration where the formula is inaccurate; in practice this rarely matters because the design value is the average maximum at the neutral axis in the web, where $b/h$ is very small.
+- **Inclined boundaries.** On an irregular boundary the shear stress must be tangent to the stress-free surface, so the formula's vertical $\tau$ along a line meeting the boundary obliquely is wrong; it is valid only along lines meeting the boundary at right angles.
+- **Summary of limitations.** Do not use the formula on short or flat sections, at sudden changes of section, or across a section meeting the boundary at other than 90°; those cases need theory of elasticity.
+- **Procedure for analysis.** (1) Internal shear: section perpendicular to the axis at the point and find $V$. (2) Section properties: locate the neutral axis and find $I$ of the whole area; measure $t$ at the point; take $A'$ above or below (the part "held on" by longitudinal shear) and compute $Q=\bar y'A'$. (3) Shear stress: substitute in consistent units; $\tau$ on the section acts in the direction of $V$, which fixes the other three faces of the element.
 =! \tau=\frac{VQ}{It}
 =! \tau_{max}=1.5\frac{V}{A} || Rectangular section
+= Q=\int_{A'}y\,dA'=\bar y'A'
 ## 7.3 | Shear Flow in Built-Up Members
 ! fig 7-14 crop || Fasteners must transfer the shear flow between the joined parts.
-- Shear flow $q$ = longitudinal force per unit length transferred between joined segments {fig 7-12}.
-- Fastener spacing $s$ from fastener capacity $F$ {fig 7-14}.
+- **Built-up members.** Members are sometimes assembled from several parts for greater load resistance; under bending, fasteners such as nails, bolts, welds or glue are needed to keep the parts from sliding on each other {fig 7-12}.
+- **Shear flow.** The longitudinal force per unit length of beam that a fastener or glue line must resist, $q$; it is the design quantity for sizing fasteners and their spacing (the word "flow" is explained by thin-walled members).
+- **Derivation.** For a segment joined to the beam, the normal-stress resultants $F$ and $F+dF$ from $M$ and $M+dM$ are balanced by $dF$ at the juncture, $dF=(dM/I)\int_{A'}y\,dA'$; dividing by $dx$ with $V=dM/dx$ gives $q=VQ/I$.
+- **Terms in q = VQ/I.** $q$ is force per unit length along the beam, $V$ the internal shear, $I$ the moment of inertia of the entire section about the neutral axis, and $Q=\bar y'A'$ for the segment $A'$ attached at the juncture being checked.
+- **Identifying Q.** The same procedure as for the shear formula applies; the crucial step is taking $A'$ as exactly the segment that the fasteners at that joint hold onto the beam {fig 7-14}.
+- **Shared by several fasteners.** If the joint is made by one, two or three lines of fasteners, each carries $q$, $q/2$ or $q/3$ respectively.
+- **Fastener spacing.** A fastener with allowable force $F$ placed every $s$ along the beam must satisfy $F=qs$, which sets the maximum spacing.
 =! q=\frac{VQ}{I},\qquad F=qs
 ## 7.4 | Shear Flow in Thin-Walled Members
 ! fig 7-20 || Shear flow runs through thin walls like a fluid, following the section.
-- Shear flow varies linearly in flanges and parabolically in webs {fig 7-18}; its direction "flows" like a fluid through the section {fig 7-20}.
-- Flange shear is small vertically but its resultant contributes to torque on the section.
+- **Thin-walled assumption.** $q=VQ/I$ is used to find the shear-flow distribution over the whole section of a member whose wall thickness is small compared with its height or width; this underpins the shear center.
+- **Direction of shear flow.** $q$ acts on both longitudinal and transverse planes; free bodies of top-flange segments show $dF$ on the longitudinal cut balancing $F$ and $F+dF$, which fixes the direction of $q$ on the cross section {fig 7-18}.
+- **Only the wall-parallel component.** The flow component across the thickness (from $V+dV$) is neglected since it is nearly zero in a thin flange with stress-free faces; only $q$ parallel to the walls is considered.
+- **Flange distribution.** For a wide-flange beam, $Q=(d/2)(b/2-x)t$, so $q$ varies linearly from 0 at the flange tip to $(q_{max})_f=Vtdb/4I$ at the web (web thickness neglected); symmetry gives the same in all four flange halves.
+- **Flange force.** Integrating $q$ (or the triangle area) gives $F_f=Vtdb^2/16I$ in each flange half; the four forces cancel horizontally, satisfying horizontal equilibrium.
+- **Web distribution.** In the web $q$ acts downward and varies parabolically, from $2(q_{max})_f=Vtdb/2I$ at the flanges to $(Vtd/I)(b/2+d/8)$ at the neutral axis.
+- **Web force equals V.** Integrating over the web and using $I$ with the flanges' own-centroid term neglected (thin flanges) gives $F_w=V$, as expected.
+- **Linear vs parabolic.** $Q$ differs for each segment, so $q$ varies linearly along segments perpendicular to $V$ and parabolically along segments inclined or parallel to $V$.
+- **Flow analogy.** $q$ always acts parallel to the walls and "flows" inward along the top flange, down the web, and outward along the bottom flange; visualizing this flow gives the sense of $q$ and of $\tau$ {fig 7-20}.
+- **Validity and equilibrium.** The distribution applies when $V$ acts along an axis of symmetry or principal centroidal axis; in symmetric sections $q$ flows so as to produce the vertical $V$ while keeping horizontal force equilibrium.
 = q=\frac{VQ}{I}
 ## 7.5 | Shear Center for Open Thin-Walled Members | *
 ! fig 7-23 || The load must pass through the shear center or the channel twists.
-- Point through which $V$ must act to avoid twisting the member {fig 7-23}; lies on any axis of symmetry.
-- For a channel it lies outside the web, found by balancing moments of flange and web shear resultants.
+- **Shear along a non-symmetry axis.** Section 7.4 assumed $V$ along a principal centroidal axis that is also an axis of symmetry; here $V$ acts along a principal axis that is not, for open thin-walled members using centerline dimensions.
+- **Channel twists.** A cantilevered channel loaded by $P$ along the vertical axis through its centroid $C$ not only bends downward but also twists.
+- **Cause of the twist.** Integrating the shear flow gives a resultant $F_f$ in each flange and $V=P$ in the web; summed about the web point $A$, the flange forces form a couple that twists the member.
+- **Eccentricity e.** Twisting is prevented by applying $P$ at a point $O$ a distance $e$ from the web such that $\Sigma M_A$: $F_f d=Pe$; since $F_f$ is proportional to $P$, $P$ cancels and $e$ depends only on section geometry.
+- **Shear center (flexural center).** The point $O$ through which a load makes the beam bend without twisting; handbooks tabulate it for common thin-walled sections, and for a channel it lies outside the web.
+- **Lies on an axis of symmetry.** The shear center always lies on an axis of symmetry: a channel rotated 90° and loaded at $A$ has symmetric flow and no twist {fig 7-23}; with two symmetry axes (wide flange) it coincides with the centroid.
+- **Geometry only.** The location of the shear center depends only on the cross-section's geometry, not on the applied loading.
+- **Procedure for analysis.** For $V$ along a principal centroidal axis: (1) sketch the flow direction and force resultant in each segment, choosing $A$ to eliminate as many moments as possible; (2) integrate $q$ along each needed segment (linear if perpendicular to $V$, parabolic if parallel/inclined); (3) set $\Sigma M_A$ of resultants equal to the moment of $V$ and solve for $e$; (4) with a symmetry axis, the shear center is where it meets $V$'s line of action.
 = e=\frac{b^2h^2t_f}{4I} || Channel (thin-wall approximation)
 
 # 8 | Combined Loadings | bend | Thin-walled pressure vessels and superposition of combined loads.
@@ -724,15 +1007,35 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > The resulting plane-stress element feeds directly into the stress transformation of Chapter 9.
 ## 8.1 | Thin-Walled Pressure Vessels
 ! fig 8-1 || Cylinder: hoop stress pr/t is twice the longitudinal stress pr/2t.
-- Thin wall when $r/t\ge 10$; stress assumed uniform through thickness {fig 8-1}.
-- Cylinder: hoop stress is twice the longitudinal stress. Sphere: equal in all directions {fig 8-2}.
+- **Thin wall.** Cylindrical and spherical boilers and tanks are loaded from all directions but analyze simply if the wall is thin, $r/t\ge10$; at $r/t=10$ the thin-wall result is about 4% below the actual maximum stress, less for larger ratios.
+- **Uniform stress through the wall.** For a thin wall the stress hardly varies through the thickness, so it is assumed uniform (constant) across $t$.
+- **Gauge pressure.** $p$ is the gauge pressure, measured above atmospheric, since atmospheric pressure acts on both the inside and outside of the wall before pressurization.
+- **Cylindrical vessels.** An element far from the ends of a cylinder (thickness $t$, inner radius $r$) carries normal stress $\sigma_1$ in the circumferential or hoop direction and $\sigma_2$ in the longitudinal or axial direction {fig 8-1}.
+- **Hoop stress.** Sectioning by planes $a$, $b$, $c$ and including the contained gas, $x$-equilibrium $2[\sigma_1(t\,dy)]-p(2r\,dy)=0$ gives $\sigma_1=pr/t$.
+- **Longitudinal stress.** Cutting across the cylinder and taking the mean radius as about the inner radius, $\sigma_2(2\pi rt)-p(\pi r^2)=0$ gives $\sigma_2=pr/2t$.
+- **Hoop is twice longitudinal.** So longitudinal seams of vessels rolled from plate must carry twice the stress of circumferential seams, and overpressurized pipes rupture along the hoop direction; hemispherical end caps are used instead of flat ones to reduce stress.
+- **Spherical vessels.** A free body of half the sphere gives $\sigma_2(2\pi rt)-p(\pi r^2)=0$, so $\sigma=pr/2t$, the same as the cylinder's longitudinal stress and equal in every tangential direction regardless of how the hemisphere is cut {fig 8-2}.
+- **Biaxial stress.** An element of either vessel is in biaxial stress, normal stress acting in only two directions.
+- **Radial stress.** Pressure also causes a radial stress $\sigma_3$, equal to $p$ at the inner wall and zero outside; it is ignored because at $r/t=10$, $\sigma_2$ and $\sigma_1$ are 5 and 10 times larger than $(\sigma_3)_{max}=p$.
+- **External pressure.** Under external pressure the wall is compressed and the vessel may collapse by buckling (instability) rather than by material fracture.
 =! \sigma_1=\frac{pr}{t}\;(\text{hoop}),\qquad \sigma_2=\frac{pr}{2t}\;(\text{long.})
 =! \sigma=\frac{pr}{2t} || Sphere
 ## 8.2 | State of Stress Caused by Combined Loadings
 ! svg 8-2 || Find each internal load’s stress separately, then superpose them at the point.
-- Find internal $N$, $V$, $T$, $M$ at the section, compute each stress separately, then superpose at the point.
-- Valid for linear-elastic small-deformation behavior; reduce to a stress element for transformation.
+- **Combined loadings.** A cross section usually carries several internal loads at once (axial force, shear, bending, torsion); the resultant stress distribution is found by superposition, e.g. a chimney under wind plus weight, where tension matters because masonry is weak in tension.
+- **Conditions for superposition.** Stress must be linearly related to load and the member's geometry must not change significantly under load, so the stress from one load is independent of the others (as in Sec. 4.3).
+- **Assumptions.** The material is homogeneous and linear elastic, and by Saint-Venant's principle the point must be far from cross-section discontinuities and points of applied load.
+- **Internal loading.** Section perpendicular to the axis at the point and find the normal and shear force and bending and torsional moment components; forces act through the centroid and moments are taken about the centroidal principal axes.
+- **Normal force.** Produces a uniform normal stress $\sigma=P/A$.
+- **Shear force.** Produces shear stress from the shear formula $\tau=VQ/It$, observing its limitations from Sec. 7.2.
+- **Bending moment.** In straight members gives a normal stress varying linearly from zero at the neutral axis, $\sigma=-My/I$; in curved members the distribution is nonlinear, $\sigma=My/[Ae(R-y)]$.
+- **Torsional moment.** In circular shafts and tubes gives shear stress varying linearly from zero at the axis to a maximum at the outer surface, $\tau=T\rho/J$.
+- **Thin-walled pressure vessels.** Internal pressure adds a biaxial state: $\sigma_1=pr/t$ and $\sigma_2=pr/2t$ for a cylinder, two equal components $pr/2t$ for a sphere.
+- **Superposition.** Add the normal and shear components algebraically and show the result on an element at the point or as a distribution over the section, ready for Chapter 9 transformation.
+- **Procedure for analysis.** (1) Internal loading: section at the point and get $N$, $V$, $M$, $T$ about centroidal principal axes. (2) Stress components: compute the stress from each load separately, as a distribution or on an element. (3) Superposition: combine them into the resultant stress at the point.
+- **Review of earlier formulas.** Combined-loading problems are essentially a review of the axial, shear, flexure and torsion formulas; e.g. a coping-saw frame under blade pretension carries both compression $F$ and moment $M$, so their normal stresses add.
 =! \sigma=\frac{N}{A}\pm\frac{My}{I},\qquad \tau=\frac{VQ}{It}+\frac{T\rho}{J}
+= \sigma=\frac{My}{Ae(R-y)} || Curved member
 
 # 9 | Stress Transformation | trans | Plane-stress transformation, principal stresses, Mohr's circle.
 > The same state of stress looks different on rotated planes; the transformation equations use $2\theta$.
@@ -741,32 +1044,59 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Always check absolute max shear with three circles: if $\sigma_1$ and $\sigma_2$ share a sign, $\tau_{abs\,max}=\sigma_{max}/2$.
 ## 9.1 | Plane-Stress Transformation
 ! fig 9-2 || The same stress state, drawn on an element rotated by θ.
-- Plane stress: $\sigma_z=\tau_{xz}=\tau_{yz}=0$; state described by $\sigma_x,\sigma_y,\tau_{xy}$ {fig 9-1}.
-- The same state can be represented on an element rotated by any angle $\theta$; transform force, not stress {fig 9-2}.
+- **General vs. plane stress.** The general 3D state has six independent components; engineers usually simplify loads so stress acts in a single plane, called plane stress {fig 9-1}.
+- **Free-surface example.** If a surface carries no load, its face (and the opposite face) has zero normal and shear stress, so the point is in plane stress — the case used throughout Ch. 8.
+- **Plane stress.** Described by two normal components $\sigma_x,\sigma_y$ and one shear $\tau_{xy}$ on four faces ($\sigma_z=\tau_{xz}=\tau_{yz}=0$), viewed in the $x$–$y$ plane.
+- **Orientation dependence.** The point's stress is uniquely represented by three components on an element, but those components differ for every orientation $\theta$ ($\sigma_{x'},\sigma_{y'},\tau_{x'y'}$) {fig 9-2}.
+- **Why harder than force transformation.** Transforming force components tracks only magnitude and direction; stress transformation must also account for the orientation of the area each component acts on — so transform forces, not stresses.
+- **Procedure for analysis.** (1) Section along the $x'$ plane (area $\Delta A$; sides $\Delta A\sin\theta$, $\Delta A\cos\theta$); (2) FBD with forces = stress × area; (3) $\Sigma F_{x'}=0$ gives $\sigma_{x'}$, $\Sigma F_{y'}=0$ gives $\tau_{x'y'}$; (4) section again for $\sigma_{y'}$ — $\tau_{x'y'}$ is complementary on all four faces.
 ## 9.2 | General Equations of Plane-Stress Transformation
 ! fig 9-5 crop || Positive θ runs counterclockwise from x to x′.
-- Positive $\theta$ counterclockwise from $x$ to $x'$; stresses follow standard sign convention {fig 9-5}.
-- The sum of normal stresses is invariant.
+- **General approach.** The sectioning method of 9.1 can be carried out once in general, giving stress-transformation equations valid for any $\theta$.
+- **Sign convention.** $+x$, $+x'$ define outward normals; $\sigma$ is positive in the $+x$ ($+x'$) direction, $\tau$ positive in the $+y$ ($+y'$) direction on that face {fig 9-5}.
+- **Angle θ.** Measured from $+x$ to $+x'$; both axis sets are right-handed, so $\theta$ is positive counterclockwise (following the right-hand curl about $+z$).
+- **Normal and shear stress components.** Section along the inclined plane, apply $\Sigma F_{x'}=0$ and $\Sigma F_{y'}=0$ to the wedge, then use double-angle identities to get Eqs. 9–1 and 9–2 in terms of $2\theta$.
+- **Normal stress on the y′ face.** Substituting $\theta+90^\circ$ into Eq. 9–1 gives $\sigma_{y'}$ (Eq. 9–3); a positive result acts in the $+y'$ direction.
+- **Invariant sum.** Adding Eqs. 9–1 and 9–3 shows the sum of normal stresses on perpendicular faces does not depend on $\theta$.
+- **Procedure for analysis.** (1) Substitute $\sigma_x,\sigma_y,\tau_{xy},\theta$ with signs per Fig. 9–5; (2) keep $x'$ outward from the plane of interest, $\theta$ CCW from $x$ to $x'$; (3) positive results act in $+x'$/$+y'$. The equations are easy to program on a calculator.
 =! \sigma_{x'}=\frac{\sigma_x+\sigma_y}{2}+\frac{\sigma_x-\sigma_y}{2}\cos2\theta+\tau_{xy}\sin2\theta
 =! \tau_{x'y'}=-\frac{\sigma_x-\sigma_y}{2}\sin2\theta+\tau_{xy}\cos2\theta
 = \sigma_{x'}+\sigma_{y'}=\sigma_x+\sigma_y
+= \sigma_{y'}=\frac{\sigma_x+\sigma_y}{2}-\frac{\sigma_x-\sigma_y}{2}\cos2\theta-\tau_{xy}\sin2\theta
 ## 9.3 | Principal Stresses and Maximum In-Plane Shear Stress
 ! fig 9-9 || On the principal planes the normal stress is largest and the shear stress is zero.
-- Principal planes: max/min normal stress, zero shear; they are 90° apart {fig 9-8} {fig 9-9}.
-- Max in-plane shear planes are 45° from principal planes and carry average normal stress {fig 9-10}.
+- **Why find extremes.** Since $\sigma_{x'}$ and $\tau_{x'y'}$ depend on $\theta$, design needs the orientations giving maximum/minimum normal stress and maximum shear stress.
+- **In-plane principal stresses.** Setting $d\sigma_{x'}/d\theta=0$ gives $\tan2\theta_p$ (Eq. 9–4); its two roots $2\theta_{p1},2\theta_{p2}$ are 180° apart, so the principal planes are 90° apart {fig 9-8}.
+- **Principal stresses and planes.** Substituting the roots (via the reference triangles) into Eq. 9–1 gives $\sigma_{1,2}$ with $\sigma_1\ge\sigma_2$ — the max and min normal stress at the point; they act on the principal planes {fig 9-9}.
+- **Zero shear on principal planes.** Substituting $\theta_p$ into Eq. 9–2 gives $\tau_{x'y'}=0$, so an element showing principal stresses carries no shear. Plug one root into Eq. 9–1 to see which plane carries $\sigma_1$.
+- **Practical uses.** Brittle failures follow principal tension: cracks in a concrete beam under moment and shear, and twisted chalk breaking on a 45° helix, line up with the principal planes.
+- **Maximum in-plane shear stress.** Setting $d\tau_{x'y'}/d\theta=0$ gives $\tan2\theta_s$, the negative reciprocal of $\tan2\theta_p$, so the max-shear element is 45° from the principal element {fig 9-10}.
+- **Value of max in-plane shear.** Substituting $\theta_s$ into Eq. 9–2 gives $\tau_{max}^{in\text{-}plane}$; it is "in-plane" because it acts on an element rotated only within the $x$–$y$ plane.
+- **Average normal stress.** Substituting $\theta_s$ into Eq. 9–1 shows the max-shear planes also carry a normal stress, $\sigma_{avg}=(\sigma_x+\sigma_y)/2$, on every face.
+- **Important points.** Principal stresses are the max/min normal stresses with no shear; the alternative representation uses $\tau_{max}^{in\text{-}plane}$ plus $\sigma_{avg}$ on an element rotated 45° from the principal one.
 =! \sigma_{1,2}=\frac{\sigma_x+\sigma_y}{2}\pm\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
 =! \tan2\theta_p=\frac{\tau_{xy}}{(\sigma_x-\sigma_y)/2}
 =! \tau_{max}^{in\text{-}plane}=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2},\qquad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2}
+= \tan2\theta_s=\frac{-(\sigma_x-\sigma_y)/2}{\tau_{xy}}
 ## 9.4 | Mohr's Circle — Plane Stress
 ! fig 9-16 || Center σavg, radius R; rotating θ on the element is 2θ on the circle.
-- Graphical form of transformation equations; $\sigma$ horizontal, $\tau$ positive downward.
-- Center $C=(\sigma_{avg},0)$, radius $R$; reference point $A(\sigma_x,\tau_{xy})$ {fig 9-16}.
-- Rotating $\theta$ on the element = rotating $2\theta$ on the circle, same direction.
+- **Purpose.** A graphical form of Eqs. 9–1 and 9–2 that is easy to remember and shows how $\sigma_{x'}$ and $\tau_{x'y'}$ vary as the plane rotates.
+- **Derivation.** Squaring and adding the two transformation equations eliminates $\theta$, leaving the equation of a circle in $(\sigma_{x'},\tau_{x'y'})$, since $\sigma_x,\sigma_y,\tau_{xy}$ are known constants.
+- **Axes and circle.** With $\sigma$ positive right and $\tau$ positive downward, the plot is a circle of radius $R$ centred at $C(\sigma_{avg},0)$, named for German engineer Otto Mohr.
+- **Reference point.** Each point gives the stresses on the face whose normal is $x'$; at $\theta=0$ it is $A(\sigma_x,\tau_{xy})$, the element's right-hand face {fig 9-16}.
+- **2θ rule.** Rotating $x'$ 90° CCW gives $G(\sigma_y,-\tau_{xy})$, 180° from $A$; so rotating $\theta$ on the element is $2\theta$ on the circle in the same direction (opposite if $\tau$ were plotted positive upward).
+- **What it gives.** Once drawn, the circle yields the principal stresses, the max in-plane shear with its average normal stress, or the stress on any arbitrary plane.
+- **Procedure for analysis.** Construction: (1) axes with $\sigma$ right, $\tau$ down; (2) plot $C$ at $\sigma_{avg}$; (3) plot $A(\sigma_x,\tau_{xy})$; (4) find $R=CA$ by trigonometry and sketch the circle.
+- **Principal stresses (procedure).** $\sigma_1,\sigma_2$ are where the circle crosses the $\sigma$ axis ($\tau=0$); compute one angle $2\theta_p$ from $CA$, then rotate $\theta_p$ the same way on the element (the other plane is 90° away).
+- **Max in-plane shear and arbitrary plane (procedure).** Top/bottom points $E$, $F$ give $\tau_{max}^{in\text{-}plane}$ and $\sigma_{avg}$ at angle $2\theta_s$ from $CA$; for a given $\theta$, measure $2\theta$ from $CA$ in the same sense to point $P$ and read its coordinates.
 =! (\sigma-\sigma_{avg})^2+\tau^2=R^2,\qquad R=\sqrt{\left(\tfrac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
 ## 9.5 | Absolute Maximum Shear Stress
 ! svg 9-5 || Draw all three Mohr’s circles; when σ₁ and σ₂ share a sign, the largest circle includes σ₃ = 0.
-- Consider all three principal stresses (including $\sigma_3=0$ in plane stress) with three Mohr's circles {fig 9-21} {fig 9-22}.
-- If in-plane principals have the same sign, absolute max shear is out of plane {fig 9-23}.
+- **Triaxial stress.** A general 3D point has a normal and two shears on each face; it can always be rotated to an element carrying only principal stresses $\sigma_{max}\ge\sigma_{int}\ge\sigma_{min}$ {fig 9-21}.
+- **Scope.** Full 3D transformation belongs to elasticity theory; the text limits itself to plane stress, treating the zero out-of-plane stress as the third principal stress.
+- **Same-sign principal stresses.** Viewing the element in the $y$–$z$, $x$–$z$, $x$–$y$ planes gives three Mohr's circles; if $\sigma_1,\sigma_2$ share a sign the largest runs from 0 to $\sigma_{max}$, so $\tau_{abs\,max}=\sigma_{max}/2$, above the in-plane value {fig 9-22}.
+- **Opposite-sign principal stresses.** If $\sigma_1$ and $\sigma_2$ differ in sign, the in-plane circle is largest and $\tau_{abs\,max}=(\sigma_{max}-\sigma_{min})/2$, equal to the max in-plane shear {fig 9-23}.
+- **Design relevance.** A ductile material's strength depends on resisting shear, so the absolute maximum shear stress governs its design (failure theories, Sec. 10.7).
 =! \tau_{abs\,max}=\frac{\sigma_{max}-\sigma_{min}}{2}
 = \tau_{abs\,max}=\frac{\sigma_{max}}{2}\;\;(\sigma_1,\sigma_2\text{ same sign})
 
@@ -777,39 +1107,76 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Failure theories: Tresca or von Mises for ductile materials, Rankine or Mohr for brittle ones.
 ## 10.1 | Plane Strain
 ! fig 10-2 crop || Plane strain: εx, εy and the shear distortion γxy.
-- Strains $\epsilon_x,\epsilon_y,\gamma_{xy}$ in a plane; note plane stress generally does NOT give plane strain (Poisson effect) {fig 10-1}.
+- **General state of strain.** Three normal strains $\epsilon_x,\epsilon_y,\epsilon_z$ and three shear strains $\gamma_{xy},\gamma_{xz},\gamma_{yz}$ deform the element's faces; like stress, their values change with the element's orientation.
+- **Why transform strain.** Strain gauges measure normal strain only in specific directions, so the readings must be transformed to find strains in other directions.
+- **Plane strain.** Ignoring $\epsilon_z,\gamma_{xz},\gamma_{yz}$ leaves two normal strains $\epsilon_x,\epsilon_y$ and one shear strain $\gamma_{xy}$ in a single plane; e.g., a rubber block held between fixed supports.
+- **Plane stress ≠ plane strain.** Because of the Poisson effect, plane stress $\sigma_x,\sigma_y$ also produces $\epsilon_z\ne0$; unless $\nu=0$ the two states cannot occur together {fig 10-1}.
 ## 10.2 | General Equations of Plane-Strain Transformation
 ! svg 10-2 || Strain transforms exactly like stress once τ is replaced by γ/2.
-- Same form as stress transformation with $\sigma\to\epsilon$ and $\tau\to\gamma/2$ {fig 10-2} {fig 10-3}.
+- **A geometry problem.** Finding $x'$, $y'$ strains from known $x$, $y$ strains requires relating the elongations and rotations of line segments along each set of axes.
+- **Sign convention.** $\epsilon_x,\epsilon_y$ positive for elongation; $\gamma_{xy}$ positive when the interior angle $AOB$ becomes less than 90°; positive stresses produce positive strains; $\theta$ positive counterclockwise from $x$ to $x'$ {fig 10-2}.
+- **Normal and shear strains.** Summing the stretch of $dx'$ caused by $\epsilon_x$, $\epsilon_y$, $\gamma_{xy}$ gives $\epsilon_{x'}$; the shear strain $\gamma_{x'y'}=\alpha-\beta$ comes from the rotations of $dx'$ and $dy'$ {fig 10-3}.
+- **Transformation equations.** Double-angle identities give Eqs. 10–5 and 10–6; positive $\epsilon_{x'}$ elongates along $x'$, positive $\gamma_{x'y'}$ closes the angle; $\epsilon_{y'}$ follows by substituting $\theta+90^\circ$.
+- **Stress–strain analogy.** The equations match Eqs. 9–1 to 9–3 with $\sigma\to\epsilon$ and $\tau\to\gamma/2$, so all plane-stress results carry over.
+- **Principal strains.** An element can be oriented so it deforms by normal strains only, with no shear strain; for an isotropic material these principal strain axes coincide with the principal stress axes.
+- **Maximum in-plane shear strain.** From the analogy with Eqs. 9–6 to 9–8; the max-shear-strain element is 45° from the principal element and also carries the average normal strain $\epsilon_{avg}$.
+- **Important points.** With plane stress, plane-strain analysis can still reduce gauge data in the plane, but a Poisson normal strain also acts perpendicular to the gauges; principal strains carry no shear strain.
 = \epsilon_{x'}=\frac{\epsilon_x+\epsilon_y}{2}+\frac{\epsilon_x-\epsilon_y}{2}\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta
 = \frac{\gamma_{x'y'}}{2}=-\frac{\epsilon_x-\epsilon_y}{2}\sin2\theta+\frac{\gamma_{xy}}{2}\cos2\theta
 =! \epsilon_{1,2}=\frac{\epsilon_x+\epsilon_y}{2}\pm\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2+\left(\frac{\gamma_{xy}}{2}\right)^2}
+= \tan2\theta_p=\frac{\gamma_{xy}}{\epsilon_x-\epsilon_y},\qquad \frac{\gamma_{max}^{in\text{-}plane}}{2}=\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2+\left(\frac{\gamma_{xy}}{2}\right)^2}
 ## 10.3 | Mohr's Circle — Plane Strain | *
 ! svg 10-3 || Strain Mohr’s circle: ε horizontal, γ/2 vertical (positive down), centered at ε_avg.
-- Axes $\epsilon$ (horizontal) and $\gamma/2$ (positive downward); center $\epsilon_{avg}$, radius $R$.
+- **Same method as stress.** Eliminating $\theta$ from Eqs. 10–5 and 10–6 gives a circle centred at $C(\epsilon_{avg},0)$ with radius $R$; $\epsilon$, $\epsilon_{avg}$, $\gamma/2$ replace $\sigma$, $\sigma_{avg}$, $\tau$.
+- **Construction of the circle.** Axes $\epsilon$ (positive right) and $\gamma/2$ (positive downward); plot centre at $\epsilon_{avg}=(\epsilon_x+\epsilon_y)/2$ and reference point $A(\epsilon_x,\gamma_{xy}/2)$ for $\theta=0$; $R=CA$.
+- **Principal strains.** $\epsilon_1,\epsilon_2$ are where the circle meets the $\epsilon$ axis ($\gamma/2=0$); the angle $2\theta_{p1}$ from $CA$ gives $\theta_{p1}$ on the element in the same direction; positive values elongate the element.
+- **Maximum in-plane shear strain.** Point $E$ gives $\epsilon_{avg}$ and $\gamma_{max}^{in\text{-}plane}/2$; $2\theta_{s1}$ measured from $CA$ locates the plane, rotated in the same sense on the element.
+- **Strains on arbitrary plane.** Measure $2\theta$ from $CA$ (same direction as $\theta$) to point $P$ for $\epsilon_{x'}$, $\gamma_{x'y'}/2$; point $Q$, 180° away, gives $\epsilon_{y'}$. Plotting $\gamma/2$ positive upward would reverse the rotation sense.
 = R=\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2+\left(\frac{\gamma_{xy}}{2}\right)^2}
 ## 10.4 | Absolute Maximum Shear Strain | *
 ! fig 10-13 || With three principal strains, the largest circle gives γ_abs max.
-- Use the three principal strains; out-of-plane strain matters when in-plane principals share sign {fig 10-13} {fig 10-14}.
+- **Analogy with stress.** As with plane stress (Sec. 9.5), the absolute maximum shear strain can occur out of the plane; three Mohr's circles for rotations about $x'$, $y'$, $z'$ show this.
+- **Same-sign principal strains.** If both in-plane principal strains elongate (or both contract), the largest circle includes zero and $\gamma_{abs\,max}=\epsilon_{max}$, acting out of plane and exceeding the in-plane value {fig 10-13}.
+- **Opposite-sign principal strains.** If $\epsilon_1$ elongates and $\epsilon_2$ contracts, the in-plane circle is largest and $\gamma_{abs\,max}=\gamma_{max}^{in\text{-}plane}=\epsilon_1-\epsilon_2$ {fig 10-14}.
 = \gamma_{abs\,max}=\epsilon_{max}-\epsilon_{min}
 ## 10.5 | Strain Rosettes
 ! fig 10-16 crop || A 45° rosette: three gauges give εx, εy and γxy.
-- Electrical-resistance gauges measure normal strain only; three gauges at known angles give $\epsilon_x,\epsilon_y,\gamma_{xy}$.
-- Common: 45° (rectangular) and 60° (delta) rosettes {fig 10-16}.
+- **Electrical-resistance strain gauge.** A wire grid or metal foil bonded to the specimen; it measures normal strain along its axis only, as in the tension test.
+- **Strain rosette.** A cluster of three gauges in a set pattern on a free surface; transforming their three readings gives the full in-plane strain state at the point.
+- **Plane stress at the gauges.** The free surface is stress-free, so the gauges see plane stress but not plane strain; the unmeasured normal strain out of the surface does not affect the in-plane readings.
+- **General rosette equations.** Gauges at $\theta_a,\theta_b,\theta_c$ each obey Eq. 10–2, giving three simultaneous equations solved for $\epsilon_x,\epsilon_y,\gamma_{xy}$ {fig 10-16}.
+- **45° and 60° rosettes.** The rectangular rosette uses 0°, 45°, 90°; the delta rosette uses 0°, 60°, 120°; both give closed-form results.
+- **After the rosette.** With $\epsilon_x,\epsilon_y,\gamma_{xy}$ known, Sec. 10.2 equations or Mohr's circle give principal strains and max in-plane shear strain.
 = \epsilon_a=\epsilon_x\cos^2\theta_a+\epsilon_y\sin^2\theta_a+\gamma_{xy}\sin\theta_a\cos\theta_a
 =! 45^\circ:\;\epsilon_x=\epsilon_a,\;\epsilon_y=\epsilon_c,\;\gamma_{xy}=2\epsilon_b-(\epsilon_a+\epsilon_c)
+= 60^\circ:\;\epsilon_x=\epsilon_a,\;\epsilon_y=\tfrac{1}{3}(2\epsilon_b+2\epsilon_c-\epsilon_a),\;\gamma_{xy}=\tfrac{2}{\sqrt3}(\epsilon_b-\epsilon_c)
 ## 10.6 | Material-Property Relationships
 ! fig 10-18 || Generalized Hooke’s law: add the Poisson strains from each normal stress.
-- Generalized Hooke's law for isotropic linear-elastic material (superpose Poisson effects) {fig 10-18} {fig 10-19}.
-- Bulk modulus links dilatation to mean pressure {fig 10-21}; $\nu\le 0.5$ follows from $k>0$.
+- **Assumptions.** The relationships hold for a homogeneous, isotropic material behaving linear-elastically under multiaxial stress and strain.
+- **Generalized Hooke's law.** Superposing each normal stress's own strain ($\sigma/E$) and its Poisson contractions ($-\nu\sigma/E$) gives $\epsilon_x,\epsilon_y,\epsilon_z$ for triaxial stress; tension positive, positive strain means elongation {fig 10-18}.
+- **Shear stress and strain.** Experiments show $\tau_{xy}$ produces only $\gamma_{xy}$ and no other strains (likewise $\tau_{yz}$, $\tau_{xz}$), so $\gamma=\tau/G$ in each plane {fig 10-19}.
+- **Relationship involving E, ν, and G.** Pure shear gives principal stresses $\pm\tau_{xy}$ at 45°; equating $\epsilon_{max}$ from Hooke's law to $\gamma_{xy}/2=\tau_{xy}/2G$ from strain transformation yields $G=E/[2(1+\nu)]$.
+- **Dilatation.** Normal strains change volume; neglecting products of small strains, the volumetric strain is $e=\epsilon_x+\epsilon_y+\epsilon_z$. Shear strains change shape only, not volume {fig 10-21}.
+- **Hydrostatic loading.** Uniform liquid pressure $p$ acts normal to every surface with no shear (liquids resist no shear), so $\sigma_x=\sigma_y=\sigma_z=-p$.
+- **Bulk modulus.** The ratio $-p/e=k$ is the volume modulus of elasticity, with stress units; for most metals $\nu\approx1/3$ so $k\approx E$.
+- **Upper limit on ν.** An incompressible material ($e=0$) would need $k\to\infty$, giving the theoretical maximum $\nu=0.5$; since no volume change is observed during yielding, $\nu=0.5$ is used for plastic flow.
 =! \epsilon_x=\frac{1}{E}\left[\sigma_x-\nu(\sigma_y+\sigma_z)\right],\qquad \gamma_{xy}=\frac{\tau_{xy}}{G}
 = e=\frac{\Delta V}{V}=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z)
 = k=\frac{E}{3(1-2\nu)}
+= G=\frac{E}{2(1+\nu)}
 ## 10.7 | Theories of Failure | *
 ! fig 10-31 || Failure envelopes: Tresca hexagon inside the von Mises ellipse.
-- Ductile materials: Maximum-shear-stress (Tresca) and maximum-distortion-energy (von Mises) theories {fig 10-27} {fig 10-30}.
-- Brittle materials: Maximum-normal-stress (Rankine) and Mohr's failure criterion {fig 10-35} {fig 10-36}.
-- Von Mises is slightly less conservative than Tresca and matches test data well {fig 10-31}.
+- **Why failure theories.** Ductile failure means yielding, brittle failure means fracture; both are easy to define under uniaxial stress but not under biaxial or triaxial stress.
+- **Applying a theory.** No theory fits every material at all times — behaviour depends on temperature, loading rate, environment, and forming; find the largest stresses, then the principal stresses, since every theory uses them.
+- **Maximum-shear-stress theory.** Ductile yielding is slip along crystal planes, visible as Lüder's lines at about 45° to a tension strip — the planes of max shear $\sigma_Y/2$ {fig 10-27}.
+- **Tresca yield criterion.** Tresca (1868): yielding begins when $\tau_{abs\,max}$ reaches $\sigma_Y/2$ from a tension test; in plane stress $|\sigma_1|$ or $|\sigma_2|=\sigma_Y$ for same signs and $|\sigma_1-\sigma_2|=\sigma_Y$ for opposite signs — a hexagon.
+- **Strain-energy density.** Energy per unit volume stored by loading; for triaxial linear-elastic stress each principal stress contributes, giving $u$ in terms of $\sigma_1,\sigma_2,\sigma_3$ and $\nu$.
+- **Volume vs. distortion energy.** The average stress $(\sigma_1+\sigma_2+\sigma_3)/3$ changes volume only; the deviatoric remainder $(\sigma_i-\sigma_{avg})$ produces distortion energy.
+- **Maximum-distortion-energy theory.** Materials don't yield under hydrostatic stress, so Huber (1904), later von Mises and Hencky, proposed yielding when distortion energy equals that at tensile yield — an ellipse in plane stress {fig 10-30}.
+- **Comparing Tresca and von Mises.** They agree at $\sigma_1=\sigma_2=\sigma_Y$ and uniaxial yield, and differ most in pure shear ($\sigma_Y/2$ vs. $\sigma_Y/\sqrt3$); torsion tests favour von Mises, about 15% higher {fig 10-31}.
+- **Maximum-normal-stress theory.** Brittle materials (gray cast iron) fracture suddenly in tension, even in torsion via a 45° helix; Rankine's theory says fracture occurs when $\sigma_1$ reaches $\sigma_{ult}$ — a square, valid if tension and compression behaviour are similar.
+- **Mohr's failure criterion.** For brittle materials with different tension and compression strengths: run tension, compression and torsion tests, draw their circles, and fit an envelope; any stress circle touching or crossing it fails {fig 10-35} {fig 10-36}.
+- **Limitations for brittle materials.** Tensile fracture starts suddenly at microscopic flaws (inclusions, voids, cracks) that vary between specimens, so brittle failure theories should be used with caution.
 = \text{Tresca: }|\sigma_1-\sigma_2|=\sigma_Y\;\;(\text{opposite signs}),\quad |\sigma_{1}|=\sigma_Y\;\;(\text{same sign})
 =! \text{von Mises: }\sigma_1^2-\sigma_1\sigma_2+\sigma_2^2=\sigma_Y^2
 = \text{Rankine: }|\sigma_1|=\sigma_{ult},\;\;|\sigma_2|=\sigma_{ult}
@@ -821,23 +1188,43 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Shafts combine bending in two planes with torsion; size them from $\sqrt{M^2+T^2}$.
 ## 11.1 | Basis for Beam Design
 ! fig 11-3 || Principal-stress trajectories through a cantilever.
-- Design for bending first (normal stress), then check shear; in-between points may need combined-stress checks {fig 11-2}.
-- Principal-stress trajectories show directions of max stress through a beam {fig 11-3}.
+- **Design on the basis of strength.** Beams carry loads perpendicular to their axes and are sized so the shear and flexure formulas (homogeneous, linear-elastic material) keep stresses allowable; small axial forces are usually neglected.
+- **Stress under the load.** A load also causes local compression $\sigma_y$ beneath it, but it fades quickly with depth and is small compared with $\sigma_x$; bearing plates spread concentrated loads, and stiffeners prevent local flange crimping.
+- **Other design requirements.** Beams must also be braced against lateral buckling and may need deflection limits (e.g., under brittle plaster ceilings); deflection is covered in Ch. 12, buckling in design codes.
+- **Stresses across a section.** In an end-loaded rectangular cantilever, $V$ gives a parabolic shear distribution and $M$ a linear normal one: top and bottom carry only bending stress, the neutral axis only max shear, points between both {fig 11-2}.
+- **Principal-stress orientation.** Transforming each element's stress shows the principal directions rotating counterclockwise down the depth: 0° at the top, 45° at the neutral axis, 90° at the bottom.
+- **Stress trajectories.** Curves following principal-stress directions of constant magnitude (solid tension, dashed compression); they cross the neutral axis at 45° and each other at 90°, guiding reinforcement of brittle beams {fig 11-3}.
 ## 11.2 | Prismatic Beam Design
 ! fig 11-4 crop || Pick the lightest standard shape whose S meets M/σallow.
-- Required section modulus from max moment; choose the lightest standard shape with $S\ge S_{req}$ {fig 11-4}.
-- Check shear in the web (steel W-shapes) and include beam self-weight {fig 11-5}.
+- **Ductile beams and codes.** For ductile beams, trajectories are unnecessary — just keep bending and shear stresses below code allowables; long spans make moment govern, so design for bending first, then check shear.
+- **Section modulus.** $S=I/c$; the flexure formula gives $S_{req}=M_{max}/\sigma_{allow}$, with $M$ from the moment diagram and $\sigma_{allow}$ from a code. Pick $S$ slightly above $S_{req}$ to cover self-weight.
+- **Choosing a section.** Simple shapes (square, circle, rectangle of set proportions) are sized directly from $S_{req}$; for wide-flanges, pick a handbook shape with $S>S_{req}$ — usually the smallest area, being lightest and cheapest if deflection is free.
+- **Shear check.** Then verify $\tau_{allow}\ge VQ/It$; usually not critical, but it can govern short beams with large concentrated loads — especially wood, which splits along its grain.
+- **Steel sections.** Hot-rolled shapes are tabulated in the AISC manual (Appendix B); W18×46 means a wide-flange 18 in. deep weighing 46 lb/ft; tables list area, $I$, $S$, and radius of gyration $r$ for buckling {fig 11-4}.
+- **Wood sections.** Usually rectangular; lumber is named by nominal size (2×4) but its actual "dressed" size is smaller (1.5×3.5 in.) — always use actual dimensions in stress calculations.
+- **Built-up sections.** Raising $I$ by putting material far from the neutral axis increases $S$; when no rolled shape suffices, plate girders are built from plates and angles, wood from box beams or glulam {fig 11-5}.
+- **Fasteners in built-up beams.** Besides bending and shear stresses, check the shear in welds, glue, or nails so the parts act as one unit (Sec. 7.4).
+- **Procedure for analysis.** (1) Shear and moment diagrams for $V_{max}$, $M_{max}$; (2) long beams: size from $S_{req}$, lightest shape; short heavily loaded (wood) beams: shear first; (3) check shear — $1.5V/A$ rectangular, $V/A_{web}$ wide-flange; (4) space fasteners from $q_{allow}=VQ/I$.
 =! S_{req}=\frac{M_{max}}{\sigma_{allow}}
 = \tau_{avg}=\frac{V_{max}}{A_{web}}\le\tau_{allow}
+= \tau_{allow}\ge1.5\frac{V_{max}}{A}\;\;(\text{rectangular section})
 ## 11.3 | Fully Stressed Beams | *
 ! fig 11-10 || Vary the section with M(x) so the stress is at the allowable everywhere.
-- Vary section along the length so $\sigma=\sigma_{allow}$ everywhere (e.g., tapered beams, leaf springs) {fig 11-10}.
+- **Inefficiency of prismatic beams.** Moment varies along a beam, so a constant section is understressed wherever $M<M_{max}$; a variable section reaching $\sigma_{allow}$ at every point saves weight.
+- **Nonprismatic beams.** Beams with variable cross section: cast machine parts, haunched structural beams, or wide-flanges with cover plates welded where moment peaks {fig 11-10}.
+- **Analysis limits.** Exact analysis needs computers or elasticity; the flexure formula stays roughly valid if the taper is not too steep, but the shear formula gives misleading results and should not be used.
+- **Fully stressed beam.** Writing $S(x)=M(x)/\sigma_{allow}$ makes the section dimensions a function of $x$; this approximates the shape from bending only, so shear must still be checked, especially under concentrated loads.
 = S(x)=\frac{M(x)}{\sigma_{allow}}
 ## 11.4 | Shaft Design | *
 ! fig 11-13 || Combine bending in both planes with torque, then size for the resultant.
-- Combine bending (from pulleys/gears) and torsion; resolve moments in two planes and take resultant $M$ {fig 11-13}.
-- Size by max shear stress (or another failure theory).
+- **Shaft loadings.** Machine shafts face cyclic (fatigue) stress from combined bending and torsion, plus stress concentrations at keys, couplings, and section changes (Sec. 5.8); design must account for all of these.
+- **Resolving loads.** Replace pulley and gear loads with statically equivalent forces and torques, resolve them into two perpendicular planes, draw a moment diagram for each, and combine as a vector resultant $M$ {fig 11-13}.
+- **Torque diagram.** Torque varies between pulleys and gears, so a torque diagram is drawn alongside the moment diagrams to locate critical sections.
+- **Critical element.** Since $I$ is the same about any diameter, the flexure formula with resultant $M$ gives the max bending stress at outer points, where torsion adds max shear; transverse shear $VQ/It$ is small and neglected — plane stress.
+- **Sizing by a failure theory.** For ductile shafts the maximum-shear-stress theory sets $\tau_{allow}$ equal to the max in-plane shear; with $I=\pi c^4/4$, $J=\pi c^4/2$ this gives $c$ in terms of $\sqrt{M^2+T^2}$.
+- **Other theories and critical sections.** Other failure theories give different formulas for $c$; in every case check several critical sections to find the worst combination of $M$ and $T$.
 =! c=\left(\frac{2}{\pi\tau_{allow}}\sqrt{M^2+T^2}\right)^{1/3}
+= \sigma=\frac{Mc}{I},\qquad \tau=\frac{Tc}{J}
 
 # 12 | Deflection of Beams and Shafts | design | Elastic curve, integration, discontinuity functions, moment-area, superposition, indeterminate beams.
 > The elastic curve follows $EI\,v''=M(x)$; sketch it from the moment diagram (concave up where $M>0$).
@@ -847,44 +1234,97 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Indeterminate beams: pick redundants and enforce support compatibility by integration, moment-area or superposition.
 ## 12.1 | The Elastic Curve
 ! fig 12-1 || The elastic curve: concave up where M > 0, concave down where M < 0.
-- Deflection curve of the neutral axis; sketch it from the moment diagram (concave up where $M>0$) {fig 12-1}.
-- Inflection point where $M=0$ {fig 12-3}.
+- **Why deflection matters.** Deflections are limited for structural integrity, to avoid cracking attached brittle materials (concrete, glass) and to meet code limits on vibration; above all, they are needed to analyse statically indeterminate members.
+- **Elastic curve.** The deflected shape of the longitudinal axis through the cross-section centroids; sketching it (exaggerated) first helps visualise and partially check computed slopes and displacements {fig 12-1}.
+- **Support restraints.** Supports that resist a force (pin, roller) restrict displacement; supports that resist a moment (fixed wall) restrict both rotation (slope) and displacement.
+- **Sketching from the moment diagram.** Draw $M$ first: with the Sec. 6.1 sign convention, positive moment bends the beam concave up and negative moment concave down.
+- **Inflection point.** Where $M=0$ the curve switches concavity; critical deflections occur at overhang ends or where the slope is zero, and which is larger depends on load magnitudes and support locations {fig 12-3}.
+- **Cantilever case.** At a fixed support the curve has both zero displacement and zero slope; the maximum deflection is at the free end or where the slope is zero.
+- **Moment-curvature relationship.** Relates internal moment to the radius of curvature $\rho$ of the elastic curve; it underlies every method in the chapter for finding slope and deflection.
+- **Coordinates.** $x$ runs positive right along the initially straight axis; $v$ (displacement of the elastic curve) is positive up; a local $y$ locates fibres, positive up from the neutral axis, as in the flexure formula.
+- **Assumptions.** Initially straight beam, elastically deformed by loads perpendicular to $x$ in the $x$–$v$ plane of symmetry; for length much greater than depth, bending dominates, so shear deflection is neglected (treated in Ch. 14).
+- **Curvature from strain.** With $ds=\rho\,d\theta$ and $ds'=(\rho-y)\,d\theta$, the fibre strain gives $1/\rho=-\epsilon/y$; combining Hooke's law and $\sigma=-My/I$ yields $1/\rho=M/EI$.
+- **Flexural rigidity.** The product $EI$ is always positive, so the sign of $\rho$ follows $M$: positive $M$ puts the centre of curvature above the beam (+$v$), negative $M$ below.
+- **Curvature from stress.** Equivalently $1/\rho=-\sigma/(Ey)$; both forms hold for small or large radii, but $\rho$ is almost always very large (about 5600 in. for a yielding W14×53 steel beam).
 =! \frac{1}{\rho}=\frac{M}{EI}
+= \frac{1}{\rho}=-\frac{\sigma}{Ey}
 ## 12.2 | Slope and Displacement by Integration
 ! fig 12-9 || Integrate twice; supports and continuity fix the constants.
-- Integrate the moment equation twice; constants from boundary and continuity conditions {fig 12-8}.
-- Pin/roller: $v=0$; fixed: $v=0$, $\theta=0$; continuity of $v,\theta$ between segments {fig 12-9}.
+- **Exact curvature (the elastica).** Exact curvature $v''/[1+(v')^2]^{3/2}=M/EI$ is a nonlinear ODE whose solution, the elastica, gives the true shape but is solvable only for simple cases.
+- **Shallow-curve approximation.** Codes limit deflections, so slopes $dv/dx$ are tiny and their square negligible; curvature becomes $1/\rho\approx d^2v/dx^2$, giving $d^2v/dx^2=M/EI$.
+- **Alternative forms.** Differentiating with $V=dM/dx$ and $w=dV/dx$ gives $EI\,v'''=V(x)$ and $EI\,v''''=w(x)$ for constant $EI$.
+- **Constants of integration.** Each integration adds a constant: starting from $w$ needs four, from $M$ only two, so it is usually easiest to find $M(x)$ and integrate twice.
+- **Discontinuous loading.** Separate moment functions are needed between load discontinuities, and each region's $x$ origin can be chosen arbitrarily to keep $M=f(x)$ simple.
+- **Sign convention and coordinates.** Use the positive $w$, $V$, $M$ of the derivation; $v$ is positive up, and $\theta$ is positive counterclockwise when $x$ points right, clockwise when $x$ points left {fig 12-8}.
+- **Small-slope consequences.** Since $ds\approx dx$, points on the curve move vertically only, and the slope in radians is $\theta\approx\tan\theta=dv/dx$.
+- **Boundary conditions.** Known values at points: pin/roller $v=0$ (and $M=0$ at an end), fixed $v=0$ and $\theta=0$, free end $M=0$ and $V=0$, internal hinge $M=0$ (Table 12–1).
+- **Continuity conditions.** Where separate coordinates meet, slope and deflection must match ($\theta_1(a)=\theta_2(a)$, $v_1(a)=v_2(a)$); if the coordinates run opposite ways, slopes match with a sign change, $\theta_1=-\theta_2$ {fig 12-9}.
+- **Procedure for analysis.** (1) Sketch the exaggerated elastic curve, set $x$ (any origin, left or right) and $v$ up, with regions between discontinuities; (2) write $w$ or $M(x)$ per region, assuming $M$ positive; (3) integrate, fix constants by boundary and continuity conditions, check signs against the sketch.
+- **Design note: roof ponding.** Roof deflection lets rain pond, which causes more deflection and more ponding, possibly ending in failure, so deflection must be checked in design.
 =! EI\frac{d^4v}{dx^4}=w,\quad EI\frac{d^3v}{dx^3}=V,\quad EI\frac{d^2v}{dx^2}=M(x)
+= \frac{d^2v/dx^2}{[1+(dv/dx)^2]^{3/2}}=\frac{M}{EI}
 ## 12.3 | Discontinuity Functions | *
 ! fig 12-14 || One bracket function covers every load on the beam.
-- Macaulay brackets $\langle x-a\rangle^n$ represent loads with one expression valid over the whole beam {fig 12-14}.
-- Value is zero for $x<a$; integrate like ordinary powers (for $n\ge0$).
+- **Motivation.** With several loads, integration needs a moment function per region and many constants; four regions mean eight constants from two boundary and six continuity conditions {fig 12-14}.
+- **Single-expression approach.** Writing $w(x)$ or $M(x)$ as one expression over the whole beam means constants come only from boundary conditions; continuity is automatically satisfied.
+- **Discontinuity functions.** Two operator families let loading or moment be written as one expression: Macaulay functions for distributed loads and singularity functions for concentrated forces and couples.
+- **Macaulay functions.** $\langle x-a\rangle^n$ equals $(x-a)^n$ for $x\ge a$ and zero otherwise, where $a$ is where a distributed load begins; valid for $n\ge0$ and integrated like ordinary powers.
+- **Distributed load forms.** $n=0$ describes a uniform load and $n=1$ a triangular one; superposing them gives trapezoidal loads, and integrating gives the matching $V$ and $M$ (Table 12–2).
+- **Singularity functions.** A concentrated force is the limit of a very intense, very narrow load: $w=P\langle x-a\rangle^{-1}$ (the Dirac delta), nonzero only at $x=a$.
+- **Couple moment.** A couple $M_0$, positive clockwise, is written $w=M_0\langle x-a\rangle^{-2}$; the exponent $-2$ keeps the units of force per length.
+- **Integrating singularity functions.** For $n=-1,-2$ the rules of operational calculus give $\int\langle x-a\rangle^n dx=\langle x-a\rangle^{n+1}$, with no division by $n+1$, unlike Macaulay functions.
+- **Load sign convention.** Forces and distributed loads are positive upward, couples positive clockwise; then $V$ and $M$ follow the Sec. 6.1 beam convention, and reactions beyond the last $x$ considered can be omitted.
+- **Procedure for analysis.** (1) Sketch the curve and boundary conditions; (2) put $x$ positive right from the left end; (3) find reactions, write $w$ or $M$ with Table 12–2, extending distributed loads to the right end (use superposition otherwise); (4) integrate, apply boundary conditions; slope positive counterclockwise, displacement up.
 = \langle x-a\rangle^n=\begin{cases}0 & x<a\\ (x-a)^n & x\ge a\end{cases}
 = \int\langle x-a\rangle^n dx=\frac{\langle x-a\rangle^{n+1}}{n+1}
+= w=P\langle x-a\rangle^{-1},\qquad w=M_0\langle x-a\rangle^{-2}
+= \int\langle x-a\rangle^n dx=\langle x-a\rangle^{n+1},\quad n=-1,-2
 ## 12.4 | Slope and Displacement by the Moment-Area Method | *
 ! fig 12-21 || Tangent deviation t = moment of the M/EI area.
-- Theorem 1: change in slope between two points = area under the $M/EI$ diagram {fig 12-20}.
-- Theorem 2: tangential deviation of B from tangent at A = moment of $M/EI$ area about B {fig 12-21}.
+- **Semigraphical method.** Finds slope and displacement at specific points from areas of the moment diagram; convenient when the diagram is made of simple shapes, as with concentrated forces and couples.
+- **Assumptions.** Same as integration: an initially straight beam, elastic deformation with very small slopes and deflections, and deformation from bending only.
+- **Theorem 1.** The angle between tangents at two points equals the $M/EI$ area between them, $\theta_{B/A}=\int_A^B (M/EI)\,dx$, since $d\theta=(M/EI)\,dx$ for each element {fig 12-20}.
+- **Theorem 1 sign.** A positive $M/EI$ area means $\theta_{B/A}$ is measured counterclockwise from tangent A to tangent B; a negative area means clockwise; the result is in radians.
+- **Theorem 2.** The vertical deviation of a point from the tangent at another point equals the moment of the $M/EI$ area between them about the first point; it follows from $dt=x\,d\theta$ with small slopes {fig 12-21}.
+- **Centroid form.** Because $\int x\,dA=\bar x\int dA$, the deviation is $\bar x$ (from the point where $t$ is wanted to the area's centroid) times the $M/EI$ area.
+- **Deviation is not symmetric.** $t_{A/B}\neq t_{B/A}$: take moments about A for $t_{A/B}$ and about B for $t_{B/A}$; a positive moment means the point lies above the other point's extended tangent.
+- **Procedure for analysis.** (1) Find reactions and draw $M/EI$ (use area and centroid tables for curves); (2) sketch the exaggerated curve from $M$ signs and mark unknowns; (3) pick tangents, usually at supports; (4) apply Theorem 1 for angles and Theorem 2 for deviations, checking signs against the sketch.
 =! \theta_{B/A}=\int_A^B\frac{M}{EI}dx,\qquad t_{B/A}=\int_A^B \bar x\frac{M}{EI}dx
+= t_{A/B}=\bar x\int_A^B\frac{M}{EI}dx
 ## 12.5 | Method of Superposition
 ! svg 12-5 || Split the loading into table cases and add their deflections and slopes.
-- Combine tabulated slopes and deflections (Appendix C) for each load case.
+- **Why superposition applies.** $EI\,v''''=w(x)$ is linear in load and deflection, and the loads do not significantly change the original geometry, so deflections from separate loads can be added.
+- **Using tables.** Find the slope or displacement at a point by algebraically adding tabulated results for each load case (Appendix C or handbooks), e.g. $v=v_1+v_2$.
+- **Rigid-body displacements.** Deflection may come from beam bending plus rigid-body motion, such as a beam supported on springs; add both contributions.
 =! v_{max}=-\frac{5wL^4}{384EI} || Simply supported, uniform load
 =! v_{max}=-\frac{PL^3}{3EI} || Cantilever, end load
 ## 12.6 | Statically Indeterminate Beams and Shafts
 ! fig 12-32 || More reactions than equations: choose a redundant.
-- Degree of indeterminacy = unknown reactions − equilibrium equations; choose redundants {fig 12-32}.
-- Use compatibility at supports to solve for redundants {fig 12-33}.
+- **Statically indeterminate member.** Any member whose unknown reactions outnumber the available equilibrium equations, extending the axial-bar and torsion-shaft analyses of Secs. 4.4 and 5.5.
+- **Redundants.** Support reactions not needed for stable equilibrium; their number is the degree of indeterminacy (four unknowns minus three equations gives first degree) {fig 12-32}.
+- **Choosing a redundant.** Any reaction whose removal leaves the beam stable and in equilibrium qualifies; $A_x$ cannot be chosen since $\Sigma F_x=0$ would fail.
+- **Continuous beams.** A beam on several supports with five unknowns is indeterminate to the second degree; any two vertical support reactions may serve as redundants {fig 12-33}.
+- **Solution strategy.** Find the redundants from load-displacement relations plus compatibility conditions, apply them, then get the remaining reactions from equilibrium (by integration, moment-area or superposition in Secs. 12.7–12.9).
 ## 12.7 | Statically Indeterminate Beams and Shafts — Method of Integration | *
 ! svg 12-7 || Write M(x) with the redundant kept as an unknown; the extra boundary condition solves for it.
-- Express $M(x)$ in terms of the redundant(s); extra boundary conditions give the additional equations.
+- **Moment in terms of redundants.** Write $M(x)$ in terms of $x$ and the unknown redundants, then integrate $d^2v/dx^2=M/EI$ twice.
+- **Solving the unknowns.** Two integration constants plus the redundants are found from equilibrium together with the boundary and/or continuity conditions, following the Sec. 12.2 procedure.
 ## 12.8 | Statically Indeterminate Beams and Shafts — Moment-Area Method | *
 ! fig 12-37 crop || Draw M by parts, one load or redundant at a time.
-- Draw $M/EI$ by parts (each load and redundant separately) {fig 12-36} {fig 12-37}; impose zero tangential deviation or slope at supports.
+- **Redundants on the $M/EI$ diagram.** Draw $M/EI$ with the redundants as unknowns, then apply the moment-area theorems to impose the support conditions; there is one compatibility condition per redundant.
+- **Moment diagrams by superposition.** Separate $M/EI$ diagrams for each load and redundant are easier to work with than a complicated resultant diagram, since each part's area and centroid are simple.
+- **Cantilever parts.** Most cantilever loads combine four basic cases; replace the loading with statically equivalent separate beams and add their moment diagrams (e.g. $M_A=-8-30-20=-58$ kN·m) {fig 12-36} {fig 12-37}.
+- **Simply supported parts.** A simply supported beam's resultant diagram can likewise be replaced by the sum of diagrams for each load on a separate simply supported beam; solutions then follow the Sec. 12.4 procedure.
 ## 12.9 | Statically Indeterminate Beams and Shafts — Method of Superposition
 ! fig 12-42 || Remove the redundant, then add it back so the support condition holds.
-- Remove redundant, compute deflection of primary structure, superpose redundant's deflection to satisfy support condition {fig 12-42}.
+- **Primary beam.** Removing the redundants leaves a statically determinate, stable primary beam carrying only the external load; adding beams each loaded by one redundant recovers the actual beam.
+- **Force method.** Compatibility conditions at each redundant's support give the redundant forces directly, which gives the method its name; other reactions follow from equilibrium.
+- **Displacement compatibility.** With a roller reaction $B_y$ as redundant, the primary-beam deflection plus the deflection caused by $B_y$ must equal zero at B, with both terms taken from Appendix C.
+- **Slope compatibility.** Any redundant leaving a stable primary beam works: choosing $M_A$ pins A, and the slopes at A from $P$ and $M_A$ must cancel; a negative result means the redundant acts opposite to the assumed sense {fig 12-42}.
+- **Multiple redundants.** A beam indeterminate to the second degree needs two compatibility equations (e.g. at B and C), solved simultaneously for $B_y$ and $C_y$.
+- **Procedure for analysis.** (1) Choose redundants and draw the beam as the primary beam plus one beam per redundant; (2) write a compatibility equation at each redundant; (3) relate displacements to loads (Secs. 12.2–12.5) and solve; (4) find remaining reactions from equilibrium.
 = v_B=v_B'+v_B''=0
+= \theta_A=\theta_A'+\theta_A''=0
 
 # 13 | Buckling of Columns | design | Critical load, effective length, secant formula, inelastic buckling and column design.
 > Buckling is a stability failure that can occur well below yield stress.
@@ -894,40 +1334,87 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Design codes split columns into short, intermediate and long ranges, with interaction formulas for eccentric loads.
 ## 13.1 | Critical Load
 ! fig 13-3 || At Pcr the equilibrium bifurcates: stable below, unstable above.
-- Buckling is a stability failure: at $P_{cr}$ the column is in neutral equilibrium {fig 13-2} {fig 13-3} and any disturbance grows.
-- Can occur at stresses well below yield.
+- **Columns and buckling.** Besides strength and deflection, a design must satisfy stability; long slender members under axial compression are **columns**, and their sudden lateral deflection is **buckling**, which can cause dramatic structural failure.
+- **Critical load.** $P_{cr}$ is the largest axial load a column carries while on the verge of buckling; any extra load makes it deflect laterally.
+- **Two-bar spring model.** Rigid pinned bars with a midheight spring $k$ {fig 13-2}: displacing the pin by angle $\theta$ gives restoring force $k\theta L/2$ against a disturbing force $2P\theta$.
+- **Stable vs. unstable equilibrium.** If $P<kL/4$ the spring restores the bars (stable); if $P>kL/4$ any small disturbance grows and the mechanism moves away from vertical (unstable).
+- **Neutral equilibrium.** At $P_{cr}=kL/4$, independent of the small $\theta$, the bars simply stay in any slightly displaced position — the column is on the verge of buckling.
+- **Bifurcation point.** The three states plot as in {fig 13-3}; where $P=P_{cr}$ the equilibrium path splits, with equilibrium possible for small $\theta$ to either side.
+- **Post-buckling capacity.** $P_{cr}$ (found from small displacements) is not necessarily the largest load; a buckled column may carry more, but only after large deflections that structures and machines can't tolerate (e.g. a meterstick), so $P_{cr}$ is taken as the design limit.
 ## 13.2 | Ideal Column with Pin Supports
 ! fig 13-4 || A pin-ended column bows sideways at Pcr = π²EI/L².
-- Perfectly straight, centrally loaded, linear-elastic, pin-ended; solution of $EIv''+Pv=0$ {fig 13-4} {fig 13-5}.
-- Buckles about the axis with smallest $I$ (least radius of gyration $r=\sqrt{I/A}$).
+- **Ideal column.** Perfectly straight before loading, homogeneous, loaded through the cross-section centroid, linear-elastic, and bending in a single plane; real columns aren't, but the same analysis extends to crooked or eccentric cases.
+- **Behaviour at Pcr.** In theory $P$ could rise until yield/fracture, but at $P_{cr}$ a small lateral force $F$ leaves the column deflected after removal {fig 13-4}; slightly less load lets it straighten, slightly more increases deflection.
+- **Governing equation.** Stability depends on bending resistance, so use $EI\,v''=M$ (small slopes, bending-only deflection); sectioning the bowed column gives $M=-Pv$, so $v''+(P/EI)v=0$ {fig 13-5}.
+- **General solution and boundary conditions.** $v=C_1\sin(\sqrt{P/EI}\,x)+C_2\cos(\sqrt{P/EI}\,x)$; $v(0)=0$ gives $C_2=0$, and $v(L)=0$ requires $\sin(\sqrt{P/EI}\,L)=0$ for a non-trivial ($C_1\ne0$) solution.
+- **Euler load.** $\sqrt{P/EI}\,L=n\pi$ gives $P=n^2\pi^2EI/L^2$; the smallest ($n=1$) is the critical load, named for Leonhard Euler (1757). Higher modes ($n=2$, $4P_{cr}$) don't occur in practice.
+- **Buckled shape.** $v=C_1\sin(\pi x/L)$; $C_1=v_{max}$ at midspan is indeterminate since the post-buckled shape is unknown, but is assumed small.
+- **Strength doesn't matter.** $P_{cr}$ depends only on $E$, $I$ and $L$, not material strength — high-strength steel offers no elastic-buckling advantage over mild steel (same $E$).
+- **Efficient sections.** Capacity grows with $I$, so put area far from the centroidal axes: tubes beat solid sections, and wide-flange or built-up sections beat solid rectangles.
+- **Weakest axis.** If supported the same about each axis, the column buckles about the principal axis of **least moment of inertia** (a meterstick buckles about its thin axis); balanced sections with $I_x\approx I_y$ (circular/square tubes) are preferred.
+- **Radius of gyration and critical stress.** Writing $I=Ar^2$ gives the average stress $\sigma_{cr}=\pi^2E/(L/r)^2$, using the smallest **radius of gyration** $r=\sqrt{I/A}$; $\sigma_{cr}$ must stay below the proportional limit.
+- **Slenderness ratio.** $L/r$ measures column flexibility and classifies columns as long, intermediate, or short; buckling occurs about the axis giving the largest $L/r$.
+- **Validity limit.** Plotting $\sigma_{cr}$ vs. $L/r$ gives hyperbolas valid only below yield; setting $\sigma_{cr}=\sigma_Y$ gives minimum ratios $(L/r)\approx89$ for A-36 steel and $60.5$ for aluminum — below these, Euler doesn't apply.
 = P_{cr}=\frac{\pi^2EI}{L^2},\qquad \sigma_{cr}=\frac{\pi^2E}{(L/r)^2}
+= \frac{d^2v}{dx^2}+\frac{P}{EI}v=0
 ## 13.3 | Columns Having Various Types of Supports
 ! svg 13-3 || End conditions change the buckled shape; Le = KL is the length of one half sine wave.
-- Effective length $L_e=KL$ — distance between inflection points of the buckled shape {fig 13-9}.
-- K = 1 (pin–pin), 2 (fixed–free), 0.5 (fixed–fixed), 0.7 (fixed–pin) {fig 13-10}.
+- **Fixed–free column.** For a column fixed at the base and free at the top {fig 13-9}, $M=P(\delta-v)$ gives a nonhomogeneous equation; with $v(0)=v'(0)=0$, $v=\delta[1-\cos(\sqrt{P/EI}\,x)]$.
+- **Fixed–free critical load.** Requiring $v(L)=\delta$ gives $\cos(\sqrt{P/EI}\,L)=0$, so $P_{cr}=\pi^2EI/4L^2$ — only one-fourth the load of a pin-ended column of the same length.
+- **Other supports.** Remaining support cases are solved similarly; rather than derive each, the results are tabulated and absorbed into a general form of Euler's formula.
+- **Effective length.** The $L$ in Euler's formula is really the distance between zero-moment (inflection) points, called the **effective length** $L_e$: $L$ for pinned ends, $2L$ fixed–free, $0.5L$ fixed–fixed (inflections at $L/4$), $0.7L$ pinned–fixed {fig 13-10}.
+- **Effective-length factor.** Codes use the dimensionless **effective-length factor** $K$ with $L_e=KL$: $K=1$, 2, 0.5, 0.7 for the four cases.
+- **General Euler formula.** $P_{cr}=\pi^2EI/(KL)^2$ and $\sigma_{cr}=\pi^2E/(KL/r)^2$, where $KL/r$ is the **effective-slenderness ratio**; $K=2$ reproduces the fixed–free result.
 =! P_{cr}=\frac{\pi^2EI}{(KL)^2},\qquad \sigma_{cr}=\frac{\pi^2E}{(KL/r)^2}
 ## 13.4 | The Secant Formula | *
 ! fig 13-16 || Eccentricity lowers the load capacity below the Euler curve.
-- Eccentric load $e$ gives bending from the start; max stress combines axial and amplified bending {fig 13-13} {fig 13-14}.
-- $ec/r^2$ is the eccentricity ratio {fig 13-16}.
+- **Why ideal columns are unrealistic.** Real columns are never perfectly straight nor loaded exactly at the centroid, so they never buckle suddenly — they bend from the start; design must instead limit deflection or maximum stress.
+- **Eccentric loading model.** Load $P$ at eccentricity $e$ on a pin-ended column {fig 13-13}, equivalent to axial $P$ plus end moments $M'=Pe$; small deflections, linear-elastic material, $x$–$v$ a plane of symmetry.
+- **Deflection curve.** Sectioning gives $M=-P(e+v)$; solving $v''+(P/EI)v=-(P/EI)e$ with $v(0)=v(L)=0$ gives $v=e[\tan(\sqrt{P/EI}\,L/2)\sin(\sqrt{P/EI}\,x)+\cos(\sqrt{P/EI}\,x)-1]$.
+- **Maximum deflection.** By symmetry the largest deflection and stress occur at midheight: $v_{max}=e[\sec(\sqrt{P/EI}\,L/2)-1]$; setting the secant to infinity recovers Euler's $P_{cr}=\pi^2EI/L^2$.
+- **Load–deflection curves.** Plotting $P$ vs. $v_{max}$ for various $e$ {fig 13-14} gives curves asymptotic to $P_{cr}$ (the ideal $e=0$ case); valid only for small deflections, since exact curvature would make them rise above $P_{cr}$.
+- **Inelastic stocky columns.** For short or intermediate columns the material yields first (point A); the load peaks below $P_{cr}$ (point B) and then capacity drops suddenly as yielding spreads.
+- **No superposition.** $P$ and $v$ are nonlinearly related because $M=-P(e+v)$ depends on both, so successive loads must be added first and the deflection found for their resultant.
+- **The secant formula.** Max moment $Pe\sec(\sqrt{P/EI}\,L/2)$ at midheight plus axial stress gives $\sigma_{max}$, a compressive stress on the inner concave side; $L$ is the unsupported length in the bending plane, restricted to $L_e=L$ or $2L$ cases.
+- **Factor of safety on load.** Because $\sigma_{max}$ is nonlinear in $P$, loads must be summed before computing stress, and any factor of safety applies to the load, not the stress.
+- **Eccentricity ratio.** Graphs of $P/A$ vs. $KL/r$ for various **eccentricity ratios** $ec/r^2$ {fig 13-16} (A-36 steel) show $ec/r^2$ strongly affects short columns, while slender columns fail at or near the Euler load regardless — so short columns need an accurate $ec/r^2$.
+- **Design.** Setting $\sigma_{max}=\sigma_Y$ gives the load $P_Y$, found by trial and error (the equation is transcendental), software, or charts; $P_Y$ is always below the Euler $P_{cr}$.
 =! \sigma_{max}=\frac{P}{A}\left[1+\frac{ec}{r^2}\sec\!\left(\frac{L}{2r}\sqrt{\frac{P}{EA}}\right)\right]
 = v_{max}=e\left[\sec\!\left(\sqrt{\frac{P}{EI}}\frac{L}{2}\right)-1\right]
 ## 13.5 | Inelastic Buckling | *
 ! fig 13-20 || Short and intermediate columns fail below the Euler prediction.
-- For intermediate columns $\sigma_{cr}>\sigma_{pl}$; Euler overpredicts {fig 13-20}.
-- Tangent-modulus (Engesser) theory replaces $E$ with $E_t=d\sigma/d\epsilon$ {fig 13-18}.
+- **Column classes.** Long columns fail by **elastic instability**; intermediate columns by **inelastic instability** (stress above the proportional limit at failure); short columns, or **posts**, don't go unstable but simply yield or fracture.
+- **Limits of Euler.** Euler requires the buckling stress to stay below the proportional limit, so it applies only to long columns — yet most practical columns are intermediate length.
+- **Tangent modulus.** For $KL/r<(KL/r)_{pl}$ the critical stress exceeds $\sigma_{pl}$; near buckling, stress changes over a small range, so stiffness is the **tangent modulus** $E_t=d\sigma/d\epsilon$ at that point {fig 13-18}, with $E_t<E$.
+- **Engesser equation.** As $KL/r$ decreases the critical stress rises and $E_t$ falls; replacing $E$ with $E_t$ gives the tangent-modulus (Engesser, 1889) equation, plotted for short and intermediate columns.
+- **Solving.** Assume elastic first; if $\sigma_{cr}>\sigma_{pl}$, use $E_t$ from the appropriate segment of the $\sigma$–$\epsilon$ diagram and check the result lies in that segment's stress range.
+- **Shanley theory.** No real column is perfect, so other models exist; F. R. Shanley's theory describes the phenomenon better, but tests on near-ideal columns show the tangent-modulus equation is reasonably accurate and easier to apply.
 = \sigma_{cr}=\frac{\pi^2E_t}{(KL/r)^2}
 ## 13.6 | Design of Columns for Concentric Loading | *
 ! fig 13-21 || Code curve: a parabola for short columns, Euler/F.S. for long ones.
-- Empirical code formulas for steel (AISC), aluminum, and timber split into short, intermediate, and long ranges {fig 13-21}.
-- Long steel columns use Euler with a factor of safety (23/12).
+- **Why empirical formulas.** Real columns are crooked, carry residual stresses from nonuniform cooling, and have uncertain supports and load lines, so codes use empirical formulas curve-fit to the mean of many tests.
+- **Test data and accidental eccentricity.** Wide-flange test results {fig 13-20} resemble the secant-formula curves because of an "accidental" eccentricity ratio, typically $ec/r^2=0.1$–$0.6$, which matters most for short and intermediate columns.
+- **Slenderness ranges.** Codes give separate formulas for short, intermediate, and long ranges; each applies only within its $KL/r$ limits. The formulas shown are illustrative — consult the actual code for real design.
+- **Steel columns (long).** AISC (allowable stress design, based on SSRC formulas) uses Euler with F.S. $=23/12\approx1.92$ for $(KL/r)_c\le KL/r\le200$ {fig 13-21}.
+- **Steel transition ratio.** Residual compressive stresses can reach $\tfrac12\sigma_Y$, so Euler is used only while its stress is below $\tfrac12\sigma_Y$, giving $(KL/r)_c=\sqrt{2\pi^2E/\sigma_Y}$.
+- **Steel columns (short/intermediate).** Below $(KL/r)_c$ a parabolic formula $[1-(KL/r)^2/2(KL/r)_c^2]\sigma_Y$ applies, divided by a variable F.S. rising from $5/3$ at $KL/r=0$ to $23/12$ at $(KL/r)_c$.
+- **Aluminum columns.** The Aluminum Association gives three formulas per alloy; for 2014-T6: $28$ ksi for $KL/r\le12$, $30.7-0.23(KL/r)$ ksi for $12<KL/r<55$, and $54\,000/(KL/r)^2$ ksi (Euler form) for $KL/r\ge55$.
+- **Timber columns.** NFPA formulas for rectangular sections use $KL/d$ ($d$ = smallest dimension): $1.20$ ksi up to 11, a parabolic reduction up to 26, and $540/(KL/d)^2$ ksi up to 50 — Euler with F.S. $=3$.
+- **Procedure for analysis.** Analysis: (1) compute the largest slenderness ratio to pick the formula, (2) $P=\sigma_{allow}A$. Design: (1) assume an area $A'$, (2) find $\sigma_{allow}$ and $A_{req}=P/\sigma_{allow}$, (3) accept if $A'$ is slightly above $A_{req}$ (2–3%), else iterate using the new required area.
 = \left(\frac{KL}{r}\right)_c=\sqrt{\frac{2\pi^2E}{\sigma_Y}}
 = \sigma_{allow}=\frac{12\pi^2E}{23(KL/r)^2}\;\;(KL/r\ge (KL/r)_c)
+= \sigma_{allow}=\frac{\left[1-\frac{(KL/r)^2}{2(KL/r)_c^2}\right]\sigma_Y}{\frac53+\frac38\frac{(KL/r)}{(KL/r)_c}-\frac{(KL/r)^3}{8(KL/r)_c^3}}\;\;(KL/r<(KL/r)_c)
 ## 13.7 | Design of Columns for Eccentric Loading | *
 ! fig 13-28 crop || An eccentric load is equivalent to a centered load plus M = Pe.
-- Allowable-stress method uses combined axial + bending stress ≤ column allowable {fig 13-28}.
-- Interaction formula balances axial and bending fractions of their respective allowables.
+- **Eccentric loads.** Loads at a column edge or on a side bracket create a moment $M=Pe$ that must be included in design {fig 13-28}; two common methods follow.
+- **Use of available column formulas.** Superpose axial and bending stress, $\sigma_{max}=P/A+Mc/I$, conservatively assume it acts uniformly over the section, and require $\sigma_{max}\le\sigma_{allow}$ from the concentric formulas.
+- **Largest slenderness ratio.** $\sigma_{allow}$ is computed with the column's largest $KL/r$ regardless of the bending axis, as codes require; the method is simple and works well for short and intermediate columns, otherwise increase $A$ and recheck.
+- **Interaction formula.** Splitting the required area into an axial part $P/(\sigma_a)_{allow}$ and a bending part $Mc/(\sigma_b)_{allow}r^2$ gives $\sigma_a/(\sigma_a)_{allow}+\sigma_b/(\sigma_b)_{allow}\le1$, showing how the two effects interact.
+- **Terms.** $\sigma_a=P/A$; $\sigma_b=Mc/I$ about the bending axis; $(\sigma_a)_{allow}$ from Sec. 13.6 using the largest slenderness ratio; $(\sigma_b)_{allow}$ from code specifications.
+- **Using the interaction formula.** Each ratio is the share of axial or bending demand (one vanishes for pure axial or pure bending); pick a section, check, and enlarge as needed — economical when the sum is just under 1.
+- **Code use.** Interaction is specified for steel, aluminum and timber; AISC allowable-stress design uses this form only when $\sigma_a/(\sigma_a)_{allow}\le0.15$, otherwise a modified version.
 = \frac{P/A}{(\sigma_a)_{allow}}+\frac{Mc/Ar^2}{(\sigma_b)_{allow}}\le1
+= \sigma_{max}=\frac{P}{A}+\frac{Mc}{I}\le\sigma_{allow}
 
 # 14 | Energy Methods | design | Strain energy, impact, virtual work and Castigliano's theorem.
 > External work by a gradually applied load ($\tfrac12P\Delta$) is stored as strain energy.
@@ -937,50 +1424,111 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 > Castigliano: $\Delta=\partial U/\partial P$; add a fictitious load where none acts, then set it to zero.
 ## 14.1 | External Work and Strain Energy
 ! fig 14-1 || Work = area under the load–deflection line = ½PΔ.
-- Work of a gradually applied force on a linear system is half force × displacement {fig 14-1}.
-- Conservation: external work is stored as internal strain energy {fig 14-3} {fig 14-4} (elastic, no losses).
+- **Purpose.** Energy methods find deflections of truss joints and points on beams or shafts; they start by defining external work and expressing it as the body's strain energy.
+- **Work of a force.** A force does work $dU_e=F\,dx$ when displaced along its own direction; total work is $U_e=\int_0^\Delta F\,dx$, a scalar.
+- **Gradually applied force.** On a linear-elastic bar the force grows in proportion to displacement, so $U_e=\tfrac12P\Delta$ — the average force times displacement, the triangular area under the load–deflection line {fig 14-1}.
+- **Force already in place.** If $P$ is already applied and another force $P'$ displaces the bar further by $\Delta'$, $P$ stays constant and does work $P\Delta'$ (a rectangular area), with no ½.
+- **Work of a couple moment.** A couple does work $dU_e=M\,d\theta$ through a rotation; gradually applied on a linear-elastic body $U_e=\tfrac12M\theta$, but if already acting while other loads rotate it by $\theta'$, $U_e=M\theta'$.
+- **Strain energy.** With no heat loss, external work becomes internal work called **strain energy**, stored in the body by normal and shear stresses; it is always positive.
+- **Normal stress.** A gradually loaded element gives $dU_i=\tfrac12\sigma\epsilon\,dV$ {fig 14-3} — positive even in compression since $\sigma$ and $\epsilon$ share direction; with Hooke's law $U_i=\int_V\sigma^2/2E\,dV$.
+- **Shear stress.** Only the top-face shear force moves (by $\gamma\,dz$), the vertical faces just rotate {fig 14-4}, so $dU_i=\tfrac12\tau\gamma\,dV$; with $\gamma=\tau/G$, $U_i=\int_V\tau^2/2G\,dV$, always positive.
+- **Multiaxial stress.** Energy is scalar, so a general stress state sums $\tfrac12\sigma\epsilon$ and $\tfrac12\tau\gamma$ terms for all components; generalized Hooke's law expresses it in stresses, and for principal stresses it reduces to the form behind the distortion-energy theory.
 =! U_e=\tfrac12P\Delta,\qquad U_e=\tfrac12M'\theta
 = U_i=\int_V\frac{\sigma^2}{2E}dV+\int_V\frac{\tau^2}{2G}dV
+= U_i=\int_V\left[\frac{1}{2E}(\sigma_1^2+\sigma_2^2+\sigma_3^2)-\frac{\nu}{E}(\sigma_1\sigma_2+\sigma_2\sigma_3+\sigma_1\sigma_3)\right]dV
 ## 14.2 | Elastic Strain Energy for Various Types of Loading
 ! fig 14-9 || Bending energy: integrate σ²/2E over the volume → ∫M²/2EI dx.
-- Integrate energy density using the stress formula for each load type {fig 14-6} {fig 14-9}.
-- Transverse-shear energy is usually negligible for slender beams; form factor $f_s$ {fig 14-12} accounts for shape.
+- **Approach.** Substitute the stress formula for each internal loading — axial, bending, transverse shear, torsion — into the energy-density integrals of Sec. 14.1 and integrate over the member.
+- **Axial load.** For a slightly tapered bar with $\sigma=N/A$ {fig 14-6}, slices $dV=A\,dx$ give $U_i=\int N^2/2AE\,dx$; a prismatic bar with constant $N$ stores $N^2L/2AE$.
+- **Energy-absorbing capacity (axial).** Stored energy rises with longer bars or lower $E$ or $A$: an aluminum rod stores about three times the energy of a same-size steel rod, while doubling the area halves the energy stored.
+- **Bending moment.** With $\sigma=My/I$ {fig 14-9}, the area integral $\int y^2dA=I$ gives $U_i=\int M^2/2EI\,dx$; write $M$ (and $I$ for slightly tapered beams) as functions of $x$ and integrate over the length.
+- **Transverse shear.** Using $\tau=VQ/It$ on a prismatic, $y$-symmetric beam {fig 14-12} gives $U_i=\int f_sV^2/2GA\,dx$, where the **form factor** $f_s=(A/I^2)\int_A Q^2/t^2\,dA$ is a dimensionless property of the section.
+- **Rectangular form factor.** For a $b\times h$ rectangle, $f_s=6/5$; other sections are found the same way.
+- **Shear energy usually neglected.** As a beam gets longer, bending energy far exceeds shear energy, so shear strain energy in beams is generally neglected.
+- **Torsional moment.** For a circular shaft with $\tau=T\rho/J$, the area integral is $J$, giving $U_i=\int T^2/2GJ\,dx$, or $T^2L/2GJ$ for constant torque and section.
+- **Energy-absorbing capacity (torsion).** As with axial members, a larger shaft diameter (larger $J$) decreases the energy a shaft can absorb.
 =! U_i=\int\frac{N^2}{2AE}dx,\qquad U_i=\int\frac{M^2}{2EI}dx
 =! U_i=\int\frac{f_sV^2}{2GA}dx,\qquad U_i=\int\frac{T^2}{2GJ}dx
+= f_s=\frac{A}{I^2}\int_A\frac{Q^2}{t^2}dA
 ## 14.3 | Conservation of Energy
 ! fig 14-18 crop || External work ½PΔ equals stored strain energy, which gives Δ.
-- Equate external work to internal strain energy to find displacement under a single load {fig 14-18}.
+- **Energy balance.** Only mechanical energy is considered (heat, chemical, electromagnetic effects ignored); slowly applied loads do external work stored as strain energy, which restores the body on unloading if the elastic limit isn't exceeded, so $U_e=U_i$.
+- **Truss.** For a gradually applied joint load {fig 14-18}, $\tfrac12P\Delta=\sum N^2L/2AE$; once all member forces $N$ are known, solve for the joint displacement $\Delta$.
+- **Beam under a force.** Shear energy is neglected unless the beam is short and heavily loaded, so $\tfrac12P\Delta=\int M^2/2EI\,dx$ gives the deflection under $P$.
+- **Beam under a couple.** A couple $M_0$ does work only when it rotates, so $\tfrac12M_0\theta=\int M^2/2EI\,dx$ gives the slope at the couple.
+- **Limitations.** Only one external force or couple may act, and only the displacement at that load in its direction can be found — multiple loads introduce several unknowns for one equation; it motivates the more general methods that follow.
 = U_e=U_i
+= \tfrac12P\Delta=\sum\frac{N^2L}{2AE},\qquad \tfrac12P\Delta=\int_0^L\frac{M^2}{2EI}dx
 ## 14.4 | Impact Loading
 ! fig 14-23 || A falling weight compresses the spring far more than the static load would.
-- Falling or moving mass delivers kinetic + potential energy that the member absorbs; dynamic loads exceed static {fig 14-23}.
-- Impact factor amplifies static displacement/stress {fig 14-25}.
+- **Impact.** Some loads are dynamic; **impact** is when one object strikes another, developing large forces over a very short time.
+- **Falling block on a spring.** Assuming no losses and a massless elastic spring {fig 14-23}, $W(h+\Delta_{max})=\tfrac12k\Delta_{max}^2$; with $\Delta_{st}=W/k$ the larger root is $\Delta_{max}=\Delta_{st}[1+\sqrt{1+2h/\Delta_{st}}]$.
+- **Maximum force.** $F_{max}=k\Delta_{max}$ acts only for an instant; without rebound the block vibrates until damping leaves it at $\Delta_{st}$.
+- **Sudden release.** With $h=0$ (released at the spring's top), $\Delta_{max}=2\Delta_{st}$ — a suddenly applied load deflects twice as much as the same load placed statically.
+- **Horizontal moving block.** A block sliding at velocity $v$ into a spring converts kinetic energy $\tfrac12(W/g)v^2$ into strain energy, giving $\Delta_{max}=\sqrt{Wv^2/gk}=\sqrt{\Delta_{st}v^2/g}$.
+- **Modeling assumptions.** Moving body rigid, struck body linear elastic, no energy lost, bodies stay in contact until maximum deformation, and inertia of the elastic body neglected — all making the stress and deflection estimates conservative (high).
+- **Equivalent springs.** Posts and beams struck by a weight act as springs ($k=AE/L$, or $48EI/L^3$ for a midspan-loaded simple beam) {fig 14-25}; in practice only $\Delta_{st}$ under the weight resting statically is needed.
+- **Maximum dynamic stress.** Treat $P_{max}=k\Delta_{max}$ as an equivalent static load to find stress by statics; it acts only momentarily as vibration waves pass through the member.
+- **Impact factor.** $n=P_{max}/W$ magnifies a static load to represent it dynamically: $\sigma_{max}=n\sigma_{st}$, $\Delta_{max}=n\Delta_{st}$; valid for linear load–deflection members, while complex systems use factors from experience and testing.
 = \Delta_{max}=\Delta_{st}\left[1+\sqrt{1+2\frac{h}{\Delta_{st}}}\right]
 =! n=\frac{\Delta_{max}}{\Delta_{st}}=1+\sqrt{1+2\frac{h}{\Delta_{st}}}
+= \Delta_{max}=\sqrt{\frac{\Delta_{st}v^2}{g}}
 ## 14.5 | Principle of Virtual Work | *
 ! fig 14-29 || Virtual unit load × real displacement = internal virtual work.
-- Apply a virtual unit load at the point and in the direction of the desired displacement; equate virtual work {fig 14-29}.
+- **Origin and use.** Developed by John Bernoulli (1717) from energy conservation; here it gives the displacement or slope at any point of a deformable body.
+- **Virtual unit load.** Real loads (no support movement, possibly inelastic) don't put a work term at a point A with no load, so an imaginary unit force $P'=1$ is applied at A along $\Delta$ before the real loads {fig 14-29}; it creates internal virtual loads $u$ in equilibrium with it.
+- **Virtual-work equation.** When real loads act, the virtual loads "ride along" through real displacements, so external virtual work equals internal: $1\cdot\Delta=\sum u\,dL$, giving $\Delta$ directly.
+- **Slope.** A virtual unit couple $M'=1$ at the point creates internal loads $u_\theta$, and $1\cdot\theta=\sum u_\theta\,dL$ gives the rotation in radians.
+- **Virtual forces vs. virtual displacements.** Applying a virtual force to find a real displacement is the **method of virtual forces**, a compatibility statement; imposing virtual displacements under real loads finds reactions or internal loads instead, an equilibrium statement.
+- **Internal virtual work.** The real deformations $dL$ may come from stress (even beyond yield), temperature change, or fabrication errors — there's no restriction on load size.
+- **Linear-elastic form.** Strain-energy expressions carry ½ because loads grow gradually; virtual loads are at full value before real deformation, so virtual work is simply $n$, $v$, $m$, $t$ times the real deformation, giving the general equation over $N$, $V$, $M$, $T$ (Table 14–1).
+- **Units.** Use a consistent set: with kN and m, apply a 1-kN virtual force or 1-kN·m couple, so $\Delta$ comes out in m and slope in rad.
 = 1\cdot\Delta=\sum u\,dL
+= 1\cdot\theta=\sum u_\theta\,dL
+= 1\cdot\Delta=\int\frac{nN}{AE}dx+\int\frac{mM}{EI}dx+\int\frac{f_s vV}{GA}dx+\int\frac{tT}{GJ}dx
 ## 14.6 | Method of Virtual Forces Applied to Trusses | *
 ! fig 14-31 || Truss: Δ = Σ nNL/AE using the unit-load member forces n.
-- $n$ = member force due to virtual unit load, $N$ = real member force {fig 14-31}; temperature and fabrication errors add terms.
+- **Truss displacement.** Put a virtual unit force at the joint in the direction of $\Delta$ {fig 14-31}; with constant $A$, $n$ and $N$ in each member, its internal virtual work is $nNL/AE$, so $1\cdot\Delta=\sum nNL/AE$.
+- **Terms.** $n$ = member force from the virtual unit load; $N$ = member force from the real loads; $L$, $A$, $E$ = each member's length, area, modulus.
+- **Temperature change.** A member's length changes by $\alpha\,\Delta T\,L$, so the joint displacement from heating is $1\cdot\Delta=\sum n\,\alpha\,\Delta T\,L$.
+- **Fabrication errors.** Members made too long or short by $\Delta L$ displace a joint from its intended position by $1\cdot\Delta=\sum n\,\Delta L$.
+- **Combined effects.** When loads, temperature changes and fabrication errors occur together, add the right-hand sides of all three equations.
+- **Procedure for analysis.** (1) Apply the unit load at the joint along $\Delta$ and find $n$ in every member with real loads removed (tension +). (2) Find real forces $N$ (tension +). (3) Sum keeping signs; positive $\Delta$ is in the unit load's direction; temperature rise and member lengthening are +. The unit load's units cancel.
 = 1\cdot\Delta=\sum\frac{nNL}{AE},\qquad 1\cdot\Delta=\sum n\,\alpha\,\Delta T\,L
+= 1\cdot\Delta=\sum n\,\Delta L
 ## 14.7 | Method of Virtual Forces Applied to Beams | *
 ! fig 14-34 || Virtual moment m from a unit load times the real M/EI.
-- $m$ = internal moment from unit force (or $m_\theta$ from unit couple {fig 14-34}) for displacement (or slope).
+- **Beam displacement.** Place a unit load at the point along $\Delta$ {fig 14-34}; shear deflection is negligible for long slender beams, so only bending counts: the element rotates $d\theta=(M/EI)dx$ and does virtual work $m\,d\theta$.
+- **Terms.** $m$ = internal virtual moment from the unit load and $M$ = real moment, both functions of $x$; $E$ and $I$ (about the neutral axis) of the beam.
+- **Slope.** For the slope of the elastic curve apply a virtual unit couple and use its internal moment $m_\theta$ in place of $m$.
+- **Regions and coordinates.** Concentrated loads, couples or discontinuous distributed loads require separate $x$ coordinates per region; origins may differ, but the same $x$ must be used for $M$ and $m$ within a region.
+- **Other strain energy.** Members with significant axial, shear or torsional virtual strain energy must include those terms from the general virtual-work equation.
+- **Procedure for analysis.** (1) Apply a unit load (or unit couple for slope) at the point; choose $x$ coordinates per continuous region; find $m$ or $m_\theta$ with real loads removed, positive per the beam sign convention. (2) Find real $M$ with the same coordinates and sign convention. (3) Integrate and sum keeping signs; a positive result acts in the unit load's direction.
 =! 1\cdot\Delta=\int_0^L\frac{mM}{EI}dx,\qquad 1\cdot\theta=\int_0^L\frac{m_\theta M}{EI}dx
 ## 14.8 | Castigliano's Theorem | *
 ! fig 14-38 crop || Δ at a load = ∂U/∂P for that load.
-- Displacement at a point equals the partial derivative of strain energy with respect to the force there (linear-elastic) {fig 14-38}.
+- **Castigliano's second theorem.** Published by Alberto Castigliano (1879) for constant temperature and linear-elastic material: the displacement at a point equals $\partial U_i/\partial P$ for a force there along the displacement; the slope equals $\partial U_i/\partial M'$ for a couple there.
+- **Strain energy as a function of loads.** For forces $P_1\ldots P_n$ on a body {fig 14-38}, external work and hence $U_i$ are functions of the loads; increasing $P_j$ by $dP_j$ raises energy by $(\partial U_i/\partial P_j)dP_j$.
+- **Order-independence proof.** Applying $dP_j$ first (second-order work negligible), then the loads, $dP_j$ rides through $\Delta_j$ adding $dP_j\Delta_j$; the energy can't depend on order, so $\Delta_j=\partial U_i/\partial P_j$.
+- **Conditions.** The theorem states compatibility and requires conservative forces — path-independent, no energy loss, applicable in any order — which holds for linear-elastic material.
+- **First theorem.** Castigliano's first theorem, $P_j=\partial U_i/\partial\Delta_j$, expresses equilibrium instead; it has limited application and isn't pursued.
 =! \Delta_i=\frac{\partial U_i}{\partial P_i}
 ## 14.9 | Castigliano's Theorem Applied to Trusses | *
 ! svg 14-9 || For each member, multiply its force by how fast it changes with P; sum to get the joint displacement.
-- Add a fictitious force $P$ if none acts at the point; set $P$ to its real value after differentiating.
+- **Truss form.** Members carry only axial load, $U=\sum N^2L/2AE$; differentiating before summing (with constant $L$, $A$, $E$) gives $\Delta=\sum N(\partial N/\partial P)L/AE$.
+- **Terms.** $P$ = a variable-magnitude force at the joint along $\Delta$; $N$ = member force due to both $P$ and the actual loads.
+- **Link to virtual forces.** The formula matches $1\cdot\Delta=\sum nNL/AE$, since $\partial N/\partial P$ and $n$ both mean the member force per unit load at the joint.
+- **Procedure for analysis.** (1) Place a variable force $P$ at the joint along $\Delta$ (fictitious if none acts). (2) Express each $N$ in terms of real loads and $P$ (tension +), find $\partial N/\partial P$, then set $P$ to its real value or zero. (3) Sum keeping signs; positive $\Delta$ is in the direction of $P$.
 = \Delta=\sum N\left(\frac{\partial N}{\partial P}\right)\frac{L}{AE}
 ## 14.10 | Castigliano's Theorem Applied to Beams | *
 ! svg 14-10 || Put a fictitious force where the deflection is wanted, differentiate M, then set it to zero.
-- Differentiate the moment function with respect to a (possibly fictitious) force or couple moment.
+- **Beam form.** Shear energy is neglected for long slender beams, so $U=\int M^2/2EI\,dx$; differentiating before integrating gives $\Delta=\int M(\partial M/\partial P)dx/EI$, with $M$ due to both $P$ and the actual loads.
+- **Slope.** For the slope of the elastic curve, differentiate $M$ with respect to a couple moment $M'$ at the point: $\theta=\int M(\partial M/\partial M')dx/EI$.
+- **Link to virtual forces.** These match the virtual-force beam equations with $m$ and $m_\theta$ replaced by $\partial M/\partial P$ and $\partial M/\partial M'$.
+- **Combined loadings.** If axial, shear or torsional strain energy is significant, add their terms: $\sum N(\partial N/\partial P)L/AE$, $\int f_sV(\partial V/\partial P)dx/GA$, $\int T(\partial T/\partial P)dx/GJ$.
+- **Procedure for analysis.** (1) Place a variable force $P$ (or couple $M'$ for slope) at the point. (2) Choose $x$ coordinates per continuous region, write $M$ in terms of real loads and $P$, find $\partial M/\partial P$, then set $P$ to its real value or zero. (3) Integrate and sum keeping signs; positive results act in the direction of $P$ or $M'$.
 =! \Delta=\int_0^L M\left(\frac{\partial M}{\partial P}\right)\frac{dx}{EI},\qquad \theta=\int_0^L M\left(\frac{\partial M}{\partial M'}\right)\frac{dx}{EI}
+= \Delta=\sum N\frac{\partial N}{\partial P}\frac{L}{AE}+\int_0^L f_sV\frac{\partial V}{\partial P}\frac{dx}{GA}+\int_0^L M\frac{\partial M}{\partial P}\frac{dx}{EI}+\int_0^L T\frac{\partial T}{\partial P}\frac{dx}{GJ}
 </script>
 
 <!-- GD&T notes: same format as above (Krulikowski, Fundamentals of GD&T, 3rd ed.) -->
@@ -2467,6 +3015,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   const ICON_E='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 9h14M5 15h14"/></svg>';
   const ICON_S='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 6h16M4 12h16M4 18h10"/></svg>';
   const inline=(s,B)=>esc(s)
+    .replace(/\*\*([^*]+)\*\*/g,'<b class="kt">$1</b>')
     .replace(/\$([^$]+)\$/g,'<span class="m" data-tex="$1"></span>')
     .replace(/\{fcf ([^}]+)\}/g,(m,x)=>fcf(x.replace(/&amp;/g,'&')))
     .replace(/\{sym (\w+)\}/g,(m,x)=>glyph(x))

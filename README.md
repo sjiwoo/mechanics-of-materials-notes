@@ -33,7 +33,7 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
 ```
 # n | Chapter title | accent group (fund/load/bend/trans/design) | summary
 ## n.m | Section title | *        (trailing * = advanced section)
-- concept bullet, inline math in $...$, figure link as {fig 6-24}
+- **Label.** concept bullet (bold lead-in), inline math in $...$, figure link as {fig 6-24}
 = LaTeX display equation || optional caption
 =! LaTeX display equation || caption   critical: also listed on the Equation sheet
 > chapter-summary bullet (lines right after the # chapter line)
