@@ -45,6 +45,12 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
 - Each chapter ends with a **Chapter quiz** button (`#quiz6`, `#g-quiz9`): 8 short questions on the basics, including quick calculations.
   Type an answer and Gemini grades it against the reference answer (correct / partly / not quite, with feedback).
   "Show answer" works without a key; "✦ 5 more questions" asks Gemini to write new ones from the chapter notes.
+- **Mixed quiz** (`#mix`, `#g-mix`; linked from every chapter page, each chapter quiz, and the sidebar under Reference)
+  covers any set of chapters. The chapter picker starts with every chapter up to the one you were last studying
+  (e.g. coming from Chapter 6 selects 1–6); "All" / "None" shortcuts and per-chapter checkboxes change it.
+  Choose how many questions (5–30 or all): they're drawn evenly from each chosen chapter's bank (plus any
+  Gemini questions already added to those chapter quizzes), shuffled, and tagged with their chapter.
+  "✦ 5 more questions" writes new ones spread across the chosen chapters.
 - **Ask tutor** (bottom-right) opens a chat that is given the notes of the chapter you have open.
 - Both use your own Gemini API key, entered in the tutor's key settings. It is stored only in your browser's localStorage
   and sent directly to `generativelanguage.googleapis.com`; it is never committed or sent anywhere else. The model list
