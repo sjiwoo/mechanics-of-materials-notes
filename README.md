@@ -27,6 +27,12 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   Note: the source PDF is missing book pages 353–362 (most of ch. 26); those sections were written from the
   chapter summary + Y14.5 and use custom SVG figures (`sf-g-26-*` in `tools/section_figs.py`).
 
+- **Materials** (Ashby, Shercliff & Cebon, *Materials: Engineering, Science, Processing and Design*, 4th ed.),
+  chapters 4–15 (stiffness, strength, fracture, fatigue, friction and wear, heat, creep, durability, electrical):
+  data block `id="data-mat"`, quiz block `id="quiz-mat"`, chapter icons `<template id="art-m-N">`, figures in
+  `figures/mat/` (book figure numbers), hashes `#mat`, `#m-ch5`, `#m-s5.2`, `#m-eq` (Formula & index sheet),
+  `#m-quiz5`, `#m-mix`. These blocks sit between the `<!-- MAT:BEGIN -->` / `<!-- MAT:END -->` markers.
+
 ## Editing content
 All notes live in the `<script type="text/plain" id="data">` block in `index.html`:
 
