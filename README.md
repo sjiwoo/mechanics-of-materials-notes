@@ -32,7 +32,8 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   data block `id="data-mat"`, quiz block `id="quiz-mat"`, chapter icons `<template id="art-m-N">`, figures in
   `figures/mat/` (book figure numbers), hashes `#mat`, `#m-ch5`, `#m-s5.2`, `#m-eq` (Formula & index sheet),
   `#m-quiz5`, `#m-mix`. These blocks sit between the `<!-- MAT:BEGIN -->` / `<!-- MAT:END -->` markers.
-- **Soft Robotics** (course 24-673, Prof. C. Majidi, 12 lectures): notes condensed from the lecture slides, one
+- **Soft Robotics** (course 24-673, Prof. C. Majidi, 12 lectures): notes condensed from the lecture slides and their
+  embedded videos (key frames + speech transcripts; video frames are figures `fig<lecture>-<100+slide>`), one
   "chapter" per lecture with topic sections, key slide figures (`figures/sr/fig<lecture>-<slide>.webp`), equation
   sheet, quizzes and interview problems. Data block `id="data-sr"`, quiz `id="quiz-sr"`, icons `art-r-N`, between
   the `<!-- SR:BEGIN -->` / `<!-- SR:END -->` markers; hashes `#sr`, `#r-ch3`, `#r-s3.2`, `#r-eq`, `#r-quiz3`, `#r-mix`.
