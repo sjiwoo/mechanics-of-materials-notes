@@ -2,6 +2,7 @@
 
 Run from the repo root:  python tools/section_figs.py
 Each figure becomes <template id="sf-<ch>-<sec>"> between the SECTION-FIGS markers in index.html.
+Figures for the Tactile Sensing book are defined in tools/tactile_figs.py (keys t-<ch>-<sec>) and are merged in by build().
 Styling comes from the .sf CSS classes in index.html, so figures follow the chapter accent + theme:
   a  = accent stroke     af = accent fill     ah = accent tinted area
   k  = ink stroke        kf = ink fill        g  = dashed guide
@@ -585,6 +586,16 @@ F['g-26-4'] = (svg(b, 152), 'Between (X↔Y) limits the extent; a circle on the 
 def build():
     root = pathlib.Path(__file__).resolve().parent.parent
     html = (root / 'index.html').read_text(encoding='utf-8')
+    # Tactile Sensing book: section figures (sf-t-<ch>-<sec>) and chapter art (art-t-<ch>) live in tactile_figs.py
+    import tactile_figs
+    F.update({k: (v, '') for k, v in tactile_figs.T.items()})
+    art = '\n'.join(f'<template id="art-t-{k}">{v}</template>' for k, v in tactile_figs.ART.items())
+    a0, a1 = '<!-- TACTILE-ART:START -->', '<!-- TACTILE-ART:END -->'
+    ablock = f'{a0}\n{art}\n{a1}'
+    if a0 in html:
+        html = re.sub(re.escape(a0) + r'.*?' + re.escape(a1), lambda m: ablock, html, flags=re.S)
+    else:
+        html = html.replace('<!-- SECTION-FIGS:START -->', ablock + '\n<!-- SECTION-FIGS:START -->', 1)
     out = '\n'.join(f'<template id="sf-{k}">{v[0]}</template>' for k, v in F.items())
     start, end = '<!-- SECTION-FIGS:START -->', '<!-- SECTION-FIGS:END -->'
     block = f'{start}\n{out}\n{end}'
