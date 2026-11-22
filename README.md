@@ -32,6 +32,10 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   data block `id="data-mat"`, quiz block `id="quiz-mat"`, chapter icons `<template id="art-m-N">`, figures in
   `figures/mat/` (book figure numbers), hashes `#mat`, `#m-ch5`, `#m-s5.2`, `#m-eq` (Formula & index sheet),
   `#m-quiz5`, `#m-mix`. These blocks sit between the `<!-- MAT:BEGIN -->` / `<!-- MAT:END -->` markers.
+- **Soft Robotics** (course 24-673, Prof. C. Majidi, 12 lectures): notes condensed from the lecture slides, one
+  "chapter" per lecture with topic sections, key slide figures (`figures/sr/fig<lecture>-<slide>.webp`), equation
+  sheet, quizzes and interview problems. Data block `id="data-sr"`, quiz `id="quiz-sr"`, icons `art-r-N`, between
+  the `<!-- SR:BEGIN -->` / `<!-- SR:END -->` markers; hashes `#sr`, `#r-ch3`, `#r-s3.2`, `#r-eq`, `#r-quiz3`, `#r-mix`.
 
 ## Editing content
 All notes live in the `<script type="text/plain" id="data">` block in `index.html`:
@@ -57,9 +61,12 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
   Choose how many questions (5–30 or all): they're drawn evenly from each chosen chapter's bank (plus any
   Gemini questions already added to those chapter quizzes), shuffled, and tagged with their chapter.
   "✦ 5 more questions" writes new ones spread across the chosen chapters.
-- **Interviewer** (`#interview`, `#interview6`, `#interview6.3`; sidebar under Reference and an
-  "Interview practice" card on each Mechanics of Materials chapter page) is a full-screen mock interview on the
-  book's worked **Example** problems (all 176, chapters 1–14). Pick a chapter and an example, or **Shuffle**
+- **Interviewer** (every book; sidebar under Reference and an "Interview practice" card on every chapter page;
+  `#interview6.3` for Mechanics of Materials, `#g-interview9.2` GD&T, `#m-interview5.3` Materials,
+  `#r-interview3.1` Soft Robotics) is a full-screen mock interview on each book's problems: Mechanics of Materials
+  uses the book's 176 worked Examples, Materials its 77 worked Examples, GD&T 108 practice problems (4 per chapter,
+  written from the notes, ASME Y14.5-2009) and Soft Robotics 60 problems (5 per lecture, written from the slides).
+  Pick a chapter and a problem, or **Shuffle**
   (unfinished ones first; "All chapters" shuffles across the book). The problem statement and its initial figure
   are shown (only the given-data panel, never the solution panels). Gemini then asks you to explain the set-up
   at a high level and drills down one question at a time to the final numbers, without hints or leading
@@ -69,7 +76,8 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
   the interviewer reads it as part of your answer. **Show solution** gives up and shows the book's solution.
   Conversations and scratchpads are saved per example in localStorage (**Restart** clears the conversation).
   - Data: `examples.js` (`window.EXAMPLES`: id, title, statement `q`, `figs`, `figDesc`, examiner-only `sol`,
-    `answers`), figures in `figures/ex/ex<ch>-<n>.webp`. The figure image is sent to Gemini when the site is
+    `answers`), figures in `figures/ex/ex<ch>-<n>.webp`; the other books use `examples-gdt.js`, `examples-mat.js`,
+    `examples-sr.js` (`window.EXAMPLES_BY.<key>`, `figs` as site-relative paths, e.g. `figures/ex-mat/…`). The figure image is sent to Gemini when the site is
     served over http(s) (e.g. GitHub Pages); opened from `file://` the browser blocks reading it, so the
     interviewer relies on the written figure description instead.
 - **Ask tutor** (bottom-right) opens a chat that is given the notes of the chapter you have open.
