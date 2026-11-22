@@ -52,6 +52,23 @@ The site holds two separate textbooks, switched from the top bar (no reload):
     (`art-t-<ch>`), both defined in `tools/tactile_figs.py` and injected by `python tools/section_figs.py`.
   - Interviewer: 24 problems in `examples-ts.js` (`window.EXAMPLES_BY.ts`), with figures in `figures/tactile/ex/`
     rendered from the section SVGs by `python tools/tactile_ex_figs.py` (needs `rsvg-convert`).
+- **Polymers** (course 27-577/777 *Advanced Polymer Science and Engineering*, Prof. M. R. Bockstaller, Fall 2021): replicates
+  the syllabus. The 11 chapters are the syllabus's 11 topics (introduction, ideal chain models, amorphous, semicrystalline and
+  liquid-crystalline polymers, network deformation, viscoelasticity, processing, anisotropy, blend thermodynamics, homopolymer
+  blends), built from the course lecture notes and deepened with the primary text (Gedde, *Polymer Physics*) and the secondary
+  text (McCrum, Buckley & Bucknall, *Principles of Polymer Engineering*, 2nd ed.). The landing page summarizes the syllabus
+  (lecturer, texts, assessment, paper project, exam coverage). Every section ends with a **Sources** bullet (lecture date and
+  textbook §; "general background" marks anything from neither). Data block `id="data-poly"`, quiz `id="quiz-poly"`, icons
+  `art-p-N`, between the `<!-- POLY:BEGIN -->` / `<!-- POLY:END -->` markers; figures in `figures/poly/`; hashes `#poly`,
+  `#p-ch3`, `#p-s3.2`, `#p-eq`, `#p-quiz3`, `#p-mix`, `#p-interview3.2`. Interview problems (85) in `examples-poly.js`: Gedde
+  exercises (checked against Gedde ch. 13 solutions), McCrum problems (checked against the book's answers) and course-style
+  problems; each record has a `src` field naming its origin.
+- **Flashcards** (`#cards`; sidebar under Reference in every book, and in the chapter picker): one deck of the 50 most important
+  equations across all books (Mechanics of Materials 14, Polymers 10, Materials 9, Tactile Sensing 7, Soft Robotics 6,
+  GD&T 4). Each card shows a prompt; click or Space flips it to the equation, a note and a link to its section. Mark
+  **Got it** / **Again** (keys 2 / 1, arrows to move); progress is kept in localStorage. Filter by book, shuffle, or review
+  only the missed cards; "All 50 equations at a glance" lists the whole deck. The deck is the `<script type="text/plain"
+  id="cards">` block: one card per line, `book key | section | prompt || LaTeX || note`.
 - On phones (≤ 560 px) the book switcher sits on its own row under the search box and chapter picker.
 
 ## Editing content
@@ -80,7 +97,7 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
   "✦ 5 more questions" writes new ones spread across the chosen chapters.
 - **Interviewer** (every book; sidebar under Reference and an "Interview practice" card on every chapter page;
   `#interview6.3` for Mechanics of Materials, `#g-interview9.2` GD&T, `#m-interview5.3` Materials,
-  `#r-interview3.1` Soft Robotics) is a full-screen mock interview on each book's problems: Mechanics of Materials
+  `#r-interview3.1` Soft Robotics, `#p-interview3.2` Polymers) is a full-screen mock interview on each book's problems: Mechanics of Materials
   uses the book's 176 worked Examples, Materials its 77 worked Examples, GD&T 108 practice problems (4 per chapter,
   written from the notes, ASME Y14.5-2009) and Soft Robotics 60 problems (5 per lecture, written from the slides).
   Pick a chapter and a problem, or **Shuffle**
