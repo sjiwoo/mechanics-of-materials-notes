@@ -294,6 +294,57 @@ a.qlink{text-decoration:underline}
 }
 @media (max-width:900px){.qhead{grid-template-columns:auto 1fr}.qhead .qscore{grid-column:1/-1;flex-direction:row;align-items:baseline;gap:8px;justify-content:flex-start}}
 @media print{.tfab,.tutor,.qcta{display:none!important}}
+/* ===== interviewer (full screen) ===== */
+body.ivopen{overflow:hidden}
+body.ivopen .tfab{display:none}
+.iv{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)}
+.iv[hidden],.iv [hidden]{display:none!important}
+.ivbar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--card);flex-wrap:wrap}
+.ivbar .tt{flex:0 1 auto;margin-right:6px}
+.ivbar select{padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:13px Inter,sans-serif;max-width:min(340px,60vw)}
+.ivbar .sp{flex:1}
+.ivbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 12px;font:600 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.ivbtn:hover{border-color:var(--ink3)}.ivbtn:disabled{opacity:.5;cursor:default}
+.ivbtn[aria-pressed="true"]{border-color:var(--c-fund);box-shadow:inset 0 0 0 1px var(--c-fund);color:var(--c-fund)}
+.ivbody{flex:1;min-height:0;display:grid;grid-template-columns:minmax(380px,44fr) 56fr}
+.ivleft{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--line)}
+.ivprob{border-bottom:1px solid var(--line);background:var(--card);padding:12px 16px;overflow-y:auto;max-height:46%;flex:none}
+.ivprob.min{max-height:none}.ivprob.min .ivpbody{display:none}
+.ivphead{display:flex;align-items:center;gap:10px}
+.ivtag{font:700 11px Inter;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--c-fund);padding:3px 8px;border-radius:6px;flex:none}
+.ivphead b{font:600 15px 'Space Grotesk',sans-serif;flex:1;min-width:0}
+.ivq{margin:10px 0 0;font-size:15px;line-height:1.55;white-space:pre-wrap}
+.ivfigs{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.ivfigs img{max-width:100%;max-height:260px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:zoom-in}
+.ivmsgs{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ivmsgs .tm{max-width:92%;font-size:14.5px}
+.ivmsgs .tm.model{background:var(--card);border:1px solid var(--line)}
+.ivpadtag{display:block;margin-top:4px;font:600 11px Inter;opacity:.75}
+.ivnote{align-self:center;text-align:center;color:var(--ink2);font-size:13.5px;max-width:92%}
+.ivend{align-self:stretch;border:1px solid color-mix(in srgb,var(--ok) 45%,var(--line));background:color-mix(in srgb,var(--ok) 8%,var(--card));border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px}
+.ivend b{flex:1;min-width:160px}
+.ivsol{align-self:stretch;border:1px dashed var(--line);border-radius:14px;padding:12px 14px;background:var(--card);font-size:14px}
+.ivsol h5{margin:0 0 6px;font:600 14px 'Space Grotesk',sans-serif}
+.ivin{display:flex;flex-direction:column;gap:6px;padding:10px;border-top:1px solid var(--line);background:var(--card)}
+.ivin .row{display:flex;gap:8px;align-items:flex-end}
+.ivin textarea{flex:1;resize:none;min-height:44px;max-height:180px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:14.5px/1.45 Inter,sans-serif;outline:none}
+.ivin textarea:focus{border-color:var(--ink3)}
+.ivattach{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2);cursor:pointer;user-select:none}
+.ivattach input{accent-color:var(--c-fund);margin:0}
+.iv.busy .tsend{opacity:.5;cursor:progress}
+.ivright{display:flex;flex-direction:column;min-height:0;padding:12px 14px;gap:8px}
+.padhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.padhead b{font:600 15px 'Space Grotesk',sans-serif;margin-right:auto}
+.padcv{flex:1;min-height:0;width:100%;display:block;color:var(--ink);background:var(--card);border:1px dashed var(--line);border-radius:14px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:crosshair}
+.padhint{margin:0;font-size:12px;color:var(--ink3)}
+body.pad-active,body.pad-active *{user-select:none!important;-webkit-user-select:none!important}
+.ivzoom{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.75);display:grid;place-items:center;cursor:zoom-out;padding:20px}
+.ivzoom img{max-width:96vw;max-height:94vh;background:#fff;border-radius:10px}
+@media (max-width:900px){
+  .ivbody{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) minmax(300px,42vh);overflow:hidden}
+  .ivleft{border-right:0;border-bottom:1px solid var(--line)}
+  .ivbar .tt small{display:none}
+}
 /* chapter summary */
 .csum{margin-top:4px;background:color-mix(in srgb,var(--acc) 7%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 30%,var(--line));border-left:5px solid var(--acc);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
 .csum .lbl{color:var(--acc);margin-top:0}
@@ -3506,6 +3557,8 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
 ? A profile zone is 0.6 mm, bilateral and equally disposed. The indicator is zeroed on the true profile with an indicator zero block. Allowed reading range? || ±0.3 mm (0.6 / 2 each side of zero).
 </script>
 
+<!-- Worked EXAMPLE problems for the interviewer (window.EXAMPLES); figures in figures/ex/ -->
+<script src="examples.js"></script>
 <script>
 (function(){
   // ======== books ========
@@ -3639,10 +3692,12 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
       const qcta=nq?`<a class="qcta" href="#${B.pre}quiz${c.n}"><span class="qico">${ICON_Q}</span><span class="qtx"><b>Chapter ${c.n} quiz</b><small>${nq} quick questions on the basics · type your answer and Gemini checks it</small></span><span class="qgo">Start quiz →</span></a>`:'';
       const span=ci?`Chapters ${chs[0].n}–${c.n}`:`Chapter ${c.n}`;
       const mcta=`<a class="qcta mixcta" href="#${B.pre}mix"><span class="qico">${ICON_Q}</span><span class="qtx"><b>Mixed quiz</b><small>Questions from several chapters · starts with ${span} (everything so far); pick any others</small></span><span class="qgo">Build quiz →</span></a>`;
-      book.insertAdjacentHTML('beforeend',h+`</div>${qcta}${mcta}<nav class="pager">${pg(prev,'prev')}${pg(next,'next')}</nav></section>`);
+      const nex=B.key==='mom'?(window.EXAMPLES||[]).filter(x=>String(x.id).split('.')[0]===c.n).length:0;
+      const icta=nex?`<a class="qcta mixcta" href="#interview${c.n}"><span class="qico">${ICON_C}</span><span class="qtx"><b>Interview practice</b><small>${nex} worked example${nex>1?'s':''} from this chapter · solve it out loud for an AI interviewer, with a scratchpad</small></span><span class="qgo">Start interview →</span></a>`:'';
+      book.insertAdjacentHTML('beforeend',h+`</div>${qcta}${mcta}${icta}<nav class="pager">${pg(prev,'prev')}${pg(next,'next')}</nav></section>`);
     });
     // reference sheet
-    nav.insertAdjacentHTML('beforeend',`<h4>Reference</h4><a href="#${B.pre}eq" data-ch="eq" class="sheetnav"><b>${ic(B)}</b>${B.sheet.label}</a><a href="#${B.pre}mix" data-ch="mix" style="--acc:var(${Object.values(B.groups)[0][0]})"><b>Q+</b>Mixed quiz</a>`);
+    nav.insertAdjacentHTML('beforeend',`<h4>Reference</h4><a href="#${B.pre}eq" data-ch="eq" class="sheetnav"><b>${ic(B)}</b>${B.sheet.label}</a><a href="#${B.pre}mix" data-ch="mix" style="--acc:var(${Object.values(B.groups)[0][0]})"><b>Q+</b>Mixed quiz</a>${B.key==='mom'&&(window.EXAMPLES||[]).length?`<a href="#interview" data-ch="iv" style="--acc:var(${Object.values(B.groups)[0][0]})"><b>IV</b>Interviewer</a>`:''}`);
     let sh=`<section class="chapter off sheet" id="${B.pre}cheq" data-book="${B.key}"><div class="chead sheethead"><div class="cnum">${ic(B)}</div><div>${B.key!=='mom'?`<span class="btag">${esc(B.short)}</span>`:''}<h2>${B.sheet.label}</h2><p>${B.sheet.blurb}</p></div>
       <button class="iconbtn printbtn" type="button" title="Print this sheet" aria-label="Print"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"/></svg></button></div>`;
     if(B.key==='gdt') sh+=symbolTable();
@@ -3725,6 +3780,7 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   }
   function parseHash(){
     const h=decodeURIComponent(location.hash);
+    let mi; if((mi=h.match(/^#interview(?:(\d+)(?:\.(\d+))?)?$/))) return {B:BY.mom,kind:'iv',n:mi[1]||null,ex:mi[2]?mi[1]+'.'+mi[2]:null};
     for(const B of live){
       if(B.key!=='mom'&&(h==='#'+B.key)) return {B,kind:'ch',n:B.chapters[0].n};
       const p=B.pre.replace(/[-]/g,'\\-');
@@ -3740,6 +3796,8 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   }
   function route(){
     const r=parseHash(), B=r.B;
+    if(r.kind!=='iv') closeIV(true);
+    if(r.kind==='iv'){const n=r.n||B.lastCh||lsGet('atlas-last-ch-'+B.key)||B.chapters[0].n; if(!curBook||curCh===null) showChapter(B,B.chapters.some(c=>c.n===n)?n:B.chapters[0].n); openIV(r.n||n,r.ex); return;}
     if(r.kind==='fig'){
       showChapter(B,r.n); scrollTo(0,0);
       const a=document.querySelector(`#${B.pre}ch${r.n} a.fig[data-fig="${B.pre}${r.fig}"], #${B.pre}ch${r.n} a.sfa[data-fig="${B.pre}${r.fig}"]`);
@@ -3759,8 +3817,8 @@ footer{margin:56px 0 24px;color:var(--ink3);font-size:12.5px;text-align:center}
   navBox.addEventListener('click',e=>{const l=e.target.closest('a'); if(l&&l.getAttribute('href')===location.hash){e.preventDefault(); if(l.dataset.ch) fastScroll(0); else route();}});
   chsel.addEventListener('change',()=>{const B=curBook; location.hash=chsel.value==='eq'||chsel.value==='mix'?B.pre+chsel.value:B.pre+'ch'+chsel.value;});
   document.addEventListener('keydown',e=>{
-    if(lb.open||e.target.matches('input,select,textarea')) return;
-    if(String(curCh)[0]==='q') return;
+    if(lb.open||(e.target.matches&&e.target.matches('input,select,textarea'))) return;
+    if(String(curCh)[0]==='q'||document.body.classList.contains('ivopen')) return;
     const B=curBook, order=[...B.chapters.map(c=>c.n),'eq'], j=order.indexOf(curCh);
     let d=0; if(e.key===']'||(e.altKey&&e.key==='ArrowRight')) d=1; if(e.key==='['||(e.altKey&&e.key==='ArrowLeft')) d=-1;
     if(d&&order[j+d]){e.preventDefault(); location.hash=order[j+d]==='eq'?B.pre+'eq':B.pre+'ch'+order[j+d];}
@@ -4200,6 +4258,282 @@ Feedback: address the student directly, 1–3 short sentences; say what is right
       const fx=d.querySelector('#tfix'); if(fx) fx.onclick=()=>showSettings(true);
     }finally{busy=false; T.classList.remove('busy'); tmsgs.scrollTop=tmsgs.scrollHeight;}
   }
+  // ======== scratchpad (infinite canvas; ported from mech-design-interview-quiz) ========
+  // One pointer draws; two pointers pan/zoom (pinch); wheel pans, ctrl+wheel zooms. Strokes are vectors in
+  // world coordinates, so the page is unbounded and stays sharp at any zoom.
+  function makePad(canvas,onChange){
+    const layer=document.createElement('canvas');
+    let ctx=null,lctx=null; try{ctx=canvas.getContext('2d'); lctx=layer.getContext('2d');}catch(e){}
+    let strokes=[],current=null,view={x:0,y:0,s:1},tool='pen',dpr=1,cw=0,ch=0,pointers={},pinch=null;
+    const MIN_S=1e-6,MAX_S=1e6;
+    const clamp=v=>isFinite(v)&&v>0?Math.min(MAX_S,Math.max(MIN_S,v)):view.s;
+    const ink=()=>getComputedStyle(canvas).color;
+    const dotColor=()=>getComputedStyle(document.documentElement).getPropertyValue('--ink3').trim()||'#888';
+    const SX=x=>(x*view.s+view.x)*dpr, SY=y=>(y*view.s+view.y)*dpr;
+    function growBox(st,p){if(!st.box) st.box={x0:p.x,y0:p.y,x1:p.x,y1:p.y}; else{const b=st.box; if(p.x<b.x0)b.x0=p.x; if(p.x>b.x1)b.x1=p.x; if(p.y<b.y0)b.y0=p.y; if(p.y>b.y1)b.y1=p.y;}}
+    function visible(st){const b=st.box,pd=st.w*dpr*view.s+2; return SX(b.x1)+pd>=0&&SY(b.y1)+pd>=0&&SX(b.x0)-pd<=canvas.width&&SY(b.y0)-pd<=canvas.height;}
+    function styleStroke(c,st,col,k){c.lineCap='round'; c.lineJoin='round'; c.lineWidth=st.w*k;
+      if(st.tool==='eraser'){c.globalCompositeOperation='destination-out'; c.strokeStyle='#000';} else {c.globalCompositeOperation='source-over'; c.strokeStyle=col;}}
+    function drawStroke(c,st,X,Y,col,k){styleStroke(c,st,col,k); c.beginPath(); const x=X(st.pts[0].x),y=Y(st.pts[0].y); c.moveTo(x,y);
+      if(st.pts.length===1) c.lineTo(x+0.01,y); for(let i=1;i<st.pts.length;i++) c.lineTo(X(st.pts[i].x),Y(st.pts[i].y)); c.stroke();}
+    function present(){
+      if(!ctx) return; ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height);
+      const k=Math.floor(Math.log2(32*view.s/16)); let step=32*view.s/Math.pow(2,k); if(!isFinite(step)||step<=0) step=24;
+      const ox=((view.x%step)+step)%step||0, oy=((view.y%step)+step)%step||0;
+      ctx.globalAlpha=.45; ctx.fillStyle=dotColor(); const r=Math.max(1,dpr);
+      for(let x=ox;x<cw;x+=step) for(let y=oy;y<ch;y+=step) ctx.fillRect(Math.round(x*dpr),Math.round(y*dpr),r,r);
+      ctx.globalAlpha=1; ctx.drawImage(layer,0,0);
+    }
+    function rebuild(){if(!lctx) return; lctx.setTransform(1,0,0,1,0,0); lctx.clearRect(0,0,layer.width,layer.height); const col=ink();
+      strokes.forEach(st=>{if(visible(st)) drawStroke(lctx,st,SX,SY,col,dpr*view.s);}); present();}
+    function resize(){const r=canvas.getBoundingClientRect(); if(!r.width||!r.height) return; dpr=window.devicePixelRatio||1; cw=r.width; ch=r.height;
+      canvas.width=layer.width=Math.round(cw*dpr); canvas.height=layer.height=Math.round(ch*dpr); rebuild();}
+    if(window.ResizeObserver) new ResizeObserver(resize).observe(canvas); addEventListener('resize',resize);
+    const local=e=>{const r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top};};
+    const toWorld=p=>({x:(p.x-view.x)/view.s,y:(p.y-view.y)/view.s});
+    function measure(){const ids=Object.keys(pointers),a=pointers[ids[0]],b=pointers[ids[1]]; return {mx:(a.x+b.x)/2,my:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};}
+    const block=e=>{if(e.cancelable) e.preventDefault();};
+    ['touchstart','touchmove','touchend','gesturestart','gesturechange','contextmenu','selectstart','dragstart'].forEach(t=>canvas.addEventListener(t,block,{passive:false}));
+    const lockPage=on=>document.body.classList.toggle('pad-active',on);
+    let saveT=0; const changed=()=>{clearTimeout(saveT); saveT=setTimeout(()=>onChange&&onChange(),300);};
+    canvas.addEventListener('pointerdown',e=>{
+      if(!ctx||(e.pointerType==='mouse'&&e.button!==0)) return; e.preventDefault();
+      try{canvas.setPointerCapture(e.pointerId);}catch(err){} lockPage(true);
+      const p=local(e); p.role='none'; pointers[e.pointerId]=p; const n=Object.keys(pointers).length;
+      if(n===1){p.role='draw'; current={tool,w:tool==='eraser'?28/view.s:3/view.s,pts:[toWorld(p)]}; growBox(current,current.pts[0]); strokes.push(current); rebuild();}
+      else if(n===2){if(current){const i=strokes.indexOf(current); if(i>=0) strokes.splice(i,1); current=null; rebuild();} pinch=measure();}
+    });
+    canvas.addEventListener('pointermove',e=>{
+      const p=pointers[e.pointerId]; if(!p||!ctx) return; e.preventDefault(); const q=local(e); p.x=q.x; p.y=q.y;
+      if(pinch&&Object.keys(pointers).length===2){const m=measure(),wx=(pinch.mx-view.x)/view.s,wy=(pinch.my-view.y)/view.s,ns=pinch.d>1?clamp(view.s*(m.d/pinch.d)):view.s;
+        view={x:m.mx-wx*ns,y:m.my-wy*ns,s:ns}; pinch=m; rebuild();}
+      else if(p.role==='draw'&&current){const w=toWorld(p),prev=current.pts[current.pts.length-1]; current.pts.push(w); growBox(current,w);
+        lctx.setTransform(1,0,0,1,0,0); styleStroke(lctx,current,ink(),dpr*view.s); lctx.beginPath(); lctx.moveTo(SX(prev.x),SY(prev.y)); lctx.lineTo(SX(w.x),SY(w.y)); lctx.stroke(); present();}
+    });
+    function release(e){const p=pointers[e.pointerId]; if(!p) return; if(p.role==='draw'&&current){current=null; changed();}
+      delete pointers[e.pointerId]; if(Object.keys(pointers).length<2) pinch=null; if(!Object.keys(pointers).length) lockPage(false);}
+    ['pointerup','pointercancel','lostpointercapture'].forEach(t=>canvas.addEventListener(t,release));
+    canvas.addEventListener('wheel',e=>{if(!ctx) return; e.preventDefault();
+      if(e.ctrlKey){const c=local(e),w=toWorld(c),ns=clamp(view.s*Math.exp(-e.deltaY*0.01)); view={x:c.x-w.x*ns,y:c.y-w.y*ns,s:ns};}
+      else{view.x-=e.deltaX; view.y-=e.deltaY;} rebuild();},{passive:false});
+    const num=v=>parseFloat(v.toPrecision(9));
+    return {
+      setTool(t){tool=t;}, get tool(){return tool;},
+      undo(){strokes.pop(); rebuild(); changed();}, clear(){strokes=[]; current=null; rebuild(); changed();},
+      home(){view={x:0,y:0,s:1}; rebuild();},
+      empty(){return !strokes.some(s=>s.tool==='pen');},
+      save(){return strokes.length?{strokes:strokes.map(st=>({t:st.tool==='eraser'?'e':'p',w:num(st.w),p:st.pts.flatMap(pt=>[num(pt.x),num(pt.y)])}))}:null;},
+      load(d){strokes=[]; current=null; view={x:0,y:0,s:1};
+        ((d&&d.strokes)||[]).forEach(r=>{if(!r||!Array.isArray(r.p)||r.p.length<2) return; const st={tool:r.t==='e'?'eraser':'pen',w:r.w||3,pts:[]};
+          for(let i=0;i+1<r.p.length;i+=2) st.pts.push({x:r.p[i],y:r.p[i+1]}); st.pts.forEach(pt=>growBox(st,pt)); strokes.push(st);});
+        resize(); rebuild();},
+      // the sketch as a PNG (dark ink on white, cropped to the drawing) for the interviewer model
+      png(){
+        const pens=strokes.filter(s=>s.tool==='pen'); if(!pens.length) return null;
+        let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+        pens.forEach(s=>{const b=s.box,h=s.w; x0=Math.min(x0,b.x0-h); y0=Math.min(y0,b.y0-h); x1=Math.max(x1,b.x1+h); y1=Math.max(y1,b.y1+h);});
+        const M=24, w=x1-x0, h=y1-y0, k=Math.min(1600/Math.max(w,h), Math.max(1, 900/Math.max(w,h)));
+        const c=document.createElement('canvas'); c.width=Math.ceil(w*k+2*M); c.height=Math.ceil(h*k+2*M);
+        const g=c.getContext('2d'), X=x=>(x-x0)*k+M, Y=y=>(y-y0)*k+M;
+        strokes.forEach(st=>drawStroke(g,st,X,Y,'#111',Math.max(k,2/st.w)));
+        const out=document.createElement('canvas'); out.width=c.width; out.height=c.height; const o=out.getContext('2d');
+        o.fillStyle='#fff'; o.fillRect(0,0,out.width,out.height); o.drawImage(c,0,0);
+        return out.toDataURL('image/png').split(',')[1];
+      },
+      redraw:rebuild
+    };
+  }
+  // ======== interviewer (full screen, textbook EXAMPLE problems) ========
+  const EXS=(window.EXAMPLES||[]).map(x=>({...x,ch:String(x.id).split('.')[0]}));
+  const EXBY=Object.fromEntries(EXS.map(x=>[x.id,x]));
+  const exOf=n=>EXS.filter(x=>x.ch===n);
+  const IVS={k:id=>'atlas-iv-'+id, get(id){try{const v=JSON.parse(localStorage.getItem(this.k(id))); if(v&&Array.isArray(v.msgs)) return v;}catch(e){} return {msgs:[]};},
+    set(id,v){try{localStorage.setItem(this.k(id),JSON.stringify(v));}catch(e){}},
+    pad(id,d){const k='atlas-iv-pad-'+id; if(d===undefined){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}} try{d?localStorage.setItem(k,JSON.stringify(d)):localStorage.removeItem(k); return true;}catch(e){return false;}}};
+  const ivMark=id=>{const s=IVS.get(id); return s.done?'✓ ':s.msgs.length?'• ':'';};
+  const MB=BY.mom;
+  document.body.insertAdjacentHTML('beforeend',`<div id="iv" class="iv" hidden role="dialog" aria-modal="true" aria-label="Interviewer">
+    <div class="ivbar"><span class="tlogo">${ICON_Q}</span><div class="tt"><b>Interviewer</b><small>Textbook examples · ${esc(MB.src)} · Gemini</small></div>
+      <select id="ivch" aria-label="Chapter"></select><select id="ivex" aria-label="Example"></select>
+      <button type="button" class="ivbtn" id="ivshuf" title="Random example from the chosen chapter (unfinished first)">⤮ Shuffle</button>
+      <span class="sp"></span>
+      <button type="button" class="ivbtn" id="ivsolb" title="Give up and show the book's solution">Show solution</button>
+      <button type="button" class="ivbtn" id="ivrestart">Restart</button>
+      <button class="iconbtn sm" id="ivset" type="button" title="Gemini API key &amp; model" aria-label="Settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M15 8l2 2"/></svg></button>
+      <button class="iconbtn sm" id="ivclose" type="button" title="Close (Esc)" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="ivbody">
+      <section class="ivleft">
+        <div class="ivprob" id="ivprob"><div class="ivphead"><span class="ivtag" id="ivtag"></span><b id="ivtitle"></b><button type="button" class="qlink" id="ivmin">Hide</button></div>
+          <div class="ivpbody"><p class="ivq" id="ivq"></p><div class="ivfigs" id="ivfigs"></div></div></div>
+        <div class="ivmsgs" id="ivmsgs" aria-live="polite"></div>
+        <form class="ivin" id="ivform"><div class="row"><textarea id="ivtxt" rows="2" placeholder="Explain your approach… (Enter to send, Shift+Enter for a new line)"></textarea>
+          <button type="submit" class="tsend" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+          <label class="ivattach" id="ivattachl"><input type="checkbox" id="ivattach"> Include my scratchpad with this message</label></form>
+      </section>
+      <section class="ivright"><div class="padhead"><b>Scratchpad</b>
+          <button type="button" class="ivbtn" data-pad="pen" aria-pressed="true">Pen</button><button type="button" class="ivbtn" data-pad="eraser" aria-pressed="false">Eraser</button>
+          <button type="button" class="ivbtn" data-pad="undo">Undo</button><button type="button" class="ivbtn" data-pad="clear">Clear</button><button type="button" class="ivbtn" data-pad="home">Reset view</button></div>
+        <canvas class="padcv" id="ivpad" aria-label="Scratchpad: one finger draws, two fingers pan and zoom"></canvas>
+        <p class="padhint">One finger or the mouse draws · two fingers pan and zoom · wheel pans, Ctrl + wheel zooms. The interviewer sees your sketch when it's included with a message.</p></section>
+    </div></div>`);
+  const IV=document.getElementById('iv'), ivch=document.getElementById('ivch'), ivex=document.getElementById('ivex'), ivmsgs=document.getElementById('ivmsgs'),
+    ivtxt=document.getElementById('ivtxt'), ivattach=document.getElementById('ivattach'), ivattachl=document.getElementById('ivattachl');
+  let ivCur=null, ivBusy=false, padDirty=false;
+  const pad=makePad(document.getElementById('ivpad'),()=>{if(!ivCur) return; IVS.pad(ivCur.id,pad.save()); padDirty=true; syncAttach();});
+  function syncAttach(){const has=!pad.empty(); ivattachl.hidden=!has; if(!has) ivattach.checked=false; else if(padDirty) ivattach.checked=true;}
+  IV.querySelector('.padhead').addEventListener('click',e=>{const b=e.target.closest('[data-pad]'); if(!b) return; const a=b.dataset.pad;
+    if(a==='pen'||a==='eraser'){pad.setTool(a); IV.querySelectorAll('[data-pad=pen],[data-pad=eraser]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.pad===a)));}
+    else if(a==='clear'){if(!pad.empty()&&!confirm('Clear the scratchpad?')) return; pad.clear();} else pad[a]();});
+  function fillCh(){
+    const chs=MB.chapters.filter(c=>exOf(c.n).length);
+    ivch.innerHTML=chs.map(c=>`<option value="${c.n}">Ch ${c.n} · ${esc(c.title)} (${exOf(c.n).length})</option>`).join('')+`<option value="all">All chapters (${EXS.length})</option>`;
+  }
+  function fillEx(n){const list=n==='all'?EXS:exOf(n); ivex.innerHTML=list.map(x=>`<option value="${x.id}">${ivMark(x.id)}Example ${x.id} · ${esc(x.title)}</option>`).join('');}
+  const ivChapter=()=>ivch.value||'1';
+  function openIV(n,exId){
+    if(!EXS.length){alert('No example problems are loaded (examples.js is missing).'); return;}
+    if(!IV.hidden&&ivCur&&((exId&&exId===ivCur.id)||(!exId&&(!n||ivCur.ch===n)))) return;
+    IV.hidden=false; document.body.classList.add('ivopen');
+    if(!ivch.options.length) fillCh();
+    const x=exId&&EXBY[exId]; let c=x?x.ch:n;
+    if(!c||!exOf(c).length) c=(EXS.find(e=>+e.ch>=+(c||1))||EXS[0]).ch;
+    if(!(ivch.value==='all'&&x)) ivch.value=c;
+    fillEx(ivch.value); loadEx(x||ivPick(ivch.value,true));
+  }
+  function closeIV(fromRoute){
+    if(IV.hidden) return; IV.hidden=true; document.body.classList.remove('ivopen');
+    if(!fromRoute) location.hash=MB.pre+'ch'+(ivCur&&ivCur.ch||MB.lastCh||'1');
+  }
+  // next example to work on: the first unfinished one (or a random unfinished one when shuffling)
+  function ivPick(n,first){
+    const list=n==='all'?EXS:exOf(n), open=list.filter(x=>!IVS.get(x.id).done&&(!ivCur||x.id!==ivCur.id));
+    if(first){const ip=list.find(x=>IVS.get(x.id).msgs.length&&!IVS.get(x.id).done); return ip||open[0]||list[0];}
+    const pool=open.length?open:list.filter(x=>!ivCur||x.id!==ivCur.id); return pool[Math.floor(Math.random()*pool.length)]||list[0];
+  }
+  function loadEx(x){
+    ivCur=x; ivex.value=x.id;
+    try{history.replaceState(null,'','#interview'+x.id);}catch(e){}
+    document.title=`Interview · Example ${x.id} · Study Atlas`;
+    document.getElementById('ivtag').textContent='Example '+x.id;
+    document.getElementById('ivtitle').textContent=x.title;
+    document.getElementById('ivq').textContent=x.q;
+    document.getElementById('ivfigs').innerHTML=(x.figs||[]).map(f=>`<img src="figures/ex/${esc(f)}" alt="Figure for Example ${esc(x.id)}">`).join('');
+    pad.load(IVS.pad(x.id)); padDirty=false; ivattach.checked=false; syncAttach();
+    renderIV();
+    const st=IVS.get(x.id); if(!st.msgs.length&&!st.revealed) ask();
+    setTimeout(()=>ivtxt.focus(),40);
+  }
+  function msgHTML(m){return m.r==='user'?esc(m.t).replace(/\n/g,'<br>')+(m.pad?'<span class="ivpadtag">✎ scratchpad included</span>':''):md(m.t);}
+  function renderIV(){
+    const st=IVS.get(ivCur.id);
+    ivmsgs.innerHTML=`<div class="ivnote">Interview on Example ${esc(ivCur.id)}. Explain your thinking as you would to an interviewer: you'll be asked to go from the set-up down to the final numbers. Use the scratchpad for sketches and working.</div>`
+      +st.msgs.map(m=>`<div class="tm ${m.r==='user'?'user':'model md'}">${msgHTML(m)}</div>`).join('');
+    if(!GM.key()) ivmsgs.insertAdjacentHTML('beforeend',`<div class="tm err">The interviewer uses your Gemini API key (stored only in this browser). <button type="button" class="qlink" data-iv="key">Add API key</button></div>`);
+    else if(st.msgs.length&&st.msgs[st.msgs.length-1].r==='user'&&!ivBusy) ivmsgs.insertAdjacentHTML('beforeend',`<div class="tm err">No reply yet. <button type="button" class="qlink" data-iv="retry">Retry</button></div>`);
+    if(st.done) ivmsgs.insertAdjacentHTML('beforeend',endHTML());
+    if(st.revealed) ivmsgs.insertAdjacentHTML('beforeend',solHTML());
+    ivmsgs.scrollTop=ivmsgs.scrollHeight;
+  }
+  const endHTML=()=>`<div class="ivend"><b>✓ Interview complete</b><button type="button" class="ivbtn" data-iv="sol">Book solution</button><button type="button" class="ivbtn" data-iv="next">Next example →</button></div>`;
+  const solHTML=()=>`<div class="ivsol"><h5>Book solution · Example ${esc(ivCur.id)}</h5><div class="md">${md(ivCur.sol||'')}</div>${(ivCur.answers||[]).length?`<p><b>Answers:</b> ${ivCur.answers.map(esc).join(' · ')}</p>`:''}</div>`;
+  // figure images for the model: fetched once and cached as base64 (works when the site is served over http(s);
+  // from file:// the browser blocks reading them, and the model falls back to the written figure description)
+  const figCache={};
+  async function figData(f){
+    if(f in figCache) return figCache[f];
+    let out=null;
+    try{const r=await fetch('figures/ex/'+f); if(r.ok){const b=await r.blob(); out=await new Promise(res=>{const fr=new FileReader(); fr.onload=()=>res({mime:b.type||'image/webp',data:String(fr.result).split(',')[1]}); fr.onerror=()=>res(null); fr.readAsDataURL(b);});}}catch(e){}
+    return figCache[f]=out;
+  }
+  function ivSystem(x){
+    return `You are a technical interviewer for a mechanical design engineering role, running a live, one-on-one problem-solving interview. The candidate is working Example ${x.id} from ${MB.src} (${MB.title}).
+
+PROBLEM (the candidate sees exactly this statement and the problem figure):
+${x.q}
+
+FIGURE (attached as an image in the first message when available; this is a written description of it):
+${x.figDesc||'(no figure)'}
+
+CONFIDENTIAL REFERENCE SOLUTION: for your judgement only. Never reveal, quote or paraphrase it, and never let anything from it (a method, a quantity, a step, a number) leak into your questions.
+${x.sol||''}
+Final answers: ${(x.answers||[]).join('; ')||'(see solution)'}
+
+HOW TO RUN THE INTERVIEW
+1. Opening: one short sentence, then ask the candidate to explain at a high level how they would set the problem up. Do not restate the problem. Do not name any method, principle, diagram, equation, quantity or first step.
+2. Drill down one level at a time: overall approach → concrete set-up (what they isolate or cut, free-body diagrams, conventions, which relations they'd use) → intermediate quantities → every final numerical answer with units. Ask exactly ONE short question per turn and then stop.
+3. Never lead. Questions must be neutral and generic, for example "What would you do next?", "How would you find that?", "What do you get?", "Can you be more specific about that step?". Never mention anything the candidate hasn't brought up themselves, never offer options, never hint at what is missing, never say "close" or "almost". If they ask for a hint or for the answer, decline in one sentence and ask them to continue with their own approach (they can press "Show solution" to give up).
+4. Acknowledge correct steps neutrally and briefly ("OK.", "Right.", "Go on.") without adding information.
+5. The moment the candidate says, writes or draws something WRONG (a wrong concept, free-body diagram, equation, sign that matters, assumption, number off by more than about 2% from the reference, or wrong units), stop the progression. Start the reply with "**That's not right.**", say exactly what is wrong, and explain why with the correct reasoning for that point only. Then ask them to continue from there. Do not go beyond the corrected point.
+6. If an answer is vague or incomplete but not wrong, ask them to be more specific without saying what is missing.
+7. A different but valid approach from the reference is fine: judge the physics, not whether it matches the reference.
+8. Messages may include an image of the candidate's handwritten scratchpad. Treat it as part of their answer: read their sketches, free-body diagrams, equations and numbers and check them exactly as if they had typed them. If part of it is illegible or ambiguous, ask about that part. Don't describe the image back to them.
+9. Unevaluated but correctly set-up arithmetic counts as correct for intermediate steps, but before finishing, ask for the final numerical values with units.
+10. Finish only when the candidate has correctly obtained every requested final answer: give a short debrief with (a) an overall verdict, (b) what they did well, (c) each mistake they made along the way and the concept behind it, (d) the final answers. Then output <<END>> on its own line. Never output <<END>> at any other time.
+Style: concise, professional and conversational, like a real interviewer. Markdown is fine; write math as $...$ (rendered with KaTeX).`;
+  }
+  async function ivContents(x,st){
+    const first=[{text:'[The interview begins now. The problem figure is attached if available.] Please open the interview.'}];
+    for(const f of x.figs||[]){const d=await figData(f); if(d) first.push({inlineData:{mimeType:d.mime,data:d.data}});}
+    const out=[{role:'user',parts:first}];
+    const lastPad=st.msgs.map((m,i)=>m.pad?i:-1).filter(i=>i>=0).pop();
+    st.msgs.forEach((m,i)=>{
+      const role=m.r==='user'?'user':'model', parts=[{text:m.t||'(see my scratchpad)'}];
+      if(m.pad){const png=i===lastPad?pad.png():null; if(png) parts.push({text:'[My scratchpad is attached.]'},{inlineData:{mimeType:'image/png',data:png}}); else parts.push({text:'[I included my scratchpad here; its latest version is attached to a later message.]'});}
+      const prev=out[out.length-1]; if(prev.role===role) prev.parts.push(...parts); else out.push({role,parts});
+    });
+    return out;
+  }
+  async function ask(){
+    if(ivBusy||!ivCur) return;
+    if(!GM.key()){renderIV(); return;}
+    const x=ivCur, st=IVS.get(x.id);
+    renderIV(); const err=ivmsgs.querySelector('.tm.err'); if(err) err.remove();
+    const d=document.createElement('div'); d.className='tm model md'; d.innerHTML='<span class="tdots"><i></i><i></i><i></i></span>'; ivmsgs.appendChild(d); ivmsgs.scrollTop=ivmsgs.scrollHeight;
+    ivBusy=true; IV.classList.add('busy');
+    try{
+      const out=await gemini({systemInstruction:{parts:[{text:ivSystem(x)}]},contents:await ivContents(x,st),generationConfig:{temperature:0.3}},
+        t=>{if(ivCur===x){d.innerHTML=md(t.replace(/<<END>>/g,'')); ivmsgs.scrollTop=ivmsgs.scrollHeight;}});
+      const done=/<<END>>/.test(out), s2=IVS.get(x.id);
+      s2.msgs.push({r:'model',t:out.replace(/\s*<<END>>\s*/g,'').trim()}); if(done) s2.done=true; IVS.set(x.id,s2);
+      const o=ivex.querySelector(`option[value="${x.id}"]`); if(o) o.textContent=`${ivMark(x.id)}Example ${x.id} · ${x.title}`;
+    }catch(e){
+      if(ivCur===x){d.className='tm err'; d.innerHTML=esc(e.message)+` <button type="button" class="qlink" data-iv="retry">Retry</button>`+(e instanceof NeedKey||/api key|permission|quota/i.test(e.message)?` <button type="button" class="qlink" data-iv="key">API key settings</button>`:'');}
+      ivBusy=false; IV.classList.remove('busy'); ivKick(x); return;
+    }
+    ivBusy=false; IV.classList.remove('busy');
+    if(ivCur===x) renderIV(); else ivKick(x);
+  }
+  // the user switched examples while a reply was in flight: open the new interview now
+  function ivKick(prev){if(ivCur&&ivCur!==prev){const s=IVS.get(ivCur.id); if(!s.msgs.length&&!s.revealed) ask(); else renderIV();}}
+  document.getElementById('ivform').addEventListener('submit',e=>{
+    e.preventDefault(); if(ivBusy||!ivCur) return;
+    const t=ivtxt.value.trim(), withPad=ivattach.checked&&!pad.empty();
+    if(!t&&!withPad) return;
+    if(!GM.key()) return openTutor(true,'Add your Gemini API key to start the interview.');
+    const st=IVS.get(ivCur.id); st.msgs.push({r:'user',t,pad:withPad}); IVS.set(ivCur.id,st);
+    ivtxt.value=''; ivtxt.style.height=''; if(withPad){padDirty=false; ivattach.checked=false;}
+    ask();
+  });
+  ivtxt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault(); document.getElementById('ivform').requestSubmit();}});
+  ivtxt.addEventListener('input',()=>{ivtxt.style.height='auto'; ivtxt.style.height=Math.min(ivtxt.scrollHeight,180)+'px';});
+  ivmsgs.addEventListener('click',e=>{const b=e.target.closest('[data-iv]'); if(!b) return; const a=b.dataset.iv;
+    if(a==='retry') ask(); else if(a==='key') openTutor(true); else if(a==='next') loadEx(ivPick(ivChapter())); else if(a==='sol') reveal(true);});
+  function reveal(skipConfirm){
+    const st=IVS.get(ivCur.id); if(st.revealed) return;
+    if(!skipConfirm&&!st.done&&!confirm('Show the book solution for this example? The interview will stop here.')) return;
+    st.revealed=true; IVS.set(ivCur.id,st); renderIV();
+  }
+  ivch.onchange=()=>{fillEx(ivch.value); loadEx(ivPick(ivch.value,true));};
+  ivex.onchange=()=>loadEx(EXBY[ivex.value]);
+  document.getElementById('ivshuf').onclick=()=>loadEx(ivPick(ivChapter()));
+  document.getElementById('ivsolb').onclick=()=>reveal(false);
+  document.getElementById('ivrestart').onclick=()=>{if(ivBusy) return; const st=IVS.get(ivCur.id); if(st.msgs.length&&!confirm('Restart this interview? The conversation is cleared (your scratchpad stays).')) return; IVS.set(ivCur.id,{msgs:[]}); fillEx(ivChapter()); ivex.value=ivCur.id; renderIV(); ask();};
+  document.getElementById('ivset').onclick=()=>openTutor(true);
+  document.getElementById('ivclose').onclick=()=>closeIV(false);
+  document.getElementById('ivmin').onclick=e=>{const p=document.getElementById('ivprob'); p.classList.toggle('min'); e.target.textContent=p.classList.contains('min')?'Show':'Hide';};
+  document.getElementById('ivfigs').addEventListener('click',e=>{const im=e.target.closest('img'); if(!im) return;
+    const z=document.createElement('div'); z.className='ivzoom'; z.innerHTML=`<img src="${im.src}" alt="">`; z.onclick=()=>z.remove(); document.body.appendChild(z);});
+  document.addEventListener('keydown',e=>{if(e.key!=='Escape'||IV.hidden||(e.target.closest&&e.target.closest('#tutor'))) return; const z=document.querySelector('.ivzoom'); if(z){z.remove(); return;} if(!T.hidden){closeTutor(); return;} closeIV(false);});
   window.addEventListener('hashchange',updCtx);
   route();
   updCtx();

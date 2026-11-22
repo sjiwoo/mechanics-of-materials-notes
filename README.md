@@ -51,6 +51,21 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
   Choose how many questions (5–30 or all): they're drawn evenly from each chosen chapter's bank (plus any
   Gemini questions already added to those chapter quizzes), shuffled, and tagged with their chapter.
   "✦ 5 more questions" writes new ones spread across the chosen chapters.
+- **Interviewer** (`#interview`, `#interview6`, `#interview6.3`; sidebar under Reference and an
+  "Interview practice" card on each Mechanics of Materials chapter page) is a full-screen mock interview on the
+  book's worked **Example** problems (all 176, chapters 1–14). Pick a chapter and an example, or **Shuffle**
+  (unfinished ones first; "All chapters" shuffles across the book). The problem statement and its initial figure
+  are shown (only the given-data panel, never the solution panels). Gemini then asks you to explain the set-up
+  at a high level and drills down one question at a time to the final numbers, without hints or leading
+  questions; as soon as something you say is wrong it stops, says so and explains why, then lets you continue.
+  It ends with a short debrief. The right half is a **scratchpad** (pen, eraser, undo, pan/zoom; from the
+  mech-design-interview-quiz repo): when it has changed, it's included with your next message as an image and
+  the interviewer reads it as part of your answer. **Show solution** gives up and shows the book's solution.
+  Conversations and scratchpads are saved per example in localStorage (**Restart** clears the conversation).
+  - Data: `examples.js` (`window.EXAMPLES`: id, title, statement `q`, `figs`, `figDesc`, examiner-only `sol`,
+    `answers`), figures in `figures/ex/ex<ch>-<n>.webp`. The figure image is sent to Gemini when the site is
+    served over http(s) (e.g. GitHub Pages); opened from `file://` the browser blocks reading it, so the
+    interviewer relies on the written figure description instead.
 - **Ask tutor** (bottom-right) opens a chat that is given the notes of the chapter you have open.
 - Both use your own Gemini API key, entered in the tutor's key settings. It is stored only in your browser's localStorage
   and sent directly to `generativelanguage.googleapis.com`; it is never committed or sent anywhere else. The model list
