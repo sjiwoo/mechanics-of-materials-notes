@@ -37,6 +37,22 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   sheet, quizzes and interview problems. Data block `id="data-sr"`, quiz `id="quiz-sr"`, icons `art-r-N`, between
   the `<!-- SR:BEGIN -->` / `<!-- SR:END -->` markers; hashes `#sr`, `#r-ch3`, `#r-s3.2`, `#r-eq`, `#r-quiz3`, `#r-mix`.
 
+- **Tactile Sensing** (11 chapters, 46 sections), built around US patent application publication 2026/0310299 A1
+  (Tesla, *Three-Dimensional Soft Compliant Array Tactile Sensor with Multi-Modal Sensing and Scalable Manufacturing
+  Methods*) and modeled on the Mechanics of Materials book: data block `id="data-ts"`, quiz block `id="quiz-ts"`,
+  hashes `#ts`, `#t-ch4`, `#t-s4.4`, `#t-eq` (Equation sheet), `#t-quiz4`, `#t-mix`, `#t-interview4.2`.
+  Chapters: the design problem, materials selection, contact mechanics, elastomer mechanics, transduction,
+  viscoelasticity, bending of laminates, thermoforming, interfaces and failure, manufacturing process selection,
+  integration. Accent groups: `tfound`, `tmech`, `tsense`, `tform`, `tbuild`.
+  - Sourcing: bullets that start **In the patent** paraphrase the patent. The patent names materials and processes
+    but contains no equations or property values, so the theory, equations, problems and "typical" numbers are
+    standard mechanics background written for this site.
+  - Figures: every section card uses a custom SVG (`sf-t-<ch>-<sec>`) and every chapter header an icon
+    (`art-t-<ch>`), both defined in `tools/tactile_figs.py` and injected by `python tools/section_figs.py`.
+  - Interviewer: 24 problems in `examples-ts.js` (`window.EXAMPLES_BY.ts`), with figures in `figures/tactile/ex/`
+    rendered from the section SVGs by `python tools/tactile_ex_figs.py` (needs `rsvg-convert`).
+- On phones (≤ 560 px) the book switcher sits on its own row under the search box and chapter picker.
+
 ## Editing content
 All notes live in the `<script type="text/plain" id="data">` block in `index.html`:
 
