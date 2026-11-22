@@ -15,11 +15,6 @@
   --line:#dde3ee; --eq:#f7f9fd; --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px -12px rgba(15,23,42,.12);
   --c-fund:#2563eb; --c-load:#0d9488; --c-bend:#7c3aed; --c-trans:#db2777; --c-design:#ea580c;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0b1020; --bg2:#111831; --card:#141c33; --ink:#e6ebf5; --ink2:#a3afc6; --ink3:#5f6b85;
-  --line:#243052; --eq:#0f1730; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
-  --c-fund:#60a5fa; --c-load:#2dd4bf; --c-bend:#a78bfa; --c-trans:#f472b6; --c-design:#fb923c;
-}}
 :root[data-theme="dark"]{
   --bg:#0b1020; --bg2:#111831; --card:#141c33; --ink:#e6ebf5; --ink2:#a3afc6; --ink3:#5f6b85;
   --line:#243052; --eq:#0f1730; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
@@ -131,7 +126,6 @@ nav.side .subnav a.on,nav.side .subnav a:hover{color:var(--ink);background:trans
 #chsel{display:none;max-width:44vw;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:13px}
 /* ===== books ===== */
 :root{--g-base:#0891b2;--g-term:#4f46e5;--g-form:#16a34a;--g-datum:#b45309;--g-orient:#dc2626;--g-loc:#7c3aed;--g-run:#0f766e;--g-prof:#c026d3}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--g-base:#22d3ee;--g-term:#818cf8;--g-form:#4ade80;--g-datum:#fbbf24;--g-orient:#f87171;--g-loc:#a78bfa;--g-run:#2dd4bf;--g-prof:#e879f9}}
 :root[data-theme="dark"]{--g-base:#22d3ee;--g-term:#818cf8;--g-form:#4ade80;--g-datum:#fbbf24;--g-orient:#f87171;--g-loc:#a78bfa;--g-run:#2dd4bf;--g-prof:#e879f9}
 .books{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:12px;background:var(--card);flex:none}
 .books a{display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:9px;text-decoration:none;font:600 13px Inter,sans-serif;color:var(--ink2);white-space:nowrap}
