@@ -65,7 +65,10 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   problems; each record has a `src` field naming its origin.
 - **Flashcards** (`#cards`; sidebar under Reference in every book, and in the chapter picker): one deck of the 50 most important
   equations across all books (Mechanics of Materials 14, Polymers 10, Materials 9, Tactile Sensing 7, Soft Robotics 6,
-  GD&T 4). Each card shows a prompt; click or Space flips it to the equation, a note and a link to its section. Mark
+  GD&T 4). Each card shows a prompt; under it, type the equation (any notation: `sigma = N/A`, `τ = Tρ/J`, LaTeX) and/or
+  write it on the **✎ Scratchpad** (same pad as the interviewer), then **Check answer**: Gemini grades it against the card's
+  equation (equivalent and rearranged forms count; correct / partly right / not quite, with feedback), flips the card and
+  marks it known or "Again". Answers and sketches are kept per card while you move around the deck. Or click / Space to flip. Mark
   **Got it** / **Again** (keys 2 / 1, arrows to move); progress is kept in localStorage. Filter by book, shuffle, or review
   only the missed cards; "All 50 equations at a glance" lists the whole deck. The deck is the `<script type="text/plain"
   id="cards">` block: one card per line, `book key | section | prompt || LaTeX || note`.

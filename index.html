@@ -211,7 +211,22 @@ nav.side .subnav a.on,nav.side .subnav a:hover{color:var(--ink);background:trans
 .fkall li small{color:var(--ink3);font:600 11px Inter,sans-serif}
 .fkall li a{text-decoration:none}.fkall li a:hover{text-decoration:underline}
 .fkall .fkl-eq{overflow-x:auto}
-@media (max-width:560px){.fknav{grid-template-columns:1fr 1fr}.fkin{min-height:320px}}
+.fkans{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
+.fkanshead{display:flex;align-items:center;gap:8px;margin-bottom:8px;font:600 13px Inter,sans-serif;color:var(--ink2)}
+.fkanshead b{color:var(--ink)}.fkanshead .sp{flex:1}
+.fkanshead button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fktxt{width:100%;resize:vertical;min-height:46px;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:15px/1.45 'JetBrains Mono',ui-monospace,monospace;outline:none}
+.fktxt:focus{border-color:var(--acc,var(--c-fund));box-shadow:0 0 0 3px color-mix(in srgb,var(--acc,var(--c-fund)) 18%,transparent)}
+.fkpadwrap{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.fkpadwrap .padcv{flex:none;height:240px}
+.fkpadwrap small{color:var(--ink3);font-size:11.5px}
+.fkcheckbar{display:flex;align-items:center;gap:12px;margin-top:9px;flex-wrap:wrap}
+.fkcheckbar .qbtn{--acc:var(--ink)}
+.fkstatus{font-size:13px;color:var(--ink3)}
+.fkres{margin-top:10px}.fkres:empty{display:none}
+.fkres .qfbt p{margin:4px 0 0}
+.fkans .qnokey{margin-top:10px}
+@media (max-width:560px){.fknav{grid-template-columns:1fr 1fr}.fkin{min-height:320px}.fkpadwrap .padcv{height:200px}}
 @media (max-width:560px){
   /* five books no longer fit beside the chapter picker on a phone: give the book switcher its own row */
   .top{flex-wrap:wrap;row-gap:8px}
@@ -8104,8 +8119,17 @@ poly | 11.2 | Critical point of a binary polymer blend || \chi_c=\frac12\left(\f
       <div class="fkbar"><div class="fkf">${chips}</div><div class="fkopts"><button type="button" data-act="shuffle">Shuffle</button><button type="button" data-act="miss">Missed only</button><button type="button" data-act="reset">Reset progress</button></div></div>
       <div class="fkprog"><span class="fkpos"></span><div class="fkmeter"><i></i></div><span class="fkknown"></span></div>
       <div class="fk" tabindex="0" role="button" aria-label="Flashcard: press Space to flip"><div class="fkin"><div class="fkface front"></div><div class="fkface back"></div></div></div>
+      <div class="fkans">
+        <div class="fkanshead"><b>Your answer</b><span>type it, draw it, or both</span><span class="sp"></span><button type="button" class="ivbtn" data-act="padtoggle" aria-pressed="false">✎ Scratchpad</button></div>
+        <textarea class="fktxt" rows="2" placeholder="e.g.  sigma = N/A   or   τ = T·ρ/J   (Enter to check, Shift+Enter for a new line)"></textarea>
+        <div class="fkpadwrap" hidden><div class="padhead"><button type="button" class="ivbtn" data-pad="pen" aria-pressed="true">Pen</button><button type="button" class="ivbtn" data-pad="eraser" aria-pressed="false">Eraser</button><button type="button" class="ivbtn" data-pad="undo">Undo</button><button type="button" class="ivbtn" data-pad="clear">Clear</button><button type="button" class="ivbtn" data-pad="home">Reset view</button></div>
+          <canvas class="padcv fkpad" aria-label="Scratchpad: write the equation by hand"></canvas><small>Write the equation by hand · two fingers or the wheel pan, Ctrl + wheel zooms. The sketch is sent with your answer when you check.</small></div>
+        <div class="fkcheckbar"><button type="button" class="qbtn" data-act="check">Check answer</button><button type="button" class="qlink" data-act="reveal">Just show me</button><span class="fkstatus"></span></div>
+        <div class="fkres"></div>
+        <div class="qnokey off">${ICON_C}<span>Checking answers uses your Gemini API key, stored only in this browser.</span><button type="button" class="qbtn" data-act="setup">Add API key</button></div>
+      </div>
       <div class="fknav"><button type="button" data-act="prev">← Prev</button><button type="button" data-act="again">Again</button><button type="button" data-act="got">Got it</button><button type="button" data-act="next">Next →</button></div>
-      <p class="fkhint">Click or Space to flip · ← → to move · 1 = again · 2 = got it</p>
+      <p class="fkhint">Answer, then Check (Gemini grades it and marks the card) · or click the card / Space to flip · ← → move · 1 = again · 2 = got it</p>
       <details class="fkall"><summary>All ${CARDS.length} equations at a glance</summary><ol>${list}</ol></details></section>`);
   })();
   const fkSec=document.getElementById('cards'), fkEl=fkSec.querySelector('.fk');
@@ -8134,7 +8158,53 @@ poly | 11.2 | Critical point of a binary polymer blend || \chi_c=\frac12\left(\f
     if(mark){front.insertAdjacentHTML('beforeend',mark); back.insertAdjacentHTML('beforeend',mark);}
     fkTex(c.tex,back.querySelector('.fkeq'));
     fkEl.classList.toggle('flip',FC.flip);
+    fkSwap(c);
   }
+  // ---- answer box: type and/or draw, Gemini grades against the card's equation ----
+  const fkTxt=fkSec.querySelector('.fktxt'), fkRes=fkSec.querySelector('.fkres'), fkStat=fkSec.querySelector('.fkstatus'), fkChk=fkSec.querySelector('[data-act="check"]');
+  const fkPadW=fkSec.querySelector('.fkpadwrap'), fkPad=makePad(fkSec.querySelector('.fkpad'),()=>{});
+  Object.assign(FC,{ans:{},pads:{},res:{},shown:null,busy:false});
+  const fkStatus=t=>{fkStat.textContent=t||'';};
+  function fkSwap(c){
+    if(FC.shown===c.id) return;
+    if(FC.shown){FC.ans[FC.shown]=fkTxt.value; FC.pads[FC.shown]=fkPad.save();}
+    fkTxt.value=FC.ans[c.id]||''; fkPad.load(FC.pads[c.id]||null); fkRes.innerHTML=FC.res[c.id]||''; fkStatus(''); FC.shown=c.id;
+  }
+  function fkPadShow(on){fkPadW.hidden=!on; fkSec.querySelector('[data-act="padtoggle"]').setAttribute('aria-pressed',String(on)); try{on?localStorage.setItem('atlas-cards-pad','1'):localStorage.removeItem('atlas-cards-pad');}catch(e){} if(on) requestAnimationFrame(()=>fkPad.redraw());}
+  fkPadShow((()=>{try{return !!localStorage.getItem('atlas-cards-pad');}catch(e){return false;}})());
+  async function fkGrade(c,B,text,png){
+    const sys=`You grade flashcard answers: from a short prompt, a student must recall a key equation from engineering course notes (${B.title}). The reference is given in LaTeX. The student's answer may be typed (plain text, Unicode, LaTeX, or calculator style such as "sigma = N/A", "tau=T*r/J", "d = sqrt(D t)") and/or handwritten on an attached scratchpad image. Judge mathematical equivalence, not notation or spelling.
+- "correct": equivalent to the reference. Accept rearranged or algebraically equivalent forms, standard alternative symbols (ρ or r for radius, ε or e, Δ written as d, omitted subscripts or absolute-value bars when the meaning is clear), and any one of several equivalent forms the reference lists (e.g. τ_max = Tc/J or τ = Tρ/J). Words in place of symbols are fine if unambiguous.
+- If the prompt asks for two distinct things (e.g. upper AND lower bounds, Mn AND Mw, hoop AND longitudinal stress), both are needed for "correct"; one of them alone is "partial".
+- "partial": the right relation with one error (wrong factor, exponent, sign, or a missing term), or only part of what the prompt asks for.
+- "incorrect": a wrong relation, a different quantity, or no equation.
+If the handwriting is unreadable, say so and judge only what you can read.
+Feedback: address the student directly in 1–2 short sentences: say what is right and exactly what is wrong or missing. If correct, add one short insight (when it applies, a common pitfall, or what a symbol means) instead of restating it. Use $...$ for math.`;
+    const parts=[{text:`Prompt: ${c.prompt}\nReference equation (LaTeX): ${c.tex}\nNote on the reference: ${c.note||'(none)'}\nStudent's typed answer: ${text||'(none typed)'}${png?'\nThe student also wrote on the scratchpad (image attached).':''}`}];
+    if(png) parts.push({inlineData:{mimeType:'image/png',data:png}});
+    const txt=await gemini({systemInstruction:{parts:[{text:sys}]},contents:[{role:'user',parts}],
+      generationConfig:{temperature:0,responseMimeType:'application/json',responseSchema:{type:'OBJECT',properties:{verdict:{type:'STRING',enum:['correct','partial','incorrect']},feedback:{type:'STRING'}},required:['verdict','feedback']}}});
+    const j=JSON.parse(txt.replace(/^```(?:json)?|```$/g,'').trim());
+    return {v:['correct','partial','incorrect'].includes(j.verdict)?j.verdict:'incorrect',f:String(j.feedback||'')};
+  }
+  async function fkCheck(){
+    if(!FC.order.length||FC.busy) return;
+    const c=CARDS[FC.order[FC.pos]], B=BY[c.k], text=fkTxt.value.trim(), png=fkPadW.hidden?null:fkPad.png();
+    if(!text&&!png){fkStatus('Type or draw your answer first.'); fkTxt.focus(); return;}
+    if(!GM.key()){fkSec.querySelector('.fkans .qnokey').classList.remove('off'); fkStatus(''); return;}
+    FC.busy=true; fkChk.disabled=true; fkChk.textContent='Checking…'; fkStatus('');
+    try{
+      const r=await fkGrade(c,B,text,png), v=VERD[r.v];
+      const html=`<div class="qv v-${r.v}"><span>${v[1]}</span>${v[0]}</div>${r.f?`<div class="qfbt md">${md(r.f)}</div>`:''}`;
+      FC.res[c.id]=html;
+      const st=fkState(); st[c.id]=r.v==='correct'?'got':'again'; fkSave(st);
+      const still=FC.order.length&&CARDS[FC.order[FC.pos]].id===c.id;
+      if(still){FC.flip=true; drawCard(); fkRes.innerHTML=html; fkStatus(r.v==='correct'?'Marked as known · Next → when ready':'Marked “Again” for review · Next → when ready');}
+      else drawCard();
+    }catch(e){fkStatus(e instanceof NeedKey?'Add your Gemini API key first.':'Could not check: '+e.message); if(e instanceof NeedKey) fkSec.querySelector('.fkans .qnokey').classList.remove('off');}
+    finally{FC.busy=false; fkChk.disabled=false; fkChk.textContent='Check answer';}
+  }
+  fkTxt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault(); fkCheck();}});
   function fkMove(d){if(!FC.order.length) return; FC.pos+=d; FC.flip=false; fkEl.classList.remove('flip'); setTimeout(drawCard,FC.flip?0:120);}
   function fkMark(v){const n=FC.order.length; if(!n) return; const c=CARDS[FC.order[FC.pos]], st=fkState(); st[c.id]=v; fkSave(st);
     if(FC.miss&&v==='got'){FC.order.splice(FC.pos,1); FC.flip=false; fkEl.classList.remove('flip'); setTimeout(drawCard,120);} else fkMove(1);}
@@ -8142,8 +8212,14 @@ poly | 11.2 | Critical point of a binary polymer blend || \chi_c=\frac12\left(\f
   fkEl.addEventListener('click',e=>{if(e.target.closest('a')) return; fkFlip();});
   fkSec.addEventListener('click',e=>{
     const f=e.target.closest('.fkf button'); if(f){FC.filter=f.dataset.f; fkRebuild(); return;}
+    const p=e.target.closest('[data-pad]');
+    if(p){const t=p.dataset.pad; if(t==='pen'||t==='eraser'){fkPad.setTool(t); fkPadW.querySelectorAll('[data-pad=pen],[data-pad=eraser]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.pad===t)));} else fkPad[t](); return;}
     const b=e.target.closest('button[data-act]'); if(!b) return;
     const a=b.dataset.act;
+    if(a==='check') return fkCheck();
+    if(a==='reveal'){if(FC.order.length){FC.flip=true; fkEl.classList.add('flip');} return;}
+    if(a==='padtoggle') return fkPadShow(fkPadW.hidden);
+    if(a==='setup') return openTutor(true);
     if(a==='prev') fkMove(-1); else if(a==='next') fkMove(1); else if(a==='got') fkMark('got'); else if(a==='again') fkMark('again');
     else if(a==='shuffle'){FC.order=shuffle(fkDeck()); FC.pos=0; FC.flip=false; drawCard();}
     else if(a==='miss'){FC.miss=!FC.miss; fkRebuild();}
