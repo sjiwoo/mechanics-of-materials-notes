@@ -52,6 +52,17 @@ The site holds two separate textbooks, switched from the top bar (no reload):
     (`art-t-<ch>`), both defined in `tools/tactile_figs.py` and injected by `python tools/section_figs.py`.
   - Interviewer: 24 problems in `examples-ts.js` (`window.EXAMPLES_BY.ts`), with figures in `figures/tactile/ex/`
     rendered from the section SVGs by `python tools/tactile_ex_figs.py` (needs `rsvg-convert`).
+- **Physics for Mechanics** (9 chapters, 42 sections): background physics the other books do not cover, written
+  for this site from standard university physics (no single textbook): forces and motion, work/energy/power,
+  momentum and collisions, rotation, oscillations, damping and resonance, waves and modes, fluids, heat transfer.
+  Data block `id="data-ph"`, quiz block `id="quiz-ph"`, hashes `#ph`, `#ph-ch6`, `#ph-s6.2`, `#ph-eq`,
+  `#ph-quiz6`, `#ph-mix`, `#ph-interview6.2` (the prefix is `ph-` because Polymers uses `p-`).
+  Accent groups: `pmot`, `pcons`, `prot`, `pvib`, `pflu`, `pheat`.
+  - Figures: a custom SVG on every section (`sf-ph-<ch>-<sec>`) and an icon per chapter (`art-ph-<ch>`), defined
+    in `tools/physics_figs.py` and injected by `python tools/section_figs.py`.
+  - Interviewer: 27 problems (3 per chapter) in `examples-ph.js` (`window.EXAMPLES_BY.ph`), figures in
+    `figures/physics/ex/` rendered by `python tools/physics_ex_figs.py` (needs `rsvg-convert`).
+  - Not in the Flashcards deck.
 - **Polymers** (course 27-577/777 *Advanced Polymer Science and Engineering*, Prof. M. R. Bockstaller, Fall 2021): replicates
   the syllabus. The 11 chapters are the syllabus's 11 topics (introduction, ideal chain models, amorphous, semicrystalline and
   liquid-crystalline polymers, network deformation, viscoelasticity, processing, anisotropy, blend thermodynamics, homopolymer
@@ -72,7 +83,7 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   **Got it** / **Again** (keys 2 / 1, arrows to move); progress is kept in localStorage. Filter by book, shuffle, or review
   only the missed cards; "All 50 equations at a glance" lists the whole deck. The deck is the `<script type="text/plain"
   id="cards">` block: one card per line, `book key | section | prompt || LaTeX || note`.
-- On phones (≤ 560 px) the book switcher sits on its own row under the search box and chapter picker.
+- On phones (≤ 560 px) the book switcher sits on its own row under the search box and chapter picker, with compact labels.
 
 ## Editing content
 All notes live in the `<script type="text/plain" id="data">` block in `index.html`:
