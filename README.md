@@ -63,9 +63,17 @@ The site holds two separate textbooks, switched from the top bar (no reload):
   `#p-ch3`, `#p-s3.2`, `#p-eq`, `#p-quiz3`, `#p-mix`, `#p-interview3.2`. Interview problems (85) in `examples-poly.js`: Gedde
   exercises (checked against Gedde ch. 13 solutions), McCrum problems (checked against the book's answers) and course-style
   problems; each record has a `src` field naming its origin.
+- **Physics** (Young & Freedman, *University Physics*, 13th ed.), only the chapters relevant to mechanical engineering:
+  chapters 2–20 (kinematics, Newton's laws, work and energy, momentum, rotation, equilibrium and elasticity, fluids,
+  gravitation, periodic motion with damping/forced oscillation/resonance, mechanical waves, sound, temperature and heat
+  transfer, thermal properties, first and second laws of thermodynamics). Electromagnetism, optics and modern physics are left out.
+  Sections follow the book's numbering; figures use book figure numbers (`figures/phys/fig14-12.webp`). Data block
+  `id="data-phys"`, quiz `id="quiz-phys"`, icons `art-u-N`, between the `<!-- PHYS:BEGIN -->` / `<!-- PHYS:END -->` markers;
+  hashes `#phys`, `#u-ch14`, `#u-s14.8`, `#u-eq`, `#u-quiz14`, `#u-mix`, `#u-interview14.3`, `#u-advinterview14.2`.
+  Interview problems: 126 of the book's worked Examples (`examples-phys.js`, figures in `figures/ex-phys/`).
 - **Flashcards** (`#cards`; sidebar under Reference in every book, and in the chapter picker): one deck of the 50 most important
-  equations across all books (Mechanics of Materials 14, Polymers 10, Materials 9, Tactile Sensing 7, Soft Robotics 6,
-  GD&T 4). Each card shows a prompt; under it, type the equation (any notation: `sigma = N/A`, `τ = Tρ/J`, LaTeX) and/or
+  equations across all books (Mechanics of Materials 12, Physics 9, Polymers 7, Materials 7, Tactile Sensing 6,
+  Soft Robotics 5, GD&T 4). Each card shows a prompt; under it, type the equation (any notation: `sigma = N/A`, `τ = Tρ/J`, LaTeX) and/or
   write it on the **✎ Scratchpad** (same pad as the interviewer), then **Check answer**: Gemini grades it against the card's
   equation (equivalent and rearranged forms count; correct / partly right / not quite, with feedback), flips the card and
   marks it known or "Again". Answers and sketches are kept per card while you move around the deck. Or click / Space to flip. Mark
@@ -117,6 +125,16 @@ All notes live in the `<script type="text/plain" id="data">` block in `index.htm
     `examples-sr.js` (`window.EXAMPLES_BY.<key>`, `figs` as site-relative paths, e.g. `figures/ex-mat/…`). The figure image is sent to Gemini when the site is
     served over http(s) (e.g. GitHub Pages); opened from `file://` the browser blocks reading it, so the
     interviewer relies on the written figure description instead.
+- **Advanced interviewer** (Mechanics of Materials and Physics; sidebar "IV+ Advanced interviewer", an "Advanced interview"
+  card on every chapter page, or the **Standard / Advanced** switch in the interviewer bar; `#advinterview7.2`,
+  `#u-advinterview14.2`): harder questions from the book that test understanding rather than arithmetic, posed in symbols
+  wherever possible (derivations, limiting cases, "why", "what changes if"). The interviewer runs on a separate prompt: it
+  drills from principles and assumptions to the symbolic result, does the routine algebra for you once your relations
+  are right, never asks for numbers, and ends with one or two depth follow-ups before the debrief. Problems: 42 for
+  Mechanics of Materials (3 per chapter, from the starred/advanced sections and derivations: inelastic torsion and bending,
+  shear centre, curved and unsymmetric beams, rosettes, secant formula, Castigliano …) in `examples-adv-mom.js`, and 76 for
+  Physics (4 per chapter, from the Challenge and Bridging Problems, symbolic problems and derivations) in
+  `examples-adv-phys.js` (`window.EXAMPLES_ADV.<key>`, same fields as the other problems plus `src`).
 - **Ask tutor** (bottom-right) opens a chat that is given the notes of the chapter you have open.
 - Both use your own Gemini API key, entered in the tutor's key settings. It is stored only in your browser's localStorage
   and sent directly to `generativelanguage.googleapis.com`; it is never committed or sent anywhere else. The model list
