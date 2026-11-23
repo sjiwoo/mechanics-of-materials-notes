@@ -32,12 +32,11 @@ text.s{{fill:{INK3};font:500 10.5px Inter,Arial,Helvetica,sans-serif}}
 </style>"""
 
 
-def build():
-    root = pathlib.Path(__file__).resolve().parent.parent
-    out = root / 'figures' / 'tactile' / 'ex'
+def render(T, FIG, out):
+    """Write one stand-alone PNG per problem: T = figure dict, FIG = {problem id: figure key}, out = folder."""
     out.mkdir(parents=True, exist_ok=True)
     for ex, key in FIG.items():
-        svg = tactile_figs.T[key]
+        svg = T[key]
         head, body = svg.split('>', 1)
         vb = head.split('viewBox="')[1].split('"')[0].split()
         svg = (f'{head} xmlns="http://www.w3.org/2000/svg" width="{vb[2]}" height="{vb[3]}" color="{ACC}">'
@@ -45,6 +44,10 @@ def build():
         png = out / f"ex{ex.replace('.', '-')}.png"
         subprocess.run(['rsvg-convert', '-z', '3', '-o', str(png)], input=svg.encode('utf-8'), check=True)
     print(f'{len(FIG)} example figures written to {out}')
+
+
+def build():
+    render(tactile_figs.T, FIG, pathlib.Path(__file__).resolve().parent.parent / 'figures' / 'tactile' / 'ex')
 
 
 if __name__ == '__main__':

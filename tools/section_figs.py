@@ -596,6 +596,16 @@ def build():
         html = re.sub(re.escape(a0) + r'.*?' + re.escape(a1), lambda m: ablock, html, flags=re.S)
     else:
         html = html.replace('<!-- SECTION-FIGS:START -->', ablock + '\n<!-- SECTION-FIGS:START -->', 1)
+    # Physics for Mechanics book: sf-ph-<ch>-<sec> and art-ph-<ch> from physics_figs.py
+    import physics_figs
+    F.update({k: (v, '') for k, v in physics_figs.T.items()})
+    art = '\n'.join(f'<template id="art-ph-{k}">{v}</template>' for k, v in physics_figs.ART.items())
+    a0, a1 = '<!-- PHYSICS-ART:START -->', '<!-- PHYSICS-ART:END -->'
+    ablock = f'{a0}\n{art}\n{a1}'
+    if a0 in html:
+        html = re.sub(re.escape(a0) + r'.*?' + re.escape(a1), lambda m: ablock, html, flags=re.S)
+    else:
+        html = html.replace('<!-- SECTION-FIGS:START -->', ablock + '\n<!-- SECTION-FIGS:START -->', 1)
     out = '\n'.join(f'<template id="sf-{k}">{v[0]}</template>' for k, v in F.items())
     start, end = '<!-- SECTION-FIGS:START -->', '<!-- SECTION-FIGS:END -->'
     block = f'{start}\n{out}\n{end}'
